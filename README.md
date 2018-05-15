@@ -13,6 +13,8 @@
 
 *JavaScritp*
 
+ - [JavaScript 00](https://cursos.alura.com.br/course/javascript-padroes-abordagem-funcional)
+
  - [JavaScritp 01](https://cursos.alura.com.br/course/javascript-es6-orientacao-a-objetos-parte-1)
 
  - [JavaScritp 02](https://cursos.alura.com.br/course/javascript-es6-orientacao-a-objetos-parte-2)
