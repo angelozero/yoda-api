@@ -9,7 +9,9 @@
 
 ---
 
-#### Neste projeto iremos abordar o livro "*Construindo Aplicaçes com NodeJS - Novatec - William Bruno Moraes*"
+#### Neste projeto iremos abordar 
+ - o livro "*Construindo Aplicaçes com NodeJS - Novatec - William Bruno Moraes*"
+ - estudo de JavaScript, TypeScript e NodeJs da Alura
 
 
 ### Antes de começar !
