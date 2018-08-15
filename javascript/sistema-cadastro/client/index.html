@@ -59,8 +59,26 @@
 
         <tfoot>
         </tfoot>
-        
-        <script src="js/index.js"></script>
+
+        <script src="js/app/models/Negociacao.js"></script>
+        <script>
+
+            var n1 = new Negociacao(new Date(), 7, 135);
+            // acessando os valores do objeto n1
+            console.log(n1.volume);
+            console.log(n1.getData());
+            console.log(n1.getQuantidade());
+            console.log(n1.getValor());
+
+            console.log(' ');
+
+            // não deve alterar a data
+            var dia = new Date();
+            var n2 = new Negociacao(dia, 7, 135);
+            console.log('Data original -------------------------------------------------> ',  n2.getData());
+            dia.setDate(15);
+            console.log('Data apos tentativa de alteração, deve ser igual a original ---> ',  n2.getData());
+        </script>
     </table>
 </body>
 
