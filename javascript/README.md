@@ -84,3 +84,6 @@
     alert(nome);
 </script>
 ```
+- Finalizando:
+  - VAR: Declarações com var possuem escopo de função ou global. 
+  - LET: Variáveis declaradas com let tem escopo de bloco e o JavaScript lançará um erro se a mesma for declarada mais de uma vez.
