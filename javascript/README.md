@@ -76,7 +76,7 @@
  <script>
 
     for(let i = 1; i<= 100; 1++) {
-         let nome = 'Flávio';
+         let nome = 'Angelo';
          console.log(i);
     }
 
@@ -88,7 +88,41 @@
   - VAR: Declarações com var possuem escopo de função ou global. 
   - LET: Variáveis declaradas com let tem escopo de bloco e o JavaScript lançará um erro se a mesma for declarada mais de uma vez.
 
+---
+
+
 ### 03 - A ligação entre as ações do usuário e o modelo
 
-**teste**
-  - teste teste teste
+**O que é o evento *event.preventDefault()***
+  -  Quando submetemos o formulário, se não cancelamos o comportamento padrão do mesmo, ele será recarregado. Com o event.preventDefault(), a controller cancelará a submissão do formulário para poder capturar os dados da negociação.
+
+**Usando *bind***
+  - O querySelector é uma função que pertence ao objeto document - chamaremos tal função de método. Internamente, o querySelector tem uma chamada para o this, que é o contexto pelo qual o método é chamado. Logo, o this é o document. No entanto, quando colocamos o querySelector dentro do $, ele passa a ser executado fora do contexto de document e isto não funciona. O que devemos fazer, então? Queremos tratar o querySelector como uma função separada. Nós queremos que ao colocarmos o querySelector para o $, ele mantenha a associação com o document. Para isto, usaremos o bind().
+
+**MVC ... o que é ?**
+- M
+  - O M é o **modelo**, uma abstração do mundo real, os dados da aplicação e suas regras de negócio. O padrão MVC permite que alterações de layout na view não acarretem alterações no **modelo**.
+
+- V 
+  - O V ou a **view** é a representação do modelo em alguma tecnologia, por exemplo, HTML. A **view** apresenta um modelo em uma tabela, em um formulário ou em parágrafos, e o padrão MVC permite que qualquer alteração na **view** não interfira com o modelo.
+
+- C
+  - O C é o **controller**, aquele que disponibiliza um modelo para a view. O **controller** é aquele que recebe as ações do usuário e que sabe interagir com o modelo. Como o modelo é independente da view, esta precisa ser renderizada para que reflita as alterações no modelo. Em suma, o controller é a ponte de ligação entre a view e o modelo.
+
+---
+    
+### 04 - Trabalhando com Data
+
+**Usando interpolação para concatenar uma string**
+  - Segue o código
+  ```java
+  
+  ...
+  
+    return `${data.getDate()}/${(data.getMonth() + 1)}/${data.getFullYear()}`
+
+  ...
+
+  ```
+
+  
