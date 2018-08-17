@@ -16,8 +16,8 @@ class DateHelper {
     }
 
     static convertDataToString(data) {
-        if (!typeof data == Date || !/\d{4}-\d{2}-\d{2}/.test(data)) {
-            throw new Error('A data informada deve estar no formato aaaa-mm-dd');
+    if (!typeof data == Date /* || !/\d{4}-\d{2}-\d{2}/.test(data)*/) {
+            throw new Error(`A data informada deve estar no formato aaaa-mm-dd ---> ${data} `);
         }
         return `${data.getDate()}/${(data.getMonth() + 1)}/${data.getFullYear()}`
     }
