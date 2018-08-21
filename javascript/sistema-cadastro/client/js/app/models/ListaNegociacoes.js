@@ -12,4 +12,8 @@ class ListaNegociacoes {
     getNegociacoes() {
         return [].concat(this._negociacoes);
     }
+
+    deletaNegociacoes(){
+        this._negociacoes = [];
+    }
 }

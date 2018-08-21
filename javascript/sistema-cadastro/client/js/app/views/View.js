@@ -9,7 +9,6 @@ class View {
     }
 
     update(model) {
-        console.log('chame update ' , model)
         this._element.innerHTML = this.template(model);
     }
 }

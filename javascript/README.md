@@ -1,12 +1,14 @@
-## Curso JavaScript avançado I: ES6, orientação a objetos e padrões de projetos
+## 01 Curso JavaScript avançado I   : ES6, orientação a objetos e padrões de projetos
+## 02 Curso JavaScript avançado II  : ES6, orientação a objetos e padrões de projetos
+## 03 Curso JavaScript avançado III : ES6, orientação a objetos e padrões de projetos
 
-### 01 - Prólogo: regras, código e manutenção
+### 01.01 - Prólogo: regras, código e manutenção
    - Simples criação de um arquivo js ( [index.js](https://github.com/angelozero/yoda-js/blob/master/javascript/sistema-cadastro/client/js/index.js) ) para manipulação dos dados na tela, manipulação do DOM.
 
 
 ---
 
-### 02 - Especificando uma Negociação
+### 01.02 - Especificando uma Negociação
 
 **Diferença entre um método e uma função**
   - Quando criamos uma função dentro de uma classe, nós chamaremos a primeira de **método**. Quando a função estiver fora da classe, continuará sendo chamada de **função**.
@@ -91,7 +93,7 @@
 ---
 
 
-### 03 - A ligação entre as ações do usuário e o modelo
+### 01.03 - A ligação entre as ações do usuário e o modelo
 
 **O que é o evento *event.preventDefault()***
   -  Quando submetemos o formulário, se não cancelamos o comportamento padrão do mesmo, ele será recarregado. Com o event.preventDefault(), a controller cancelará a submissão do formulário para poder capturar os dados da negociação.
@@ -111,7 +113,7 @@
 
 ---
     
-### 04 - Trabalhando com Data
+### 01.04 - Trabalhando com Data
 
 **Usando interpolação para concatenar uma string**
   - Segue o código
@@ -125,8 +127,46 @@
 
   ```
 
+---
+
+ ### 02.01 Padrão de projeto Proxy
+  
+  **Como funciona o Proxy**
+    - O Proxy delegará a chamada do método para o objeto encapsulado por ele. A vantagem está que colocaremos o interceptador entre a chamada do Proxy e o objeto real. Toda vez que acessamos o Proxy, executaremos um código antes de chamarmos um método ou propriedade correspondente ao objeto real. Resumidamente, antes de qualquer acesso ou chamada a método/função ou atributo do objeto encapsulado, passamos primeiro pelo proxy. Com isso conseguimos executar um evento ou qualquer outra função antes do objeto em manipulação ser alterado / acessado.
+
+
+    ```java
+    this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
+
+            get(target, prop, receiver) {
+        
+                if(['addNegociacao', 'deletaNegociacoes'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
+        
+                    return function(){
+        
+                      console.log(`método '${prop}' interceptado`);
+        
+                     Reflect.apply(target[prop], target, arguments);
+        
+                     self._negociacoesView.update(target);
+        
+                    }
+             }
+        
+             return Reflect.get(target, prop, receiver);
+          }
+        });
+    ```
+  **Vantagens de se usar o padrão Factory**
+    - 1) Ele é utilizado quando precisamos facilitar a criação de um objeto.
+
+    - 2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
+
+    - 3) É bom para abstrair a criação de um objeto complexo, já que o programador que utilizar a Factory não precisa necessariamente saber como é feita esta operação.
+    
+---
+
+
 https://github.com/felippenardi?tab=repositories
 https://github.com/felippenardi/lottie-react-web
 https://dribbble.com/shots/4249163-Animated-login-form-avatar
-
-  
