@@ -1,6 +1,5 @@
-## 01 Curso JavaScript avançado I   : ES6, orientação a objetos e padrões de projetos
-## 02 Curso JavaScript avançado II  : ES6, orientação a objetos e padrões de projetos
-## 03 Curso JavaScript avançado III : ES6, orientação a objetos e padrões de projetos
+## Curso JavaScript avançado I, II e III   : ES6, orientação a objetos e padrões de projetos
+
 
 ### 01.01 - Prólogo: regras, código e manutenção
    - Simples criação de um arquivo js ( [index.js](https://github.com/angelozero/yoda-js/blob/master/javascript/sistema-cadastro/client/js/index.js) ) para manipulação dos dados na tela, manipulação do DOM.
@@ -163,7 +162,7 @@
     - 2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
 
     - 3) É bom para abstrair a criação de um objeto complexo, já que o programador que utilizar a Factory não precisa necessariamente saber como é feita esta operação.
-    
+
 ---
 
 
