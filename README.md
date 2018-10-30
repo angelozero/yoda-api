@@ -33,3 +33,7 @@
  *NodeJS*
   - [NodeJS](https://cursos.alura.com.br/course/nodejs-avancado)
   - [Videos / Info sobre NodeJS](https://github.com/angelozero/nodejs-README/blob/master/README.md)
+
+
+*API Rest for test*
+  - [API Rest](https://reqres.in/)
