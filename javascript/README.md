@@ -157,6 +157,7 @@
         });
     ```
   **Vantagens de se usar o padrão Factory**
+  
     - 1) Ele é utilizado quando precisamos facilitar a criação de um objeto.
 
     - 2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
@@ -169,3 +170,8 @@
 https://github.com/felippenardi?tab=repositories
 https://github.com/felippenardi/lottie-react-web
 https://dribbble.com/shots/4249163-Animated-login-form-avatar
+
+---
+
+## Curso JavaScript: De padrões a uma abordagem funcional
+
