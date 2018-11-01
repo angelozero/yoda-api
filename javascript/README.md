@@ -133,7 +133,7 @@
     - O Proxy delegará a chamada do método para o objeto encapsulado por ele. A vantagem está que colocaremos o interceptador entre a chamada do Proxy e o objeto real. Toda vez que acessamos o Proxy, executaremos um código antes de chamarmos um método ou propriedade correspondente ao objeto real. Resumidamente, antes de qualquer acesso ou chamada a método/função ou atributo do objeto encapsulado, passamos primeiro pelo proxy. Com isso conseguimos executar um evento ou qualquer outra função antes do objeto em manipulação ser alterado / acessado.
 
 
-    ```java
+```java
     this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
 
             get(target, prop, receiver) {
@@ -154,7 +154,9 @@
              return Reflect.get(target, prop, receiver);
           }
         });
-    ```
+```
+
+
   **Vantagens de se usar o padrão Factory**
   
     - 1) Ele é utilizado quando precisamos facilitar a criação de um objeto.
