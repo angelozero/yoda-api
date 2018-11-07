@@ -280,7 +280,35 @@ A biblioteca RxJS utiliza essa estratégia para adicionar no prototype do Observ
 			
 ---
 
+### 04 Usando takeUntil
 
+ - Basicamente funciona da seguinte maneira. Você informa quantas vezes quer executar a função e qual a função a ser executada.
+
+```javascript
+
+// operators.ja
+export const takeUntil = (times, fn) =>
+    () => {
+        if (times-- > 0) {
+            fn();
+        }
+    }
+    
+ // app.js   
+ const operation = takeUntil(3, () => service
+    .sumItems('2143')
+    .then(console.log)
+    .catch(console.log));
+    
+```
+
+### 05 Usando debounceTime
+
+ - Basicamente funciona da seguinte forma, você informa um método e passa o tempo do qual ele deve respeitar para executar novamente a mesma chamada.
+ 
+ 
+
+---
 
 https://github.com/felippenardi?tab=repositories
 https://github.com/felippenardi/lottie-react-web
