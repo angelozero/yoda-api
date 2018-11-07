@@ -1,6 +1,8 @@
-import { handleStatus, log } from './utils/promise-helpers.js';
+import { log } from './utils/promise-helpers.js';
 import './utils/array-helpers.js';
-import { partialize, compose } from './utils/operators.js';
+import { notasService as service } from './nota/service.js';
+import { takeUntil, debounceTime, partialize, pipe } from './utils/operators.js'
+
 
 /* ######################################## Código inicial ################################################### */
 
@@ -101,54 +103,24 @@ import { partialize, compose } from './utils/operators.js';
 //             .then(console.log)
 //             .catch(console.log);
 
-/* ################# Externalizando o código de soma para uma classe de servico ######################### */
 
-// document
-//     .querySelector('#myButton')
-//     .onclick = () =>
-//         service
-//             .sumItems('2143')
-//             .then(console.log)
-//             .catch(console.log);
-
-/* ####################################  #################################### */
+// const doTake = takeUntil(3, function(){
+//     console.log('ok');
+// } )
 
 
-const API = `http://localhost:3000/notas`;
+const operations = pipe(
+    partialize(takeUntil, 3),
+    partialize(debounceTime, 500)
 
-const getItemsFromNotas = notas => notas.$flatMap(nota => nota.itens);
-const filterItemsByCode = (code, items) => items.filter(item => item.codigo === code);
-const sumItemsValue = items => items.reduce((total, item) => total + item.valor, 0);
+);
 
+const action = operations(() => service
+    .sumItems('2143')
+    .then(console.log)
+    .catch(console.log));
 
 document
     .querySelector('#myButton')
-    .onclick = () =>
-        notasService
-            .listAll()
-            .then(log)
-            .then(console.log(notasService.sumItems('2143')));
+    .onclick = () => action();
 
-
-export const notasService = {
-
-    listAll() {
-        return fetch(API)
-            .then(handleStatus)
-            .catch(err => {
-                console.log(err);
-                return Promise.reject('Não foi possível obter as notas fiscais');
-            });
-    },
-
-    sumItems(code) {
-
-        const sumItems = compose(
-            sumItemsValue,
-            partialize(filterItemsByCode, code),
-            getItemsFromNotas
-        );
-
-        return this.listAll().then(sumItems);
-    }
-};
