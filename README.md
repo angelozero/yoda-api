@@ -13,6 +13,8 @@
 
 ### Antes de começar !
 
+---
+
 *JavaScritp*
 
  - [JavaScript 00](https://cursos.alura.com.br/course/javascript-padroes-abordagem-funcional)
@@ -23,6 +25,20 @@
 
  - [JavaScritp 03](https://cursos.alura.com.br/course/javascript-es6-orientacao-a-objetos-parte-3)
 
+---
+
+*React*
+
+- [Webpack](https://cursos.alura.com.br/course/webpack)
+
+- [React 01](https://cursos.alura.com.br/course/react)
+
+- [React 02](https://cursos.alura.com.br/course/react-parte-2)
+
+- [React 03](https://cursos.alura.com.br/course/react-parte-3)
+
+---
+
 
 *TypeScript*
 
@@ -31,10 +47,14 @@
  - [TypeScript 02](https://cursos.alura.com.br/course/typescript-parte2)
  
  
+---
+
  *NodeJS*
   - [NodeJS](https://cursos.alura.com.br/course/nodejs-avancado)
   - [Videos / Info sobre NodeJS](https://github.com/angelozero/nodejs-README/blob/master/README.md)
 
+
+---
 
 *API Rest for test*
   - [API Rest](https://reqres.in/)
