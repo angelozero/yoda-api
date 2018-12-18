@@ -46,6 +46,8 @@
 
  - [TypeScript 02](https://cursos.alura.com.br/course/typescript-parte2)
  
+ - [Build a API with Node and Typescript](https://www.sitepoint.com/how-to-use-typescript-to-build-a-node-api-with-express/?fbclid=IwAR19W-M72lvxFEv6jzMD0L_y08ZlehJ1YOMLYUkopitkq6TqwzST1_9uv0A) 
+ 
  
 ---
 
