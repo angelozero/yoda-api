@@ -58,5 +58,6 @@
 
 ---
 
-*API Rest for test*
+*Free API's Rest for test*
   - [API Rest](https://reqres.in/)
+  - [Public API's ( OATH / No OAUTH )](https://github.com/toddmotto/public-apis) 
