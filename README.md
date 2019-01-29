@@ -13,11 +13,6 @@
 
 ---
 
-*Node.js*
- - [Documentação NodeJS](https://nodejs.org/en/docs/)
-
----
-
 *JavaScritp*
 
  - [JavaScript 00](https://cursos.alura.com.br/course/javascript-padroes-abordagem-funcional)
@@ -51,12 +46,20 @@
  
  - [Build a API with Node and Typescript](https://www.sitepoint.com/how-to-use-typescript-to-build-a-node-api-with-express/?fbclid=IwAR19W-M72lvxFEv6jzMD0L_y08ZlehJ1YOMLYUkopitkq6TqwzST1_9uv0A) 
  
- 
+
 ---
 
  *NodeJS*
   - [NodeJS](https://cursos.alura.com.br/course/nodejs-avancado)
   - [Videos / Info sobre NodeJS](https://github.com/angelozero/nodejs-README/blob/master/README.md)
+  - [Documentação NodeJS](https://nodejs.org/en/docs/)
+  - [Curso Completo do Desenvolvedor NodeJS e MongoDB](https://www.udemy.com/curso-completo-do-desenvolvedor-nodejs/)
+  - [Aplicações web na prática com Javascript e Node.js](https://www.udemy.com/aplicacoes-web-na-pratica-javascript-nodejs/)
+  - [Introdução ao Node JS + Express](https://www.udemy.com/introducao-ao-node-js-express/)
+  - [API REST em Node.JS aplicando testes (TDD) desde o princípio](https://www.udemy.com/api-rest-nodejs-com-testes/)
+  - [Criando API's RESTful utilizando TypeScript, Node e mongoDB](https://www.udemy.com/criando-apis-restful-utilizando-typescript-node-e-mongodb/)
+  -[Ionic 3 - Construindo um App estilo food com NodeJS](https://www.udemy.com/ionic-construindo-um-app-estilo-food-com-nodejs/)
+  - [Udemy - Cursos Gratuitos de NodeJS](https://www.udemy.com/courses/search/?src=ukw&q=node&p=1&price=price-free)
 
 
 ---
