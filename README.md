@@ -3,11 +3,9 @@
 ![NodeJs](https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png)
 
 
-### Estudar !
-
 ---
 
-*JavaScritp*
+#### *JavaScritp*
 
  - [JavaScript 00](https://cursos.alura.com.br/course/javascript-padroes-abordagem-funcional)
 
@@ -19,7 +17,7 @@
 
 ---
 
-*React*
+#### *React*
 
 - [Webpack](https://cursos.alura.com.br/course/webpack)
 
@@ -32,7 +30,7 @@
 ---
 
 
-*TypeScript*
+#### *TypeScript*
 
  - [TypeScript 01](https://cursos.alura.com.br/course/typescript-parte1)
 
@@ -40,9 +38,7 @@
  
  - [Build a API with Node and Typescript](https://www.sitepoint.com/how-to-use-typescript-to-build-a-node-api-with-express/?fbclid=IwAR19W-M72lvxFEv6jzMD0L_y08ZlehJ1YOMLYUkopitkq6TqwzST1_9uv0A) 
  
-
 ---
-
 
 #### *NodeJS*
 
@@ -57,6 +53,8 @@
   -[Ionic 3 - Construindo um App estilo food com NodeJS](https://www.udemy.com/ionic-construindo-um-app-estilo-food-com-nodejs/)
   - [Udemy - Cursos Gratuitos de NodeJS](https://www.udemy.com/courses/search/?src=ukw&q=node&p=1&price=price-free)
   - [Gulp + Express + NodeJS](https://www.youtube.com/watch?v=s5S_5slvNGA)
+
+----
 
 *Certificação*
 
