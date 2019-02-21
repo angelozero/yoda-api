@@ -44,7 +44,8 @@
 ---
 
 
-## *NodeJS*
+#### *NodeJS*
+
   - [NodeJS](https://cursos.alura.com.br/course/nodejs-avancado)
   - [Videos / Info sobre NodeJS](https://github.com/angelozero/nodejs-README/blob/master/README.md)
   - [Documentação NodeJS](https://nodejs.org/en/docs/)
@@ -57,7 +58,7 @@
   - [Udemy - Cursos Gratuitos de NodeJS](https://www.udemy.com/courses/search/?src=ukw&q=node&p=1&price=price-free)
   - [Gulp + Express + NodeJS](https://www.youtube.com/watch?v=s5S_5slvNGA)
 
-#### Certificação
+*Certificação*
 
 - [ ] [Certificação oficial de desenvolvedor NodeJS](https://www.infoq.com/br/news/2017/12/Node-certified-developer-exam)
 
@@ -67,44 +68,28 @@
 
 ----
 
-#### Info sobre NodeJS
+*Info sobre NodeJS*
 
 - [ ] [Node.js, TC-39, and Modules](https://hackernoon.com/node-js-tc-39-and-modules-a1118aecf95e)
-
-
 - [ ] [How the module system, CommonJS & require works](https://blog.risingstack.com/node-js-at-scale-module-system-commonjs-require/)
-
 - [ ] [Tips for NodeJS 2018](https://blog.risingstack.com/node-js-development-tips-2018/)
-
 - [ ] [4 Regras para Entender o ‘this’ no JavaScript](https://blog.dmatoso.com/javascript-this-71dd763aad52)
-
 - [ ] [Blog sobre NodeJS](https://blog.risingstack.com/)
-
 - [ ] [Seja um desenvolvedor melhor](https://medium.com/@jonathanf07/seja-um-desenvolvedor-melhor-siga-esses-princ%C3%ADpios-66a12663cbe9)
-
 - [ ] [Boilerplate - NodeJs](https://github.com/sahat/hackathon-starter)
-
 - [ ] [13 boas práticas de Node JS](https://nodewebapps.com/2017/01/03/13-security-best-practices-for-your-web-application/)
-
 - [ ] [Melhores Práticas em Produção: Segurança](http://expressjs.com/pt-br/advanced/best-practice-security.html)
-
 - [ ] [Praticas em Producao](https://www.joyent.com/node-js/production)
-
 - [ ] [Node.js Production best practices: performance, reliability and stability](http://maxprog.net.pl/node-js/node-js-production-best-practices-performance-reliability-and-stability/)
-
 - [ ] [Melhores Práticas de Produção: desempenho e confiabilidade](http://expressjs.com/pt-br/advanced/best-practice-performance.html)
-
 - [ ] [Checklist: Node.JS production best practice](http://goldbergyoni.com/checklist-best-practice-of-node-js-in-production/)
-
 - [ ] [O que exatamente é o Node.js?](https://imasters.com.br/artigo/22016/javascript/o-que-exatamente-e-o-nodejs/)
-
 - [ ] [Middlewares](http://expressjs.com/pt-br/guide/using-middleware.html)
-
 - [ ] [5 Tips and Thoughts on Async / Await Functions](https://start.jcolemorrison.com/5-tips-and-thoughts-on-async-await-functions/)
 
 ----
 
-#### Vídeos e Tutoriais
+*Vídeos e Tutoriais*
 
 - [ ] [Algoritimos](https://www.youtube.com/playlist?list=PLHz_AreHm4dmSj0MHol_aoNYCSGFqvfXV)
 - [x] [Curso Node JS Completo MVC (47 vídeos)](https://www.youtube.com/user/Jua0o0o/playlists?view=50&sort=dd&shelf_id=11)
