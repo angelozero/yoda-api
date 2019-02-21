@@ -54,6 +54,7 @@
   - [Criando API's RESTful utilizando TypeScript, Node e mongoDB](https://www.udemy.com/criando-apis-restful-utilizando-typescript-node-e-mongodb/)
   -[Ionic 3 - Construindo um App estilo food com NodeJS](https://www.udemy.com/ionic-construindo-um-app-estilo-food-com-nodejs/)
   - [Udemy - Cursos Gratuitos de NodeJS](https://www.udemy.com/courses/search/?src=ukw&q=node&p=1&price=price-free)
+  - [Gulp + Express + NodeJS](https://www.youtube.com/watch?v=s5S_5slvNGA)
 
 
 ---
