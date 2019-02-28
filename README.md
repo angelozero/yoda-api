@@ -105,6 +105,9 @@
 - [ ] [NodeJS + Typescript](http://mherman.org/blog/2016/11/05/developing-a-restful-api-with-node-and-typescript/#.Wqgbc3XwaP8)
 - [ ] [W3Schools](https://www.w3schools.com/nodejs/)
 - [ ] [Gulp + NodeJS + Express + Mongo](https://www.youtube.com/watch?v=s5S_5slvNGA)
+- [ ] [SQL no Docker](https://www.youtube.com/watch?v=skx_Oxdw9i0)
+- [ ] [Mongo no Docker](https://www.youtube.com/watch?v=_pWnGGjaELY&list=PLxTkH01AauxT-HAd4roFmRi4JQiLPqYCf)
+
 
 ---
 
