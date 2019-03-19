@@ -107,6 +107,8 @@
 - [ ] [Gulp + NodeJS + Express + Mongo](https://www.youtube.com/watch?v=s5S_5slvNGA)
 - [ ] [SQL no Docker](https://www.youtube.com/watch?v=skx_Oxdw9i0)
 - [ ] [Mongo no Docker](https://www.youtube.com/watch?v=_pWnGGjaELY&list=PLxTkH01AauxT-HAd4roFmRi4JQiLPqYCf)
+- [ ] [Clean Architecture in Node.js](https://www.youtube.com/watch?v=CccZCy4eth4)
+- [ ] [NodeJs: Writing Clean Asynchronous Code](https://www.youtube.com/watch?v=Jdm_OZCt1i0)
 
 
 ---
