@@ -256,6 +256,15 @@ import './utils/array-helpers.js';
 A biblioteca RxJS utiliza essa estratégia para adicionar no prototype do Observer os operators que carregados.
 				
 ```
+
+**Mais sobre Array, Functor e flatmap**
+
+
+ - No jargão da programação funcional um Functor é simplesmente algo mapeável, ou seja, que suporta a operação map.
+ 
+
+ - A operação flatMap se assemelha da função map, com a diferença de que retorna o resultado em uma dimensão apenas.
+
 	
 ---
    
