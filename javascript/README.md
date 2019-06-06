@@ -315,9 +315,33 @@ export const takeUntil = (times, fn) =>
 
  - Basicamente funciona da seguinte forma, você informa um método e passa o tempo do qual ele deve respeitar para executar novamente a mesma chamada.
  
- 
-
 ---
+
+### Promise race
+ - A função Promise.race recebe uma lista de promises e assim que uma delas for resolvida, receberemos imediatamente seu resultado na próxima chamada encadeada à then . As demais promises são ignoradas:
+
+```javascript
+// app/app.js
+// importações de módulos omitidas
+
+const promise1 = new Promise((resolve, reject) => 
+    setTimeout(() => resolve('promise 1 resolvida'), 3000));
+
+const promise2 = new Promise((resolve, reject) => 
+    setTimeout(() => resolve('promise 2 resolvida'), 1000));
+
+// exibirá no console "promise 2 resolvida";
+Promise.race([
+    promise1, 
+    promise2
+])
+.then(console.log)
+.catch(console.log);
+
+```
+
+  - É importante estar atento que qualquer rejeição que aconteça durante a resolução das Promises direcionará o fluxo da aplicação para dentro da função catch.
+
 
 https://github.com/felippenardi?tab=repositories
 https://github.com/felippenardi/lottie-react-web
