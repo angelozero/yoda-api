@@ -379,5 +379,7 @@ export const retry = (retries, milliseconds, fn) =>
 ---
 
 https://github.com/felippenardi?tab=repositories
+
 https://github.com/felippenardi/lottie-react-web
+
 https://dribbble.com/shots/4249163-Animated-login-form-avatar
