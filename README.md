@@ -109,7 +109,7 @@
 - [ ] [Mongo no Docker](https://www.youtube.com/watch?v=_pWnGGjaELY&list=PLxTkH01AauxT-HAd4roFmRi4JQiLPqYCf)
 - [x] [Clean Architecture in Node.js](https://www.youtube.com/watch?v=CccZCy4eth4)
 - [ ] [NodeJs: Writing Clean Asynchronous Code](https://www.youtube.com/watch?v=Jdm_OZCt1i0)
-- [ ] [Curso 3 horas Node for begginers[(https://www.youtube.com/watch?v=RLtyhwFtXQA)
+- [ ] [Curso 3 horas Node for begginers](https://www.youtube.com/watch?v=RLtyhwFtXQA)
 
 
 ---
