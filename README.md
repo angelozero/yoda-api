@@ -116,3 +116,8 @@
 #### *Free API's Rest for test*
   - [API Rest](https://reqres.in/)
   - [Public API's ( OATH / No OAUTH / ApiKey )](https://github.com/toddmotto/public-apis) 
+
+### *Extra*
+ - [Felippe Nardi - Efeitos em JS](https://github.com/felippenardi?tab=repositories)
+ - [Lottie React Web](https://github.com/felippenardi/lottie-react-web)
+ - [Monstro das Neves, animação para login](https://dribbble.com/shots/4249163-Animated-login-form-avatar)
