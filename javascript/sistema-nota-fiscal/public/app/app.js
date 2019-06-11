@@ -2,6 +2,8 @@ import { log, timeOutPromise, retry } from './utils/promise-helpers.js';
 import './utils/array-helpers.js';
 import { notasService as service } from './nota/service.js';
 import { takeUntil, debounceTime, partialize, pipe, } from './utils/operators.js'
+import { EventEmitter } from './utils/event-emitter.js'
+import { ValidadorValor } from './utils/validador-valor.js';
 
 
 /* ######################################## Código inicial ################################################### */
@@ -126,19 +128,67 @@ import { takeUntil, debounceTime, partialize, pipe, } from './utils/operators.js
 
 /* #################################### Usando Promise.race #################################### */
 
+// const operations = pipe(
+//     partialize(takeUntil, 3),
+//     partialize(debounceTime, 500)
+
+// );
+
+// const action = operations(() => 
+//     retry(3, 3000, ()=> timeOutPromise(200,service
+//     .sumItems('2143')))
+//     .then(console.log)
+//     .catch(console.log));
+
+// document
+//     .querySelector('#myButton')
+//     .onclick = () => action();
+
+/* ############# O pattern Publish/Subscribe - Criando nosso próprio EventEmitter ############### */
+
+// const operations = pipe(
+//     partialize(takeUntil, 3),
+//     partialize(debounceTime, 500)
+// );
+
+// const action = operations(() =>
+//     retry(3, 3000, () => timeOutPromise(200, service
+//         .sumItems('2143')))
+//         .then(total => EventEmitter.emit('itensTotalizados', total))
+//         .then(console.log)
+//         .catch(console.log));
+
+// document
+//     .querySelector('#myButton')
+//     .onclick = () => action();
+
+// linhas removidas para os arquivos alert-handler.js e console-handler.js
+/* EventEmitter.on('itensTotalizados', console.log);
+   EventEmitter.on('itensTotalizados', total => alert(total));*/
+
+/* ############# Lidando com dados nulos ############### */
+
+// Testando a classe ValidadorValor
+/*const value = ValidadorValor.of(null)*/
+const value = ValidadorValor.of(10)
+    .map(value => value + 10)
+    .map(value => value + 30)
+    .getValueOrElse(0);
+console.log("valor do validador ---> " + value);
+/* fim do teste */
+
 const operations = pipe(
     partialize(takeUntil, 3),
     partialize(debounceTime, 500)
-
 );
 
-const action = operations(() => 
-    retry(3, 3000, ()=> timeOutPromise(200,service
-    .sumItems('2143')))
-    .then(console.log)
-    .catch(console.log));
+const action = operations(() =>
+    retry(3, 3000, () => timeOutPromise(200, service
+        .sumItems('2143')))
+        .then(total => EventEmitter.emit('itensTotalizados', total))
+        .then(console.log)
+        .catch(console.log));
 
 document
     .querySelector('#myButton')
     .onclick = () => action();
-

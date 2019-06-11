@@ -1,3 +1,4 @@
+/* Tratando o retorno da resposta da API */
 export const handleStatus = res =>
     res.ok ? res.json() : Promise.reject(res.statusText);
 
