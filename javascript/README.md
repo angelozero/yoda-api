@@ -378,6 +378,46 @@ export const retry = (retries, milliseconds, fn) =>
 
 ---
 
+### O pattern Publish/Subscribe - Criando nosso próprio EventEmitter
+ - Sobre o pattern: Reduz o acoplamento do código. As classes envolvidas ficarão acopladas apenas com barramento de eventos (event bus).
+ 
+ ```javascript
+const events = new Map();
+
+export const EventEmitter = {
+
+    on(event, listener) {
+        if (!events.has(event)) {
+            events.set(event, []);
+        }
+        events.get(event).push(listener);
+    },
+
+    emit(event, data) {
+        const listeners = events.get(event);
+        if(listeners){
+            listeners.forEach(listener => {
+                listener(data)
+            });
+        }
+    }
+}
+
+
+// alert-handler.js
+import { EventEmitter } from './utils/event-emitter.js';
+
+EventEmitter.on('itensTotalizados', total => alert(total));
+
+//console-handler.js
+import { EventEmitter } from './utils/event-emitter.js';
+
+EventEmitter.on('itensTotalizados', console.log);
+
+```
+
+---
+
 https://github.com/felippenardi?tab=repositories
 
 https://github.com/felippenardi/lottie-react-web
