@@ -378,6 +378,85 @@ export const retry = (retries, milliseconds, fn) =>
 
 ---
 
+### O pattern Publish/Subscribe - Criando nosso próprio EventEmitter
+ - Sobre o pattern: Reduz o acoplamento do código. As classes envolvidas ficarão acopladas apenas com barramento de eventos (event bus).
+ 
+ ```javascript
+const events = new Map();
+
+export const EventEmitter = {
+
+    on(event, listener) {
+        if (!events.has(event)) {
+            events.set(event, []);
+        }
+        events.get(event).push(listener);
+    },
+
+    emit(event, data) {
+        const listeners = events.get(event);
+        if(listeners){
+            listeners.forEach(listener => {
+                listener(data)
+            });
+        }
+    }
+}
+
+
+// alert-handler.js
+import { EventEmitter } from './utils/event-emitter.js';
+
+EventEmitter.on('itensTotalizados', total => alert(total));
+
+//console-handler.js
+import { EventEmitter } from './utils/event-emitter.js';
+
+EventEmitter.on('itensTotalizados', console.log);
+
+```
+### Função mônada
+
+- Uma mônada deste tipo também é um functor para um tipo de dado e todo functor possui a função map. Em suma, nosso validadorDados nomada embrulha um dado para evitar acesso ao dado null ou undefined. Todavia, uma mônada brilha quando estamos dentro da programação funcional, pois ela evita a proliferação de if nas funções, principalmente naquelas envolvidas em composições.
+
+```javascript
+// arquivo validador-valor.js
+   getValueOrElse(value) {
+        if (this.isNullValue()) {
+            return value;
+        }
+        return this._value;
+    }
+    
+    
+/*Arquivo service JS*/
+
+//notasM = notas Monadico, monada
+const getItemsFromNotas = notasM => notasM.map(notas => notas.$flatMap(nota => nota.itens));
+//itemsM = items Monadico, monada
+const filterItemsByCode = (code, itemsM) => itemsM.map(items => items.filter(item => item.codigo == code));
+//itemsM = items Monadico, monada
+const sumItemsValue = itemsM => itemsM.map(items => items.reduce((total, item) => total + item.valor, 0));
+
+export const notasService = {
+import { ValidadorValor } from '../utils/validador-valor.js';
+    /* Chamando a API de notas */
+    listAll() {
+        return fetch(API)
+            .then(handleStatus)
+            // linha para testar a função monada ( passe notas ou o valor 0)
+            .then(notas => ValidadorValor.of(notas))
+            .catch(err => {
+                console.log(err);
+                return Promise.reject('Não foi possível obter as notas fiscais');
+            });
+    },
+    
+```
+
+
+---
+
 https://github.com/felippenardi?tab=repositories
 
 https://github.com/felippenardi/lottie-react-web
