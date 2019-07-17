@@ -1,51 +1,45 @@
 class NegociacoesView extends View {
-
-   
-    constructor(element){
-        super(element);
+    
+    constructor(elemento) {
+        
+        super(elemento);
     }
-
+    
     template(model) {
+        
         return `
-            <table class="table table-hover table-bordered">
-                <thead>
+        <table class="table table-hover table-bordered">
+        
+            <thead>
+                <tr>
+                    <th onclick="negociacaoController.ordena('data')">DATA</th>
+                    <th onclick="negociacaoController.ordena('quantidade')">QUANTIDADE</th>
+                    <th onclick="negociacaoController.ordena('valor')">VALOR</th>
+                    <th onclick="negociacaoController.ordena('volume')">VOLUME</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                ${model.negociacoes.map(n => `
+                    
                     <tr>
-                        <th>DATA</th>
-                        <th>QUANTIDADE</th>
-                        <th>VALOR</th>
-                        <th>VOLUME</th>
+                        <td>${DateHelper.dataParaTexto(n.data)}</td>
+                        <td>${n.quantidade}</td>
+                        <td>${n.valor}</td>
+                        <td>${n.volume}</td>
                     </tr>
-                </thead>
-                
-                <tbody>
-                    ${model.getNegociacoes().map((negociacao, posicao) => {
-                return `
-                                <tr>
-                                    <th>${DateHelper.convertDataToString(negociacao.getData())}</th>
-                                    <th>${negociacao.getQuantidade()}</th>
-                                    <th>${negociacao.getValor()}</th>
-                                    <th>${negociacao.volume}</th>
-                                </tr>
-                            `
-            }).join('')}
-                </tbody >
-
-                <tfoot>
-                    <td colspan="3" style="text-align: right;">TOTAL</td>
-                    <td>
-                        ${this._getTotalNegociacoes(model)}
-                    </td>
-                </tfoot>
-                
-            </table >
+                    
+                `).join('')}                
+            </tbody>
+                  
+            <tfoot>
+                <td colspan="3"></td>
+                <td>
+                    ${model.volumeTotal}
+                </td>
+            </tfoot>
+            
+        </table>
         `;
-    }
-
-    _getTotalNegociacoes(model) {
-        let total = 0;
-        model.getNegociacoes().forEach(negociacao => {
-            return total += negociacao.volume;
-        });
-        return total;
     }
 }

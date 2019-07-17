@@ -1,11 +1,12 @@
 class MensagemView extends View {
-
-
-    constructor(element){
-        super(element);
+    
+    constructor(elemento) {
+        
+       super(elemento);
     }
-
-    template(model) {
-        return model.getTexto() ? `<p class="alert alert-success">${model.getTexto()}</p>` : `<p></p>`
-    }
+    
+   template(model) {
+       
+       return model.texto ? `<p class="alert alert-info">${model.texto}</p>` : '<p></p>';
+   }
 }

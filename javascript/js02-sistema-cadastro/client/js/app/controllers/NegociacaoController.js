@@ -1,89 +1,106 @@
 class NegociacaoController {
-
+    
     constructor() {
+        
         let $ = document.querySelector.bind(document);
-        this._data = $('#data');
-        this._quantidade = $('#quantidade');
-        this._valor = $('#valor');
-
-
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
+        
+        this._inputData = $('#data');
+        this._inputQuantidade = $('#quantidade');
+        this._inputValor = $('#valor');
+         
         this._listaNegociacoes = new Bind(
-            new ListaNegociacoes(),
-            this._negociacoesView,
-            'adiciona', 'esvazia');
-
-
-        this._mensagemView = new MensagemView($('#mensagemView'));
+            new ListaNegociacoes(), 
+            new NegociacoesView($('#negociacoesView')), 
+            'adiciona', 'esvazia' , 'ordena', 'inverteOrdem');
+       
         this._mensagem = new Bind(
-            new Mensagem(),
-            this._mensagemView,
-            'texto');
+            new Mensagem(), new MensagemView($('#mensagemView')),
+            'texto');    
+            
+        this._ordemAtual = '';
+
+        this._service = new NegociacaoService();
+
+        this._init();
+
+    }
+    
+    _init() {
+
+        this._service
+            .lista()
+            .then(negociacoes => 
+                negociacoes.forEach(negociacao => 
+                    this._listaNegociacoes.adiciona(negociacao)))
+            .catch(erro => this._mensagem.texto = erro);
+
+       setInterval(() => {
+           this.importaNegociacoes();
+       }, 3000);                
+        
     }
 
     adiciona(event) {
+        
         event.preventDefault();
-
+        
         let negociacao = this._criaNegociacao();
 
-        this._listaNegociacoes.addNegociacao(negociacao);
-        this._mensagem.setTexto('Negociação adicionada com sucesso');
-
-        this._updateNegociacaoView(this._listaNegociacoes, this._mensagem);
-        this._limpaFormulario();
+        this._service
+            .cadastra(negociacao)
+            .then(mensagem => {
+                this._listaNegociacoes.adiciona(negociacao);
+                this._mensagem.texto = mensagem;
+                this._limpaFormulario();
+            })
+            .catch(erro => this._mensagem.texto = erro);
     }
-
-    deletaNegociacoes() {
-        this._listaNegociacoes.deletaNegociacoes();
-        this._mensagem.setTexto('Negociações apagadas com sucesso');
-        this._updateNegociacaoView(this._listaNegociacoes, this._mensagem);
-    }
-
+    
     importaNegociacoes() {
 
-        let negociacaoService = new NegociacaoService();
-
-        // Fazendo todas as requisições
-        Promise.all(
-            [   negociacaoService.obterNegociacoesDaSemana(),
-                negociacaoService.obterNegociacoesDaSemanaRetrasada(),
-                negociacaoService.obterNegociacoesDaSemanaAnterior()
-            ]
+        this._service
+            .importa(this._listaNegociacoes.negociacoes)
+            .then(negociacoes => negociacoes.forEach(negociacao => {
+                this._listaNegociacoes.adiciona(negociacao);
+                this._mensagem.texto = 'Negociações do período importadas'   
+            }))
+            .catch(erro => this._mensagem.texto = erro);                              
+    }
+    
+    apaga() {
         
-        // Concatenando a lista que retornou com o resultado de todas as requisições, 
-        // com suas listas internas, transformando tudo em uma unica lista
-        ).then((result) => {
-            result
-            .reduce((arrayListNegociacoes, arrayFinal) => arrayListNegociacoes.concat(arrayFinal), [])
-            .forEach(negociacao => this._listaNegociacoes.addNegociacao(negociacao))
-            this._mensagem.setTexto('Negociações importadas com sucesso');
-            this._updateNegociacaoView(this._listaNegociacoes, this._mensagem)
-
-        // Se casso der erro    
-        }).catch((erro) => {
-            this._mensagem.setTexto(erro);
-            this._updateNegociacaoView(this._listaNegociacoes, this._mensagem)
-            return;
-        });
+        this._service
+            .apaga()
+            .then(mensagem => {
+                this._mensagem.texto = mensagem;
+                this._listaNegociacoes.esvazia();                
+            })
+            .catch(erro => this._mensage.texto = erro);
     }
-
+    
     _criaNegociacao() {
+        
         return new Negociacao(
-            DateHelper.convertStringToData(this._data.value),
-            this._quantidade.value,
-            this._valor.value
-        );
+            DateHelper.textoParaData(this._inputData.value),
+            parseInt(this._inputQuantidade.value),
+            parseFloat(this._inputValor.value));    
     }
-
+    
     _limpaFormulario() {
-        this._data.value = '';
-        this._quantidade.value = 1;
-        this._valor.value = 0.0;
-
-        this._data.focus();
+     
+        this._inputData.value = '';
+        this._inputQuantidade.value = 1;
+        this._inputValor.value = 0.0;
+        this._inputData.focus();   
     }
-    _updateNegociacaoView(listaNegociacoes, mensagem) {
-        this._negociacoesView.update(listaNegociacoes);
-        this._mensagemView.update(mensagem);
+    
+    ordena(coluna) {
+        
+        if(this._ordemAtual == coluna) {
+            this._listaNegociacoes.inverteOrdem(); 
+        } else {
+            this._listaNegociacoes.ordena((p, s) => p[coluna] - s[coluna]);    
+        }
+        this._ordemAtual = coluna;    
     }
 }
