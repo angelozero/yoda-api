@@ -28,6 +28,11 @@
 
 ---
 
+#### *Regex*
+
+- [Expressões regulares](https://cursos.alura.com.br/course/expressoes-regulares)
+
+---
 
 #### *TypeScript*
 
