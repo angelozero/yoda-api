@@ -2,7 +2,7 @@
 
 
 ### 01.01 - Prólogo: regras, código e manutenção
-   - Simples criação de um arquivo js ( [index.js](https://github.com/angelozero/yoda-js/blob/master/javascript/sistema-cadastro/client/js/index.js) ) para manipulação dos dados na tela, manipulação do DOM.
+   - Simples criação de um arquivo js ( [index.js](https://github.com/angelozero/estudo-node-js/blob/master/javascript/js02-sistema-cadastro/client/js/index.js) ) para manipulação dos dados na tela, manipulação do DOM.
 
 
 ---
