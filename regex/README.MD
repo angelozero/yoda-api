@@ -2,7 +2,7 @@
 
 #### meta-char / quantifier
 
-    - Meta-char possuem significados especiais, como o ponto (.) ou asterisco (*). Neste primeiro exemplo vamos focar no CPF.
+   - Meta-char possuem significados especiais, como o ponto (.) ou asterisco (*). Neste primeiro exemplo vamos focar no CPF.
     - Uma linha de exemplo para nossa consulta ```João Fulano,123.456.789-00,21 de Maio de 1093,(21) 3079-9987,Rua Buarque de Macedo,67,22220-232,Rio de Janeiro```
     - Para extrair um cpf,  que são 9 números, separados em blocos de 3 números por um ponto, mais um hífen e mais dois números, fazemod da seguinte forma. Para representar um número, podemos utilizar uma ```caracter class```, que é um símbolo especial para representar um conjunto de caracteres. Em regex, um número é representado pelo ```\d```
     - Para extrair exatamente 3 números, definimos a expressão por ```\d{3}```. Dentro das chaves definimos a quantidade que o caractere deve estar presente. Com isso, já podemos encontrar 3 dígitos. Agora vem o "ponto" só que aprendemos que esse caractere possui um significado especial. Para deixar claro que o ponto deve ser ponto apenas, é preciso escapar o caractere com ```\```
