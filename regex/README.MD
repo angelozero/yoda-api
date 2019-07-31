@@ -63,13 +63,18 @@
    - A regex final fica assim:
       - ```\d{3}[.-]?\d{3}[.-]?\d{3}[.-]?\d{2}```
 
-   - Para a linha a seguir extrair apenas *<code>* e *</code>* ```No <code>for</code>, o valor de <code>i</code> começa de zero e é incrementado a cada volta enquanto <code>i < 10</code>, portando o bloco de código do for é executado 10 vezes.``` 
+   - Para a linha a seguir extrair apenas *<code>* e *</code>* 
 
-    - A regex utilizada é:  ```</?code>```. Repare que usamos o meta-char ```?``` para sinalizar que o ```/``` é opcional.
+```
+   No <code>for</code>, o valor de <code>i</code> começa de zero e é incrementado a cada volta enquanto <code>i < 10</code>,  portando o bloco de código do for é executado 10 vezes.
+```
 
-    - Exemplo.: Para definir a classe correta para os números entre 1 e 3 E 6 e 9 usamos a seguinte regex:
-       
-       - ```[1-36-9]```
+   - A regex utilizada é:  ```</?code>```. Repare que usamos o meta-char ```?``` para sinalizar que o ```/``` é opcional.
+
+
+   - Exemplo.: Para definir a classe correta para os números entre 1 e 3 E 6 e 9 usamos a seguinte regex:```[1-36-9]```
+   
+   
 
 ---
 
