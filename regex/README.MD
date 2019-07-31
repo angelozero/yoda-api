@@ -63,7 +63,7 @@
    - A regex final fica assim:
       - ```\d{3}[.-]?\d{3}[.-]?\d{3}[.-]?\d{2}```
 
-   - Para a linha a seguir extrair apenas *<code>* e *</code>* 
+   - Para a linha a seguir extrair apenas ```<code>``` e ```</code> ```
 
 ```
    No <code>for</code>, o valor de <code>i</code> começa de zero e é incrementado a cada volta enquanto <code>i < 10</code>,  portando o bloco de código do for é executado 10 vezes.
