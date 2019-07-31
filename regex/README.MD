@@ -93,13 +93,13 @@
     - Para pegar todo mundo que comece com nota 7, 
       - ```7\.```
 
-   - Lembre-se que precisamos escapar o . usando um \ antes por ele ser um meta char. Agora, vamos definir nossa própria classe usando colchetes. Nela, precisamos aceitar somente um número de 2 a 9, com isso temos as possibilidades 7.2,7.3,7.4,7.5,7.6,7.7, 7.8 e 7.9.
+    - Lembre-se que precisamos escapar o . usando um \ antes por ele ser um meta char. Agora, vamos definir nossa própria classe usando colchetes. Nela, precisamos aceitar somente um número de 2 a 9, com isso temos as possibilidades 7.2,7.3,7.4,7.5,7.6,7.7, 7.8 e 7.9.
       - ```7\.[2-9]```
 
-   - Sabemos que depois do número, temos um espaço e um hífen seguido de espaço:
-     - ```7\.[2-9]\s+-\s+``` 
+    - Sabemos que depois do número, temos um espaço e um hífen seguido de espaço:
+      - ```7\.[2-9]\s+-\s+``` 
 
-   - Por fim, depois do hífen queremos pegar qualquer quantidade de caracteres, por isso usaremos o atalho de classe \w que pega qualquer dígito, seja ele letra ou número:
+    - Por fim, depois do hífen queremos pegar qualquer quantidade de caracteres, por isso usaremos o atalho de classe \w que pega qualquer dígito, seja ele letra ou número:
       - ```7\.[2-9]\s+-\s+\w+```
         
 ---
