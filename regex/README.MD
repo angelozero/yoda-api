@@ -93,15 +93,49 @@
     - Para pegar todo mundo que comece com nota 7, 
       - ```7\.```
 
-    - Lembre-se que precisamos escapar o . usando um \ antes por ele ser um meta char. Agora, vamos definir nossa própria classe usando colchetes. Nela, precisamos aceitar somente um número de 2 a 9, com isso temos as possibilidades 7.2,7.3,7.4,7.5,7.6,7.7, 7.8 e 7.9.
+   - Lembre-se que precisamos escapar o . usando um \ antes por ele ser um meta char. Agora, vamos definir nossa própria classe usando colchetes. Nela, precisamos aceitar somente um número de 2 a 9, com isso temos as possibilidades 7.2,7.3,7.4,7.5,7.6,7.7, 7.8 e 7.9.
       - ```7\.[2-9]```
 
-    - Sabemos que depois do número, temos um espaço e um hífen seguido de espaço:
-      - ```7\.[2-9]\s+-\s+``` 
+   - Sabemos que depois do número, temos um espaço e um hífen seguido de espaço:
+     - ```7\.[2-9]\s+-\s+``` 
 
-    - Por fim, depois do hífen queremos pegar qualquer quantidade de caracteres, por isso usaremos o atalho de classe \w que pega qualquer dígito, seja ele letra ou número:
+   - Por fim, depois do hífen queremos pegar qualquer quantidade de caracteres, por isso usaremos o atalho de classe \w que pega qualquer dígito, seja ele letra ou número:
       - ```7\.[2-9]\s+-\s+\w+```
         
+   - Trazendo apenas  *SERROTE GARROTE* e *ROTEIRO*   
+      - *BALEIRO GARROTE SERROTE GOLEIRO ROTEIRO* ---> ```[A-Z]*ROT[A-Z]+```. Usamos a classe de caracteres [A-Z] porque queremos lidar apenas com todos as letras em maiúsculo. Além disso, na primeira parte da expressão temos [A-Z]*, usamos o quantifier * que indica zero ou mais vezes. Por fim temos [A-Z]*ROT[A-Z]+
+
+
+   - Regex com caracteres especiais
+      - *?classes+poderosas* --->  ```[a-z?*+]+```
+
+
+   - Regex para 
+      - O limite é de 10 caracteres;
+      - O primeiro caractere deve ser uma letra do alfabeto, não pode ser um número;
+      - A partir do segundo caractere podemos ter letras maiúsculas, minúsculas e números;
+
+      - ```[a-zA-Z][a-zA-Z0-9]{0,9}```
+
+   - Como podemos melhorar essa regex para data ? 
+      - ```[0123]?\d\s+de\s+[A-Z][a-zç]{1,8}\s+de\s+[12]\d{3}```
+
+   - Uma forma fácil de melhorar a legibilidade seria usar algumas variáveis auxiliares, que deixam claro o que estamos definindo, por exemplo no JavaScript podemos criar 4 variáveis:
+
+```javascript
+var DIA  = "[0123]?\d"; 
+var _DE_ = "\s+de\s+";
+var MES  = "[A-Za-z][a-zç]{1,8}";
+var ANO  = "[12]\d{3}";
+```
+
+   - Repare que cada variável representa uma parte da regex. Depois disso é só concatenar esses variáveis para ter a expressão final:
+      - ```var stringRegex = DIA + _DE_ +  MES + _DE_ + ANO;```
+      
+   - Essa string passamos para a regex engine do JavaScript:
+
+      - ```var objetoRegex  = new RegExp(stringRegex, 'g');```   
+
 ---
 
 ---
