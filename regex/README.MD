@@ -71,10 +71,38 @@
 
    - A regex utilizada é:  ```</?code>```. Repare que usamos o meta-char ```?``` para sinalizar que o ```/``` é opcional.
 
-
    - Exemplo.: Para definir a classe correta para os números entre 1 e 3 E 6 e 9 usamos a seguinte regex:```[1-36-9]```
-   
-   
+
+   - Classe para espaços dentro de uma regex: ```\s.``` , \s significa whitespace. 
+
+   - Para uma regex com dia (numerico) mes e ano fica assim:
+    
+      - 11 de Abril de 1995 ---> ```[0123]?\d\s+de\s+[A-Z][a-zç]{1,8}\s+de\s+[12]\d{3}```
+
+   - Para uma regex de horario:
+
+      -  *9h32min16s* ---> ```\d{2}h\d{2}min\d{2}s``` ou ```[0-9]{2}h[0-9]{2}min[0-9]{2}s```
+
+   - Para uma placa de carro:
+      
+     - *KMG-8089* ---> ```[A-Z]{3}\-\d{4}```
+
+  - Para trazer as notas dos alunos apenas de 7.2 a 7.9
+     -  *9.8 - Robson, 7.1 - Teresa, 4.5 - Armênio, 6.5 - Zulu, 7.7 - Stefania, 7.8 - João, 5.0 - Romeu, 7.2 - Pompilho, 3.1 - Reinaldo, 7.3 - Bernadete, 4.7 - Cinério*
+     
+    - Para pegar todo mundo que comece com nota 7, 
+      - ```7\.```
+
+   - Lembre-se que precisamos escapar o . usando um \ antes por ele ser um meta char. Agora, vamos definir nossa própria classe usando colchetes. Nela, precisamos aceitar somente um número de 2 a 9, com isso temos as possibilidades 7.2,7.3,7.4,7.5,7.6,7.7, 7.8 e 7.9.
+      - ```7\.[2-9]```
+
+   - Sabemos que depois do número, temos um espaço e um hífen seguido de espaço:
+     - ```7\.[2-9]\s+-\s+``` 
+
+   - Por fim, depois do hífen queremos pegar qualquer quantidade de caracteres, por isso usaremos o atalho de classe \w que pega qualquer dígito, seja ele letra ou número:
+      - ```7\.[2-9]\s+-\s+\w+```
+        
+---
 
 ---
 
