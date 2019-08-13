@@ -138,6 +138,78 @@ var ANO  = "[12]\d{3}";
 
 ---
 
+
+#### Ancoras
+
+   - Uma âncora não seleciona um caractere, ela seleciona apenas uma posição no texto alvo. Ou seja, a âncora \b sozinha devolve nada (zero-length) mas combinada com um valor literal, ou outra regex, podemos finalmente definir como encontrar a preposição de:
+
+   ```\bde\b```
+
+   - Abaixo temos uma sequância de letras a e queremos selecionar as sequências com três a (a{3}):
+
+      - ```aaa aaaa aaa aaaa aaa```
+
+      - a{3}
+         *aaa* *aaa*a *aaa* *aaa*a *aaa*
+      - a{3}\b
+         *aaa* a*aaa* *aaa* a*aaa* *aaa*
+      - \ba{3}\b
+         *aaa* aaaa *aaa* aaaa *aaa*
+
+   - Uma âncora não casa caracteres como as classes fazem, e nem definem quantidades. Âncoras marcam uma posição específica no alvo, por isso não é possível combiná-las com um quantifier.
+
+   - Existem várias âncoras predefinidas, mas as mais comuns são ^, $ e \b. Lembrando também que os caracteres ^ e $ são meta-chars.
+
+   - Usando as ancoras nessa linha conseguimos pegar o começo determinado pela palavra *file* e que contenha o fim *.html*
+       
+       - ```file:///Users/nico/Downloads/regex/index.html```
+       
+       - ```^file.+html$```
+
+
+   - A regex abaixo capturaria exatamente as strings de data que seguem o modelo: Data: dia/mes/ano ou Data:dia/mes/ano
+      
+      - Alvos: Data: 02/09/1964 ou Data:02/09/1964.
+
+      - Regex ```^Data:[\s]?[0-9]{2}\/[0-9]{2}\/[0-9]{4}$```
+
+
+   - Existe a inversão do \b, o non-word-boundary: \B (B maiúsculo).  A silaba por deve aparecer dentro de uma palavra, nunca no inicio ou fim
+
+      - Alvo: português proporcional compor
+
+      - Pattern: \Bpor\B
+
+      - português pro*por*cional compor
+       
+
+#### non-capturing groups
+
+   - Novamente usaremos o simbolo ?, mas agora no início do grupo junto com os dois pontos, por exemplo para a preposição de: (?:de\s+)?
+
+   - Aplicando isso na regex inteira, no alvo 21 de Maio de 1993:
+
+   - ```([0123]?\d)\s+(?:de\s+)?([A-Z][a-zç]{1,8})\s+(?:de\s+)?([12]\d{3})```
+
+   - Isso devolve os grupos:
+
+   - ```21 de Maio de 1993 ||| 21 ||| Maio ||| 1993```
+
+   
+---
+
+#### backreferences
+
+   - Quando a tag inicial for uma h1, no final também deve estar uma h1, igualmente para a tag h2. Essa dependência podemos definir através de back-references, uma referência para um texto já encontrado. A sintaxe é simples, usa-se um \ seguido pelo número do grupo, começando com 1.
+
+   - Nessa regex, a tag é definida no primeiro grupo ```(h1|h2)```. Ou seja, vamos usar a back-reference \1:
+
+
+   - ```<(h1|h2).+?>([\w\sõãí.]+)<\/\1>```
+
+   - ```<h1 id="regex" class="form">Expressões regulares .</h2>```
+
+   
 ---
 
 #### CSV File
