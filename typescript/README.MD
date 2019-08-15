@@ -52,6 +52,6 @@
 - Para executar a aplicação e verificar se tudo funciona execute o comando no terminal
 ```shell
 npm run compile
-``
+```
 
  
