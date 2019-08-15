@@ -114,6 +114,7 @@
 - [x] [Clean Architecture in Node.js](https://www.youtube.com/watch?v=CccZCy4eth4)
 - [ ] [NodeJs: Writing Clean Asynchronous Code](https://www.youtube.com/watch?v=Jdm_OZCt1i0)
 - [ ] [Curso 3 horas Node for begginers](https://www.youtube.com/watch?v=RLtyhwFtXQA)
+- [ ] [Send SMS Using AWS SNS (Simple Notification Service) and NODEJS](https://www.youtube.com/watch?v=y4LGHRNSqjo&feature=youtu.be&fbclid=IwAR3NKP0xSOOdJxX7Z2TZUB50IMYuo_ZZrQjy2gbmrLhLgwHP42VM-jpc7_U)
 
 
 ---
