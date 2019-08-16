@@ -89,6 +89,40 @@
   - VAR: Declarações com var possuem escopo de função ou global. 
   - LET: Variáveis declaradas com let tem escopo de bloco e o JavaScript lançará um erro se a mesma for declarada mais de uma vez.
 
+**Diferença entre declaração *map* e *forEach***
+
+ - Basicamente o foreach manipula os dados reais de um array e o map cria um novo array. Veja os exemplos:
+ ```javascript
+ let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+ ```
+- *ForEach*:
+```javascript
+arr.forEach((num, index) => {
+    return arr[index] = num * 2;
+});
+```
+ - *Map*:
+ ```javascript
+let doubled = arr.map(num => {
+    return num * 2;
+});
+```
+ - No teste realizado o ```forEach()``` foi 32% mais lento que o ```map()```. Isso ocorreu porque o forEach alterou todos os valores originais do array, em quanto o Map retornou um novo array com os novos valores não alterando os valores originais.
+ 
+ - Mas quando usar um quando usar o outro ? ... No teste realizado o ```foreEach``` seria o mais indicado para o cenário, mas se caso fosse necessário fazer algo a mais com a lista poderiamos usar o ```map``` e usarmos suas funções adicionais como por exemplo o ```filter```. 
+ 
+ ```javascript
+ // filtro que deve retornar os números que foram multiplicados por 2 e são menores que 10
+ let arr2 = arr.map(num => num * 2).filter(num => num < 10);
+console.log(arr2);
+```
+
+ - *Resultado*
+ 
+ ```shell
+ [2, 4, 6, 8]
+ ```
+
 ---
 
 
