@@ -99,3 +99,23 @@ document
     <script src="js/controllers/NegociacaoController.js"></script>
     <script src="js/app.js"></script>
 ```
+
+#### Tipando métodos 
+
+ - Assim como no Java declaramos métodos que podem retornar algo ou que não retornam nada. Com o TypeScript declaramos desta maneira:
+ 
+ ```javascript
+    // classe Negociacoes.ts
+ 
+    // Método void, não tem retorno
+    push(negociacao: Negociacao): void {
+        this._negociacoes.push(negociacao);
+    }
+
+    // Retorno de uma lista de Negociacao
+    getList(): Array<Negociacao> {
+        return Array.from(this._negociacoes);
+    }
+ 
+ ```
+ 
