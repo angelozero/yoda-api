@@ -123,6 +123,8 @@ console.log(arr2);
  [2, 4, 6, 8]
  ```
 
+*Fonte: [Entendendo a diferença entre map x forEach](https://medium.com/@programadriano/javascript-entendendo-a-diferen%C3%A7a-entre-map-x-foreach-366a77fc7e82)*
+
 ---
 
 
