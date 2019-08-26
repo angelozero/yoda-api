@@ -1,10 +1,5 @@
-class NegociacoesView {
+class NegociacoesView extends View<Negociacoes> {
 
-    private _element: Element;
-
-    constructor(selector: string) {
-        this._element = document.querySelector(selector);
-    }
 
     update(model: Negociacoes): void {
         this._element.innerHTML = this.template(model);
@@ -32,7 +27,7 @@ class NegociacoesView {
                         <td>${negociacao.volume}</td>
                         </tr>
                     `
-         // join('') usado para não adicionar "," a cada negociação adicionada na view ( pagina )
+            // join('') usado para não adicionar "," a cada negociação adicionada na view ( pagina )
         }).join('')}
             </tbody>
 
