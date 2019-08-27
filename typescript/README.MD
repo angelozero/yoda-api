@@ -118,5 +118,66 @@ document
     }
  
  ```
+
+ #### Lidando com tipos genéricos
+
+ - Para reutilizar os métodos ```update``` e ```template``` das classes ```MensagemView.ts``` e ```NegociacoesView.ts``` criamos uma classe Mãe chamada ```View.ts```. E para que todos implementem os métodos sem um parametro especifico, criamos esta classe com o tipo generico.
+ 
+
+ - Classe Mãe
+
+ ```javascript
+// Informamos T para o uso de generics 
+abstract class View<T> {
+
+    protected _element: Element
+
+    constructor(selector: string) {
+        this._element = document.querySelector(selector);
+    }
+
+    update(model: T): void {
+        this._element.innerHTML = this.template(model);
+    }
+
+    abstract template(model: T): string;
+
+}
+ ```
  
  
+- Classes filhas com métodos implementados 
+
+ ```javascript
+class MensagemView extends View<String> {
+
+
+    update(model: string): void {
+        this._element.innerHTML = this.template(model);
+    }
+
+
+    template(model: string): string {
+        return `<p class="alert alert-info">${model}</p>`;
+    }
+}
+ ```
+
+```javascript
+ class NegociacoesView extends View<Negociacoes> {
+
+
+    update(model: Negociacoes): void {
+        this._element.innerHTML = this.template(model);
+    }
+
+    template(model: Negociacoes): string {
+        return `
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>`
+      
+      //codigo oculto ...
+     }
+}
+```
