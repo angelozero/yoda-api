@@ -116,6 +116,7 @@
 - [ ] [Curso 3 horas Node for begginers](https://www.youtube.com/watch?v=RLtyhwFtXQA)
 - [ ] [Send SMS Using AWS SNS (Simple Notification Service) and NODEJS](https://www.youtube.com/watch?v=y4LGHRNSqjo&feature=youtu.be&fbclid=IwAR3NKP0xSOOdJxX7Z2TZUB50IMYuo_ZZrQjy2gbmrLhLgwHP42VM-jpc7_U)
 - [ ] [React + Node FullStack](https://www.udemy.com/react-node-ecommerce/?fbclid=IwAR29sAg2Ou6eJQeWYasNDPmCx30M9t7sV3GMXQ3SLenSWuUTumdNlUB3lng&couponCode=ECOMMERCE)
+- [ ] [Descomplicando Node](https://www.youtube.com/playlist?list=PLwg2qZ9X7I7X8KBLQWgMeM4dOcT7XFABs)
 
 
 ---
