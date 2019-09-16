@@ -129,6 +129,7 @@
  - [Felippe Nardi - Efeitos em JS](https://github.com/felippenardi?tab=repositories)
  - [Lottie React Web](https://github.com/felippenardi/lottie-react-web)
  - [Monstro das Neves, animação para login](https://dribbble.com/shots/4249163-Animated-login-form-avatar)
+ - [Monstro das Neves - Yeti](https://codepen.io/dsenneff/details/2c3e5bc86b372d5424b00edaf4990173)
  
  
  ---
