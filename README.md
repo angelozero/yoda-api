@@ -54,7 +54,7 @@
   - [Introdução ao Node JS + Express](https://www.udemy.com/introducao-ao-node-js-express/)
   - [API REST em Node.JS aplicando testes (TDD) desde o princípio](https://www.udemy.com/api-rest-nodejs-com-testes/)
   - [Criando API's RESTful utilizando TypeScript, Node e mongoDB](https://www.udemy.com/criando-apis-restful-utilizando-typescript-node-e-mongodb/)
-  -[Ionic 3 - Construindo um App estilo iFood com NodeJS](https://www.udemy.com/ionic-construindo-um-app-estilo-food-com-nodejs/)
+  - [Ionic 3 - Construindo um App estilo iFood com NodeJS](https://www.udemy.com/ionic-construindo-um-app-estilo-food-com-nodejs/)
   - [Udemy - Cursos Gratuitos de NodeJS](https://www.udemy.com/courses/search/?src=ukw&q=node&p=1&price=price-free)
   - [Gulp + Express + NodeJS](https://www.youtube.com/watch?v=s5S_5slvNGA)
   - [Criando aplicaçes em NodeJs](https://blog.dankicode.com/dicas-para-criar-aplicacoes-com-node-js/?fbclid=IwAR25yjHG3w5X2ghF5IGASpAjPjmo-UYGQMWl5nSBn_3tzexk4T1ZGYd5fiQ&ref=L8002178L)
