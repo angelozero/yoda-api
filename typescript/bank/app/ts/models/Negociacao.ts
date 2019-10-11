@@ -1,31 +1,49 @@
-class Negociacao {
+export class Negociacao {
 
-    // private _data: Date;
-    // private _quantidade: number;
-    // private _valor: number;
+    /*
+     * 
+     * PART 1
+     * 
+     */
+
+    // // private _data: Date;
+    // // private _quantidade: number;
+    // // private _valor: number;
 
 
-    constructor(private _data: Date, private _quantidade: number, private _valor: number) {
-        // this._data = data;
-        // this._quantidade = quantidade;
-        // this._valor = valor;
-    }
+    // constructor(private _data: Date, private _quantidade: number, private _valor: number) {
+    //     // this._data = data;
+    //     // this._quantidade = quantidade;
+    //     // this._valor = valor;
+    // }
 
 
-    get data() {
-        return this._data;
-    }
+    // get data() {
+    //     return this._data;
+    // }
 
-    get quantidade() {
-        return this._quantidade;
-    }
+    // get quantidade() {
+    //     return this._quantidade;
+    // }
 
-    get valor() {
-        return this._valor;
-    }
+    // get valor() {
+    //     return this._valor;
+    // }
+
+    // get volume() {
+    //     return this._quantidade * this._valor;
+    // }
+
+    /*
+ * 
+ * PART 2
+ * 
+ */
+
+    constructor(readonly data: Date, readonly quantidade: number, readonly valor: number) { }
 
     get volume() {
-        return this._quantidade * this._valor;
+        return this.quantidade * this.valor;
     }
 
 }

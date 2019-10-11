@@ -1,17 +1,21 @@
-class NegociacaoController {
+import { NegociacoesView, MensagemView } from '../views/index';
+import { Negociacao, Negociacoes } from '../models/index';
+import { isWeekend } from '../enums/index';
 
-    private _inputData: HTMLInputElement;
-    private _inputQuantidade: HTMLInputElement;
-    private _inputValor: HTMLInputElement;
+export class NegociacaoController {
+
+    private _inputData: JQuery;
+    private _inputQuantidade: JQuery;
+    private _inputValor: JQuery;
     private _negociacoes: Negociacoes = new Negociacoes();
-    private _negociacoesView: NegociacoesView = new NegociacoesView('#negociacoesView');
-    private _mensagemView: MensagemView = new MensagemView('#mensagemView')
+    private _negociacoesView: NegociacoesView = new NegociacoesView('#negociacoesView', true);
+    private _mensagemView: MensagemView = new MensagemView('#mensagemView');
 
     constructor() {
 
-        this._inputData = <HTMLInputElement>document.querySelector('#data');
-        this._inputQuantidade = <HTMLInputElement>document.querySelector('#quantidade');
-        this._inputValor = <HTMLInputElement>document.querySelector('#valor');
+        this._inputData = $('#data');
+        this._inputQuantidade = $('#quantidade');
+        this._inputValor = $('#valor');
         this._negociacoesView.update(this._negociacoes);
     }
 
@@ -19,10 +23,18 @@ class NegociacaoController {
 
         event.preventDefault();
 
+        let data = new Date(this._inputData.val().toString().replace(/-/g, ','));
+
+        if (isWeekend(data)) {
+            this._mensagemView.update('Somente negociações em dias úteis, por favor!');
+            return
+        }
+
+
         const negociacao = new Negociacao(
-            new Date(this._inputData.value.replace(/-/g, ',')),
-            parseInt(this._inputQuantidade.value),
-            parseFloat(this._inputValor.value)
+            data,
+            parseInt(this._inputQuantidade.val().toString()),
+            parseFloat(this._inputValor.val().toString())
         );
 
         this._negociacoes.push(negociacao);
@@ -32,7 +44,9 @@ class NegociacaoController {
             //console.log(negociacao);
         })
         this._negociacoesView.update(this._negociacoes);
-        this._mensagemView.update('Negociação add com sucesso');
+        this._mensagemView.update('Negociação adicionada com sucesso');
     }
+
+
 
 }

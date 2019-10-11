@@ -1,9 +1,11 @@
-class NegociacoesView extends View<Negociacoes> {
+import { View } from './View';
+import { Negociacoes } from '../models/Negociacoes';
 
+export class NegociacoesView extends View<Negociacoes> {
 
-    update(model: Negociacoes): void {
-        this._element.innerHTML = this.template(model);
-    }
+    // update(model: Negociacoes): void {
+    //     this._element.html(this.template(model));
+    // }
 
     template(model: Negociacoes): string {
         return `
@@ -33,7 +35,8 @@ class NegociacoesView extends View<Negociacoes> {
 
             <tfoot>
             </tfoot>
-        </table>               
+        </table>
+        <script>alert('teste scape')</script>
         `;
     }
 }
