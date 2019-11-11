@@ -1,21 +1,24 @@
 import { NegociacoesView, MensagemView } from '../views/index';
 import { Negociacao, Negociacoes } from '../models/index';
 import { isWeekend } from '../enums/index';
+import { DOMInject } from '../helpers/decorators/index'
 
 export class NegociacaoController {
 
+    @DOMInject('#data')
     private _inputData: JQuery;
+    
+    @DOMInject('#quantidade')
     private _inputQuantidade: JQuery;
+    
+    @DOMInject('#valor')
     private _inputValor: JQuery;
+    
     private _negociacoes: Negociacoes = new Negociacoes();
     private _negociacoesView: NegociacoesView = new NegociacoesView('#negociacoesView', true);
     private _mensagemView: MensagemView = new MensagemView('#mensagemView');
 
     constructor() {
-
-        this._inputData = $('#data');
-        this._inputQuantidade = $('#quantidade');
-        this._inputValor = $('#valor');
         this._negociacoesView.update(this._negociacoes);
     }
 
@@ -26,7 +29,7 @@ export class NegociacaoController {
         let data = new Date(this._inputData.val().toString().replace(/-/g, ','));
 
         if (isWeekend(data)) {
-            this._mensagemView.update('Somente negociações em dias úteis, por favor!');
+            this._mensagemView.update('Somente negociações em dias úteis');
             return
         }
 
@@ -38,11 +41,14 @@ export class NegociacaoController {
         );
 
         this._negociacoes.push(negociacao);
+        
         this._negociacoes.getList().length = 0;
-        console.log(this._negociacoes.getList().length);
+        //console.log(this._negociacoes.getList().length);
+        
         this._negociacoes.getList().forEach(negociacao => {
             //console.log(negociacao);
-        })
+        });
+
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso');
     }

@@ -383,3 +383,69 @@ import { DayOfWeek } from '../enums/index';
 // ou
 import { DayOfWeek, isWeekend } from '../enums/index';
 ```
+
+
+#### Criando um Decorator
+
+No arquivo ```tsconfig.json``` adicione a seguinte linha ```"experimentalDecorators": true```.
+
+Crie uma classe da seguinte maneira
+
+```javascript
+export function logarTempoDeExecucao() {
+
+}
+```
+Essa função indica o nome do decorator, mas sua implementação deve estar na função retornada por ```logarTempoDeExecucao```
+
+```javascript
+export function logarTempoDeExecucao() {
+
+    return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+
+    }
+}
+```
+ - ```target```
+    - É aquele que possui uma referência para o elemento cujo método foi decorado por ```logarTempoDeExecucao```
+
+- ```propertyKey```
+    - Este parâmetro é uma string que nos retorna o nome do método decorado
+
+- ```descriptor```
+    - O descriptor da acesso ao método que desejamos modificar sua execução, através de ```descriptor.value```
+
+A ideia é a seguinte. Vamos guardar uma referência para o método original antes de substituí-lo com nosso código. É importante que no final o descriptor seja retornado, com as modificações que faremos. O valor de descriptor.value será ```function(...args: any[])```. Isso se dá dessa forma, porque o método que estamos sobrescrevendo pode receber zero, um ou mais parâmetros de tipos que desconhecemos. Usamos ```...``` para indicar um REST PARAMETER. Fazemos ```metodoOriginal.apply(this, args)``` para invocar o método original, capturar seu resultado, caso exista e retorná-lo.
+
+```javascript
+export function logarTempoDeExecucao() {
+
+    return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+
+        const metodoOriginal = descriptor.value;
+
+        descriptor.value = function(...args: any[]) {
+
+            const retorno = metodoOriginal.apply(this, args);
+            return retorno;
+        }
+
+        return descriptor;
+    }
+}
+```
+
+E para usar o decorator faça:
+
+```javascript
+import { logarTempoDeExecucao } from '../helpers/decorators/index';
+
+//....
+
+    @logarTempoDeExecucao()
+    update(model: T) {
+        //...
+
+    }
+}
+```
