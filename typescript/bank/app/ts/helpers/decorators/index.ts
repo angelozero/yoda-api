@@ -1,1 +1,2 @@
-export * from './DOMInject';
+export * from './domInject';
+export * from './pausaMetodo';

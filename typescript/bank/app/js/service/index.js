@@ -1,4 +1,4 @@
-System.register(["./domInject", "./pausaMetodo"], function (exports_1, context_1) {
+System.register(["./NegociacaoService"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -10,11 +10,8 @@ System.register(["./domInject", "./pausaMetodo"], function (exports_1, context_1
     }
     return {
         setters: [
-            function (domInject_1_1) {
-                exportStar_1(domInject_1_1);
-            },
-            function (pausaMetodo_1_1) {
-                exportStar_1(pausaMetodo_1_1);
+            function (NegociacaoService_1_1) {
+                exportStar_1(NegociacaoService_1_1);
             }
         ],
         execute: function () {

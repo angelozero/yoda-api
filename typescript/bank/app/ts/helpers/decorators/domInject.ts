@@ -1,4 +1,4 @@
-export function DOMInject(selector: string) {
+export function domInject(selector: string) {
 
     return function (target: any, key: string) {
 
