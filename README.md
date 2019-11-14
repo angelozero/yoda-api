@@ -45,6 +45,12 @@
 ---
 
 #### *NodeJS*
+
+  - [00 - Alura - Node.js Parte 1: Inovando com JavaScript no backend](https://cursos.alura.com.br/course/nodejs-fundamentos)
+  - [01 Alura - Node.js e HTTP: desenvolvendo uma API seguindo o estilo REST](https://cursos.alura.com.br/course/nodejs-avancado)
+  - [02 - Alura - Node.js Parte 2: MVC, autenticação e autorização](https://cursos.alura.com.br/course/node-mvc-autenticacao-autorizacao)
+  - [03 - Alura - Rest com NodeJS: API com Express e MySQL](https://cursos.alura.com.br/course/node-rest-api)
+
   - [Roadmap NodeJs](https://github.com/aliyr/Nodejs-Developer-Roadmap?fbclid=IwAR3Mt_F68JToAs-UPNGh5dvq6TKO5Lhm4g6obrC8hGCOHM3ZN2qGL2uSDYA)
   - [NodeJS](https://cursos.alura.com.br/course/nodejs-avancado)
   - [Videos / Info sobre NodeJS](https://github.com/angelozero/nodejs-README/blob/master/README.md)
