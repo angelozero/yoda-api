@@ -44,6 +44,9 @@
  
 ---
 
+#### Kubernetes
+ - [Kubernetes basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
+
 #### *NodeJS*
 
   - [00 - Alura - Node.js Parte 1: Inovando com JavaScript no backend](https://cursos.alura.com.br/course/nodejs-fundamentos)
