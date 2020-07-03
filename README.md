@@ -69,6 +69,7 @@
   - [Udemy - Cursos Gratuitos de NodeJS](https://www.udemy.com/courses/search/?src=ukw&q=node&p=1&price=price-free)
   - [Gulp + Express + NodeJS](https://www.youtube.com/watch?v=s5S_5slvNGA)
   - [Criando aplicaçes em NodeJs](https://blog.dankicode.com/dicas-para-criar-aplicacoes-com-node-js/?fbclid=IwAR25yjHG3w5X2ghF5IGASpAjPjmo-UYGQMWl5nSBn_3tzexk4T1ZGYd5fiQ&ref=L8002178L)
+  - [Tools to help diagnose and pinpoint Node.js performance issues](https://clinicjs.org/)
 
 ----
 
