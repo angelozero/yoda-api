@@ -106,45 +106,124 @@ api.like = async (req, res) => {
 };
 
 api.getPhotosFromHTPPCats = async (req, res) => {
-  var numberPattern = /\d+/g;
-
-
   console.log("fazendo a request")
-  https.get('https://http.cat/', (resp) => {
-    let data = '';
+  
+  // https.get('https://http.cat/', (resp) => {
+  //   let data = '';
 
-    // A chunk of data has been recieved.
-    resp.on('data', (chunk) => {
-      data += chunk;
-    });
+  //   // A chunk of data has been recieved.
+  //   resp.on('data', (chunk) => {
+  //     data += chunk;
+  //   });
 
 
-    // The whole response has been received. Print out the result.
-    resp.on('end', () => {
+  //   // The whole response has been received. Print out the result.
+  //   resp.on('end', () => {
 
-      // Get only images from HTTP Cats
-      const text = htmlToText.fromString(data.toString(), {
-        baseElement: 'body'
-      });
+  //     let catMap = new Map();
 
-      return res.status(200).json({
-        message: 'Response found', body: text
+  //     // Get only images from HTTP Cats
+  //     const text = htmlToText.fromString(data.toString(), {
+  //       baseElement: 'body'
+  //     });
 
-          .match(/\*([^\]]*)\[/g).toString()
-          .replace(/\*/g, '')
-          .replace(/\[/g, '')
-          .replace(/\,/g, '')
-          // .replace(" * ", " ")
-          // .replace(" [,* ", " ")
-          
-          .split("  ")[1]
-      });
-    });
+  //     let animalsStatusList = text.match(/\*([^\]]*)\[/g).toString()
+  //       .replace(/\*/g, '')
+  //       .replace(/\[/g, '')
+  //       .replace(/\,/g, '')
+  //       .split("  ")
 
-  }).on("error", (err) => {
-    console.log("Error: " + err.message);
-    return res.status(403).json({ message: 'Response not found' });
+  //     for (var x = 0; x < animalsStatusList.length; x++) {
+  //       var catInfo = animalsStatusList[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
+  //       catMap.set(catInfo.substring(0, 3), catInfo.substring(3, catInfo.length))
+  //       animalsStatusList[x] = catInfo
+  //     }
+
+
+  //     return res.status(200).json({
+  //       message: 'Response found', body: animalsStatusList
+  //     });
+  //   });
+
+  // }).on("error", (err) => {
+  //   console.log("Error: " + err.message);
+  //   return res.status(403).json({ message: 'Response not found' });
+  // });
+  return res.status(200).json({
+    message: 'Response found', body: catMapMockList()
   });
 };
+
+function catMapMockList() {
+  const text = ["100 Continue",
+    "101 Switching Protocols",
+    "200 OK",
+    "201 Created",
+    "202 Accepted",
+    "204 No Content",
+    "206 Partial Content",
+    "207 Multi-Status",
+    "300 Multiple Choices",
+    "301 Moved Permanently",
+    "302 Found",
+    "303 See Other",
+    "304 Not Modified",
+    "305 Use Proxy",
+    "307 Temporary Redirect",
+    "400 Bad Request",
+    "401 Unauthorized",
+    "402 Payment Required",
+    "403 Forbidden",
+    "404 Not Found",
+    "405 Method Not Allowed",
+    "406 Not Acceptable",
+    "408 Request Timeout",
+    "409 Conflict",
+    "410 Gone",
+    "411 Length Required",
+    "412 Precondition Failed",
+    "413 Payload Too Large",
+    "414 Request-URI Too Long",
+    "415 Unsupported Media Type",
+    "416 Request Range Not Satisfiable",
+    "417 Expectation Failed",
+    "418 I´m a teapot",
+    "420 Enhance Your Calm",
+    "421 Misdirected Request",
+    "422 Unprocessable Entity",
+    "423 Locked",
+    "424 Failed Dependency",
+    "425 Unordered Collection",
+    "426 Upgrade Required",
+    "429 Too Many Requests",
+    "431 Request Header Fields Too Large",
+    "444 No Response",
+    "450 Blocked by Windows Parental Controls",
+    "451 Unavailable For Legal Reasons",
+    "499 Client Closed Request",
+    "500 Internal Server Error",
+    "501 Not Implemented",
+    "502 Bad Gateway",
+    "503 Service Unavailable",
+    "504 Gateway Timeout",
+    "506 Variant Also Negotiates",
+    "507 Insufficient Storage",
+    "508 Loop Detected",
+    "509 Bandwidth Limit Exceeded",
+    "510 Not Extended",
+    "511 Network Authentication Required",
+    "599 Network Connect Timeout Error"];
+
+  let catMap = {};
+
+  for (var x = 0; x < text.length; x++) {
+    
+    var catInfo = text[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
+    catMap[catInfo.substring(0, 3)] = [catInfo.substring(5, catInfo.length)]
+    text[x] = catInfo;
+  }
+
+  return catMap;
+}
 
 module.exports = api;
