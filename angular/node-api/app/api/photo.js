@@ -107,7 +107,7 @@ api.like = async (req, res) => {
 
 api.getPhotosFromHTPPCats = async (req, res) => {
   console.log("fazendo a request")
-  
+
   // https.get('https://http.cat/', (resp) => {
   //   let data = '';
 
@@ -149,8 +149,22 @@ api.getPhotosFromHTPPCats = async (req, res) => {
   //   console.log("Error: " + err.message);
   //   return res.status(403).json({ message: 'Response not found' });
   // });
+
+  let catMockList = catMapMockList();
+  const dao = new PhotoDao(req.db);
+  const isCatPhoto = await dao.isCatPhoto();
+
+  console.log(!isCatPhoto.isfull)
+
+  if (!isCatPhoto.isfull) {
+    for (const [key, value] of Object.entries(catMockList)) {
+      await dao.add({ url: `https://http.cat/images/${key}.jpg`, description: value.toString(), allowComments: true }, 4)
+    }
+    dao.setIsCatPhoto(true);
+  }
+
   return res.status(200).json({
-    message: 'Response found', body: catMapMockList()
+    message: 'Response found', body: catMockList
   });
 };
 
@@ -217,7 +231,7 @@ function catMapMockList() {
   let catMap = {};
 
   for (var x = 0; x < text.length; x++) {
-    
+
     var catInfo = text[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
     catMap[catInfo.substring(0, 3)] = [catInfo.substring(5, catInfo.length)]
     text[x] = catInfo;

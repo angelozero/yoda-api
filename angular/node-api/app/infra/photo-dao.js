@@ -163,6 +163,66 @@ class PhotoDao {
     });
   }
 
+  deleteAll() {
+    return new Promise((resolve, reject) => {
+      this._db.run(`
+                    DELETE FROM photo
+                `,
+        function (err) {
+          if (err) {
+            console.log(err);
+            return reject('Can`t add comment');
+          } else {
+            console.log(`Table [photo] deleted with success`)
+          }
+        });
+    });
+  }
+
+  setIsCatPhoto(isCatPhoto) {
+    return new Promise((resolve, reject) => {
+      this._db.run(`
+      UPDATE catphoto SET isfull=?
+  `,
+        [
+          isCatPhoto
+        ],
+        function (err) {
+          if (err) {
+            console.log(err);
+            return reject('Can`t update catphoto table');
+          }
+        });
+    });
+  }
+
+  isCatPhoto() {
+    return new Promise((resolve, reject) => {
+      this._db.all(
+        `
+                SELECT 
+                    isfull 
+                FROM catphoto 
+                WHERE catphotos_id = 1  
+                `,
+        (err, data) => {
+
+          if (err) {
+            console.log(err);
+            return reject('Can`t get last catphoto id');
+          }
+          return resolve(data[0]);
+        }
+      );
+
+    });
+  }
+
+  updatePhotoTable(){
+    this.deleteAll.deleteAll(),
+    this.setIsCatPhoto(0)
+  }
+
   getCommentsFromPhoto(photoId) {
 
     return new Promise((resolve, reject) => {

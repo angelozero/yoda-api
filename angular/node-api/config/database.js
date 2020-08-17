@@ -29,7 +29,12 @@ INSERT INTO user (
     user_email,
     user_password,
     user_full_name
-) SELECT 'beloved', 'beloved@ciandt.com.br', '456', 'Beloved' WHERE NOT EXISTS (SELECT * FROM user WHERE user_name = 'beloved')
+) SELECT 'zero', 'zero@ciandt.com.br', '456', 'Zero' WHERE NOT EXISTS (SELECT * FROM user WHERE user_name = 'zero')
+`;
+
+const PHOTO_DROP_SCHEMA = 
+`
+DROP TABLE IF EXISTS photo 
 `;
 
 const PHOTO_SCHEMA = 
@@ -44,6 +49,26 @@ CREATE TABLE IF NOT EXISTS photo (
     user_id INTEGER,
     FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE 
 )
+`;
+
+
+const CATPHOTO_DROP_SCHEMA = 
+`
+DROP TABLE IF EXISTS catphoto 
+`;
+
+const CATPHOTO_CREATE_SCHEMA = 
+`
+CREATE TABLE IF NOT EXISTS catphoto (
+    catphotos_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    isfull BIGINT NOT NULL DEFAULT (0) 
+)
+`;
+
+const INSERT_FALSE_CATPHOTO_TABLE = 
+`
+INSERT INTO catphoto (isfull)
+VALUES(0);
 `;
 
 const COMMENT_SCHEMA =
@@ -76,7 +101,11 @@ db.serialize(() => {
     db.run(USER_SCHEMA);
     db.run(INSERT_DEFAULT_USER_1);
     db.run(INSERT_DEFAULT_USER_2);
-    db.run(PHOTO_SCHEMA);        
+    db.run(PHOTO_DROP_SCHEMA);  
+    db.run(PHOTO_SCHEMA);
+    db.run(CATPHOTO_DROP_SCHEMA);
+    db.run(CATPHOTO_CREATE_SCHEMA);        
+    db.run(INSERT_FALSE_CATPHOTO_TABLE);    
     db.run(COMMENT_SCHEMA);     
     db.run(LIKE_SCHEMA);        
 
