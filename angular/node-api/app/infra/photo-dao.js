@@ -25,7 +25,6 @@ class PhotoDao {
   }
 
   listAllFromUser(userName, page) {
-
     const from = (page - 1) * maxRows;
 
     let limitQuery = '';
@@ -93,7 +92,6 @@ class PhotoDao {
   }
 
   findById(id) {
-
     return new Promise((resolve, reject) => this._db.get(`
             SELECT  p.*, 
                     (SELECT COUNT(c.comment_id) 
@@ -163,7 +161,7 @@ class PhotoDao {
     });
   }
 
-  deleteAll() {
+  deleteAllPhotos() {
     return new Promise((resolve, reject) => {
       this._db.run(`
                     DELETE FROM photo
@@ -179,52 +177,62 @@ class PhotoDao {
     });
   }
 
-  setIsCatPhoto(isCatPhoto) {
-    return new Promise((resolve, reject) => {
-      this._db.run(`
-      UPDATE catphoto SET isfull=?
-  `,
-        [
-          isCatPhoto
-        ],
-        function (err) {
-          if (err) {
-            console.log(err);
-            return reject('Can`t update catphoto table');
-          }
-        });
-    });
-  }
-
-  isCatPhoto() {
+  findAllPhotos() {
     return new Promise((resolve, reject) => {
       this._db.all(
         `
-                SELECT 
-                    isfull 
-                FROM catphoto 
-                WHERE catphotos_id = 1  
-                `,
+          SELECT * FROM photo            
+        `,
         (err, data) => {
-
           if (err) {
             console.log(err);
-            return reject('Can`t get last catphoto id');
+            return reject('Error to get all photos');
           }
-          return resolve(data[0]);
+          return resolve(data);
         }
       );
 
     });
   }
 
-  updatePhotoTable(){
-    this.deleteAll.deleteAll(),
-    this.setIsCatPhoto(0)
+  isPhotoInfo() {
+    return new Promise((resolve, reject) => {
+      this._db.all(
+        `
+                SELECT 
+                    data 
+                FROM photoinfo 
+                WHERE photoinfo_id = 1  
+                `,
+        (err, data) => {
+
+          if (err) {
+            console.log(err);
+            return reject('Error to get info from photoinfo table');
+          }
+          return resolve(data[0]);
+        }
+      );
+    });
+  }
+
+  setPhotoInfo(data, photoData) {
+    console.log(data, photoData)
+    return new Promise((reject) => {
+      this._db.run(`UPDATE photoinfo SET data=? WHERE data=?`,
+        [data, photoData],
+        function (err) {
+          if (err) {
+            console.log(err);
+            return reject('Can`t update photoinfo table');
+          } else {
+            console.log(`photoinfo updated with sucess`)
+          }
+        });
+    });
   }
 
   getCommentsFromPhoto(photoId) {
-
     return new Promise((resolve, reject) => {
       this._db.all(
         `
@@ -276,7 +284,6 @@ class PhotoDao {
   }
 
   likeById(photoId, userId) {
-
     return new Promise((resolve, reject) => this._db.run(
       `
             INSERT OR IGNORE INTO like 
@@ -293,7 +300,6 @@ class PhotoDao {
         resolve(!!this.changes);
       }
     ));
-
   }
 }
 

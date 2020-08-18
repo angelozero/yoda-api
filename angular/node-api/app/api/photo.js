@@ -105,139 +105,75 @@ api.like = async (req, res) => {
   return res.status(304).end();
 };
 
-api.getPhotosFromHTPPCats = async (req, res) => {
-  console.log("fazendo a request")
+api.findAllPhotos = async (req, res) => {
 
-  // https.get('https://http.cat/', (resp) => {
-  //   let data = '';
-
-  //   // A chunk of data has been recieved.
-  //   resp.on('data', (chunk) => {
-  //     data += chunk;
-  //   });
-
-
-  //   // The whole response has been received. Print out the result.
-  //   resp.on('end', () => {
-
-  //     let catMap = new Map();
-
-  //     // Get only images from HTTP Cats
-  //     const text = htmlToText.fromString(data.toString(), {
-  //       baseElement: 'body'
-  //     });
-
-  //     let animalsStatusList = text.match(/\*([^\]]*)\[/g).toString()
-  //       .replace(/\*/g, '')
-  //       .replace(/\[/g, '')
-  //       .replace(/\,/g, '')
-  //       .split("  ")
-
-  //     for (var x = 0; x < animalsStatusList.length; x++) {
-  //       var catInfo = animalsStatusList[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
-  //       catMap.set(catInfo.substring(0, 3), catInfo.substring(3, catInfo.length))
-  //       animalsStatusList[x] = catInfo
-  //     }
-
-
-  //     return res.status(200).json({
-  //       message: 'Response found', body: animalsStatusList
-  //     });
-  //   });
-
-  // }).on("error", (err) => {
-  //   console.log("Error: " + err.message);
-  //   return res.status(403).json({ message: 'Response not found' });
-  // });
-
-  let catMockList = catMapMockList();
-  const dao = new PhotoDao(req.db);
-  const isCatPhoto = await dao.isCatPhoto();
-
-  console.log(!isCatPhoto.isfull)
-
-  if (!isCatPhoto.isfull) {
-    for (const [key, value] of Object.entries(catMockList)) {
-      await dao.add({ url: `https://http.cat/images/${key}.jpg`, description: value.toString(), allowComments: true }, 4)
-    }
-    dao.setIsCatPhoto(true);
-  }
+  let catStatusImageData = await new PhotoDao(req.db).findAllPhotos();
 
   return res.status(200).json({
-    message: 'Response found', body: catMockList
+    message: 'Response found', body: catStatusImageData
+  });
+}
+
+
+
+api.saveAllCaStatusImages = async (req, res) => {
+  const photoDao = new PhotoDao(req.db);
+  const isPhotoInfo = await photoDao.isPhotoInfo();
+
+  if (!isPhotoInfo.data) {
+    https.get('https://http.cat/', (resp) => {
+      let data = '';
+
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      resp.on('end', () => {
+
+        const text = htmlToText.fromString(data.toString(), {
+          baseElement: 'body'
+        });
+
+        let catStatusImageList = text.match(/\*([^\]]*)\[/g).toString()
+          .replace(/\*/g, '')
+          .replace(/\[/g, '')
+          .replace(/\,/g, '')
+          .split("  ")
+
+        for (var x = 0; x < catStatusImageList.length; x++) {
+          var catStatusImageInfo = catStatusImageList[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
+          photoDao.add({ url: `https://http.cat/images/${catStatusImageInfo.substring(0, 3)}.jpg`, description: catStatusImageInfo.substring(3, catStatusImageInfo.length), allowComments: true }, 4)
+          catStatusImageList[x] = catStatusImageInfo
+        }
+
+        photoDao.setPhotoInfo(1, isPhotoInfo.data);
+
+        return res.status(200).json({
+          message: 'images saved with success'/*, data: catStatusImageList*/
+        });
+      });
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+      return res.status(403).json({ message: 'Response not found' });
+    });
+
+  } else {
+    return res.status(200).json({
+      message: 'Nothing to update or save'
+    });
+  }
+}
+
+api.deletePhotoTable = async (req, res) => {
+  const dao = new PhotoDao(req.db);
+  const dataPhoto = await dao.isPhotoInfo();
+  
+  dao.deleteAllPhotos();
+  dao.setPhotoInfo(0, dataPhoto.data);
+
+  return res.status(200).json({
+    message: 'All photos deleted with success'
   });
 };
-
-function catMapMockList() {
-  const text = ["100 Continue",
-    "101 Switching Protocols",
-    "200 OK",
-    "201 Created",
-    "202 Accepted",
-    "204 No Content",
-    "206 Partial Content",
-    "207 Multi-Status",
-    "300 Multiple Choices",
-    "301 Moved Permanently",
-    "302 Found",
-    "303 See Other",
-    "304 Not Modified",
-    "305 Use Proxy",
-    "307 Temporary Redirect",
-    "400 Bad Request",
-    "401 Unauthorized",
-    "402 Payment Required",
-    "403 Forbidden",
-    "404 Not Found",
-    "405 Method Not Allowed",
-    "406 Not Acceptable",
-    "408 Request Timeout",
-    "409 Conflict",
-    "410 Gone",
-    "411 Length Required",
-    "412 Precondition Failed",
-    "413 Payload Too Large",
-    "414 Request-URI Too Long",
-    "415 Unsupported Media Type",
-    "416 Request Range Not Satisfiable",
-    "417 Expectation Failed",
-    "418 I´m a teapot",
-    "420 Enhance Your Calm",
-    "421 Misdirected Request",
-    "422 Unprocessable Entity",
-    "423 Locked",
-    "424 Failed Dependency",
-    "425 Unordered Collection",
-    "426 Upgrade Required",
-    "429 Too Many Requests",
-    "431 Request Header Fields Too Large",
-    "444 No Response",
-    "450 Blocked by Windows Parental Controls",
-    "451 Unavailable For Legal Reasons",
-    "499 Client Closed Request",
-    "500 Internal Server Error",
-    "501 Not Implemented",
-    "502 Bad Gateway",
-    "503 Service Unavailable",
-    "504 Gateway Timeout",
-    "506 Variant Also Negotiates",
-    "507 Insufficient Storage",
-    "508 Loop Detected",
-    "509 Bandwidth Limit Exceeded",
-    "510 Not Extended",
-    "511 Network Authentication Required",
-    "599 Network Connect Timeout Error"];
-
-  let catMap = {};
-
-  for (var x = 0; x < text.length; x++) {
-
-    var catInfo = text[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
-    catMap[catInfo.substring(0, 3)] = [catInfo.substring(5, catInfo.length)]
-    text[x] = catInfo;
-  }
-
-  return catMap;
-}
 
 module.exports = api;

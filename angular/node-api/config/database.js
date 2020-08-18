@@ -1,16 +1,14 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('data.db');
 
-const USER_SCHEMA = `
-CREATE TABLE IF NOT EXISTS user (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    user_name VARCHAR(30) NOT NULL UNIQUE, 
-    user_email VARCHAR(255) NOT NULL, 
-    user_password VARCAHR(255) NOT NULL,
-    user_full_name VARCAHR(40) NOT NULL, 
-    user_join_date TIMESTAMP DEFAULT current_timestamp
-)
-`;
+const USER_SCHEMA = `CREATE TABLE IF NOT EXISTS user (
+  user_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+  user_name VARCHAR(30) NOT NULL UNIQUE, 
+  user_email VARCHAR(255) NOT NULL, 
+  user_password VARCAHR(255) NOT NULL,
+  user_full_name VARCAHR(40) NOT NULL, 
+  user_join_date TIMESTAMP DEFAULT current_timestamp
+)`;
 
 const INSERT_DEFAULT_USER_1 = 
 `
@@ -32,10 +30,6 @@ INSERT INTO user (
 ) SELECT 'zero', 'zero@ciandt.com.br', '456', 'Zero' WHERE NOT EXISTS (SELECT * FROM user WHERE user_name = 'zero')
 `;
 
-const PHOTO_DROP_SCHEMA = 
-`
-DROP TABLE IF EXISTS photo 
-`;
 
 const PHOTO_SCHEMA = 
 `
@@ -51,24 +45,19 @@ CREATE TABLE IF NOT EXISTS photo (
 )
 `;
 
-
-const CATPHOTO_DROP_SCHEMA = 
+const PHOTO_TABLE_INFO_CREATE_SCHEMA = 
 `
-DROP TABLE IF EXISTS catphoto 
-`;
-
-const CATPHOTO_CREATE_SCHEMA = 
-`
-CREATE TABLE IF NOT EXISTS catphoto (
-    catphotos_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    isfull BIGINT NOT NULL DEFAULT (0) 
+CREATE TABLE IF NOT EXISTS photoinfo (
+    photoinfo_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    data BIGINT NOT NULL DEFAULT (0) 
 )
 `;
 
 const INSERT_FALSE_CATPHOTO_TABLE = 
 `
-INSERT INTO catphoto (isfull)
-VALUES(0);
+INSERT INTO photoinfo (data)
+  SELECT 0 FROM photoinfo 
+    WHERE NOT EXISTS (SELECT 1 FROM photoinfo where data = 0)
 `;
 
 const COMMENT_SCHEMA =
@@ -100,11 +89,9 @@ db.serialize(() => {
     db.run("PRAGMA foreign_keys=ON");
     db.run(USER_SCHEMA);
     db.run(INSERT_DEFAULT_USER_1);
-    db.run(INSERT_DEFAULT_USER_2);
-    db.run(PHOTO_DROP_SCHEMA);  
+    db.run(INSERT_DEFAULT_USER_2); 
     db.run(PHOTO_SCHEMA);
-    db.run(CATPHOTO_DROP_SCHEMA);
-    db.run(CATPHOTO_CREATE_SCHEMA);        
+    db.run(PHOTO_TABLE_INFO_CREATE_SCHEMA);        
     db.run(INSERT_FALSE_CATPHOTO_TABLE);    
     db.run(COMMENT_SCHEMA);     
     db.run(LIKE_SCHEMA);        

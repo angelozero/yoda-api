@@ -4,8 +4,16 @@ const { photoAPI } = require('../api'),
 
 module.exports = app => {
 
-  app.route('/photos/http-cats')
-    .get(wrapAsync(photoAPI.getPhotosFromHTPPCats));
+  app.route('/photos/status-cat')
+    .get(wrapAsync(photoAPI.findAllPhotos));
+
+    // Alterar rota para PUT
+  app.route('/photos/status-cat/update')
+    .get(wrapAsync(photoAPI.saveAllCaStatusImages));
+
+    // Alterar rota para DELETE
+  app.route('/photos/status-cat/delete')
+    .get(wrapAsync(photoAPI.deletePhotoTable));
 
   app.route('/:userName/photos')
     .get(wrapAsync(photoAPI.list));
@@ -17,7 +25,6 @@ module.exports = app => {
     .post(auth, wrapAsync(photoAPI.add))
     .delete(auth, wrapAsync(photoAPI.remove))
     .get(wrapAsync(photoAPI.findById));
-
 
   app.route('/photos/:photoId/like')
     .post(auth, wrapAsync(photoAPI.like));
