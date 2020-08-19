@@ -27,9 +27,13 @@
        2 - Mas o que são essas metas informações ?
        
           2.1 - ```selector: 'app-root',``` - Este *selector* nos permite utilizar o componente em templates. Todo conteudo da sua apresentação, seu CSS e o que ele vai fazer, são acessados através dele.
+          
           2.2 - ```templateUrl: './app.component.html',``` - Template HTML que sera exibida pelo componente.
+          
           2.3 - ```styleUrls: ['./app.component.css']``` - Template CSS que sera utilizado no componente.
+          
           2.4 - ```title = 'cat-status-code';``` - Variavel do nosso componente que recebe o valor *cat-status-code* ( leia mais sobre o tópico Data binding a seguir )
+          
           
     - Data binding - É um recurso utilizado pelo Angular que implica em uma associação de dados com uma fonte de dados. Esta informação esta no nosso componente. Ao encontrarmos esta sintaxe ```{{ title }``` chamada de Angular expression automaticamente ele estará apontando para a propriedade title acessando e exibindo o seu valor.
 
