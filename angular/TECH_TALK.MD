@@ -102,23 +102,34 @@
     3 - ( Nao obrigatorio ) Adicionar o bootstrap
     
     4 - Crie um componente que seja referente a informações de que uma foto precisa.
-      4.1 - Se necessário não esqueça de refatorar o componente ```AppComponent```.
-      4.2 - Esta com problema ? Leia o topico **1.02 Componentes**
+    
+        4.1 - Se necessário não esqueça de refatorar o componente ```AppComponent```.
+      
+        4.2 - Esta com problema ? Leia o topico **1.02 Componentes**
     
     5 - Componente criado ? Então vamos la ! 
-      5.1 - Adicione mais 3 ou 4 tags iguais no html para termos mais fotos na tela, 
-      5.2 - Remova a urls fixa no código do componente e passe esse valor na declaraçao do componente que esta na página html que o usa.
-      5.3 - Está com dúvidas sobre como fazer essa declaração ? Leia o tópico **1.03 Inbound properties**
+    
+        5.1 - Adicione mais 3 ou 4 tags iguais no html para termos mais fotos na tela
+      
+        5.2 - Remova a urls fixa no código do componente e passe esse valor na declaraçao do componente que esta na página html que o usa.
+      
+        5.3 - Está com dúvidas sobre como fazer essa declaração ? Leia o tópico **1.03 Inbound properties**
     
     6 - Antes que seu código vire uma bagunça vamos criar um módulo
-      6.1 - Crie um novo módulo pertinente apenas ao que for referente a foto, não esqueça de arrumar a estutura de pastas !
-      6.2 - Remova o componente de foto de *app.module.ts** e passe para seu novo módulo.
-      6.3 - Adicione / declare o novo modulo criado em *app.module.ts** e garanta que tudo esta funcionando.
-      6.4 - Esta com duvidas ? Leia o topico **1.04 Módulos**
+    
+        6.1 - Crie um novo módulo pertinente apenas ao que for referente a foto, não esqueça de arrumar a estutura de pastas !
+      
+        6.2 - Remova o componente de foto de *app.module.ts** e passe para seu novo módulo.
+      
+        6.3 - Adicione / declare o novo modulo criado em *app.module.ts** e garanta que tudo esta funcionando.
+      
+        6.4 - Esta com duvidas ? Leia o topico **1.04 Módulos**
     
     7 - Substitua sua lista fixa de fotos por um recurso de laço do angular, use uma *diretiva*.
-      7.1 - Ao invés do *app.component.html* receber 3 ou 4 componentes iguais, faça que ele receba apenas uma lista aonde contenha todas as urls.
-      7.2 - Esta com  dúvidas ? Leia o tópico **1.05 - Usando diretivas** 
+    
+        7.1 - Ao invés do *app.component.html* receber 3 ou 4 componentes iguais, faça que ele receba apenas uma lista aonde contenha todas as urls.
+      
+        7.2 - Esta com  dúvidas ? Leia o tópico **1.05 - Usando diretivas** 
 
     ---
 
