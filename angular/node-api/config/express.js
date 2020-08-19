@@ -50,14 +50,10 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     const token = req.headers['x-access-token'];
-    console.log('####################################');
     if(token) {
         console.log('A token is send by the application');
         console.log('Token value is ' + token);
-    } else {
-        console.log('No token is send by the the application');
-    }
-    console.log('####################################');
+    } 
     next();
 });
 

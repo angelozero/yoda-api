@@ -14,7 +14,6 @@ const userCanDelete = user => photo => photo.userId == user.id;
 const defaultExtension = '.jpg';
 
 api.list = async (req, res) => {
-  console.log('####################################');
   const { userName } = req.params;
   const { page } = req.query;
   const user = await new UserDao(req.db).findByName(userName);
@@ -30,7 +29,6 @@ api.list = async (req, res) => {
 }
 
 api.add = async (req, res) => {
-  console.log('####################################');
   console.log('Received JSON data', req.body);
   const photo = req.body;
   photo.file = '';
@@ -40,9 +38,9 @@ api.add = async (req, res) => {
 
 api.addUpload = async (req, res) => {
 
-  console.log('upload complete');
+  console.log('\nupload complete');
   console.log('Photo data', req.body);
-  console.log('File info', req.file);
+  console.log('File info\n', req.file);
 
   const image = await jimp.read(req.file.path);
 
@@ -60,7 +58,6 @@ api.addUpload = async (req, res) => {
 
 api.findById = async (req, res) => {
   const { photoId } = req.params;
-  console.log('####################################');
   console.log(`Finding photo for ID ${photoId}`)
   const photo = await new PhotoDao(req.db).findById(photoId);
   if (photo) {
@@ -110,17 +107,18 @@ api.findAllPhotos = async (req, res) => {
   let catStatusImageData = await new PhotoDao(req.db).findAllPhotos();
 
   return res.status(200).json({
-    message: 'Response found', body: catStatusImageData
+    message: '200 OK', body: catStatusImageData
   });
 }
-
-
 
 api.saveAllCaStatusImages = async (req, res) => {
   const photoDao = new PhotoDao(req.db);
   const isPhotoInfo = await photoDao.isPhotoInfo();
 
-  if (!isPhotoInfo.data) {
+  if (isPhotoInfo.data === 0) {
+
+    const user = await photoDao.findUser();
+
     https.get('https://http.cat/', (resp) => {
       let data = '';
 
@@ -142,7 +140,7 @@ api.saveAllCaStatusImages = async (req, res) => {
 
         for (var x = 0; x < catStatusImageList.length; x++) {
           var catStatusImageInfo = catStatusImageList[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
-          photoDao.add({ url: `https://http.cat/images/${catStatusImageInfo.substring(0, 3)}.jpg`, description: catStatusImageInfo.substring(3, catStatusImageInfo.length), allowComments: true }, 4)
+          photoDao.add({ url: `https://http.cat/images/${catStatusImageInfo.substring(0, 3)}.jpg`, description: catStatusImageInfo.substring(3, catStatusImageInfo.length), allowComments: true }, user.user_id)
           catStatusImageList[x] = catStatusImageInfo
         }
 
@@ -166,10 +164,10 @@ api.saveAllCaStatusImages = async (req, res) => {
 
 api.deletePhotoTable = async (req, res) => {
   const dao = new PhotoDao(req.db);
-  const dataPhoto = await dao.isPhotoInfo();
-  
+  const photoInfo = await dao.isPhotoInfo();
+
   dao.deleteAllPhotos();
-  dao.setPhotoInfo(0, dataPhoto.data);
+  dao.setPhotoInfo(0, photoInfo.data);
 
   return res.status(200).json({
     message: 'All photos deleted with success'

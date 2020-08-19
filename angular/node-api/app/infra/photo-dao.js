@@ -63,6 +63,24 @@ class PhotoDao {
     });
   }
 
+  findUser() {
+    return new Promise((resolve, reject) => {
+      this._db.all(
+        `
+        SELECT * FROM user LIMIT 1
+        `,
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return reject('Error to get all photos');
+          }
+          return resolve(data[0]);
+        }
+      );
+
+    });
+  }
+
   add(photo, user_id) {
     return new Promise((resolve, reject) => {
       this._db.run(`
@@ -171,7 +189,7 @@ class PhotoDao {
             console.log(err);
             return reject('Can`t add comment');
           } else {
-            console.log(`Table [photo] deleted with success`)
+            console.log(`Table [PHOTO] deleted with success`)
           }
         });
     });
@@ -217,7 +235,7 @@ class PhotoDao {
   }
 
   setPhotoInfo(data, photoData) {
-    console.log(data, photoData)
+
     return new Promise((reject) => {
       this._db.run(`UPDATE photoinfo SET data=? WHERE data=?`,
         [data, photoData],
@@ -226,7 +244,7 @@ class PhotoDao {
             console.log(err);
             return reject('Can`t update photoinfo table');
           } else {
-            console.log(`photoinfo updated with sucess`)
+            console.log(`Table [PHOTOINFO] updated with sucess`)
           }
         });
     });

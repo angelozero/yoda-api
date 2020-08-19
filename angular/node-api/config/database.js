@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('data.db');
+const db = new sqlite3.Database('catphoto.db');
 
 const USER_SCHEMA = `CREATE TABLE IF NOT EXISTS user (
   user_id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -55,9 +55,8 @@ CREATE TABLE IF NOT EXISTS photoinfo (
 
 const INSERT_FALSE_CATPHOTO_TABLE = 
 `
-INSERT INTO photoinfo (data)
-  SELECT 0 FROM photoinfo 
-    WHERE NOT EXISTS (SELECT 1 FROM photoinfo where data = 0)
+INSERT INTO photoinfo (data) VALUES (0)
+  
 `;
 
 const COMMENT_SCHEMA =
@@ -96,10 +95,10 @@ db.serialize(() => {
     db.run(COMMENT_SCHEMA);     
     db.run(LIKE_SCHEMA);        
 
-    db.each("SELECT * FROM user", (err, user) => {
-        console.log('Users');
-        console.log(user);
-    });
+    // db.each("SELECT * FROM user", (err, user) => {
+    //     console.log('Users');
+    //     console.log(user);
+    // });
 });
 
 process.on('SIGINT', () =>

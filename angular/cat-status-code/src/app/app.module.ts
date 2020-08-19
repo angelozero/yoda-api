@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,6 +15,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     PhotosModule,
+    //HttpClientModule, ---> transferido para o photo.module.ts
     AppRoutingModule
   ],
   providers: [],
