@@ -94,6 +94,7 @@
   * Após entender a estrutura inicial, vamos implementar e ir além do que ja temos.
     
     **1 Etapa - Inicial**
+
     1 - Crie duas variaveis dentro do nosso componente: src e title. src deve receber a url da imagem e title o titulo definido por você.
     
     2 - No HTML use as expressões e exiba na tela a imagem e o titulo defindo.
@@ -120,6 +121,7 @@
       7.2 - Esta com  dúvidas ? Leia o tópico **1.05 - Usando diretivas** 
 
     **2 Etapa - Integração com API e camada de seriço**
+    
     1 - Agora será necessário fazer uma integração com uma API externa, para isso use a lib http client do Angular na classe app.component.ts e crie uma variavel do tipo: ```http: HttpClient; ... @angular/common/http```. Para que tudo funcione corretamente faça a injeção dessa dependência no momento em que a aplicação é iniciada.
 
     2 - Faça uma requisição para este link: ```http://localhost:3000/angelo/photos``` e retorne na tela todas as imagens retornadas da requisição. 
