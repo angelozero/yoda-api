@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'cat-status-photo-component',
+  selector: 'app-photo',
   templateUrl: './photo.component.html'
 })
 export class PhotoComponent {

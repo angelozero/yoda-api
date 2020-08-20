@@ -1,4 +1,4 @@
-### 01 - Do começo ...
+## 01 - Do começo ...
 
 * Sobre Angular CLI
   - Primeiro passo vamos acessar o site do [Angular CLI](https://cli.angular.io/)
@@ -29,7 +29,7 @@
 #### 1.03 - Inbound properties
   * O que é inbound properties ? Nada mais é que a passagem de valores para os componentes no momento da declaração deles.
     - Para que o componente criado receba valores para seus atributos na sua declaração, precisamos explicitar as propriedades que ele tem.
-    - Para explicitar usamos a anotação ```@Input()```, sendo assim tornamos possível o uso delas na declaração do nosso componente.
+    - Para explicitar usamos a anotação ```@Input() atributo-do-seu-componente```, sendo assim tornamos possível o uso delas na declaração do nosso componente.
     - *Exemplo*.: ```<seu-componente atributo-do-seu-componente="foo"></seu-componente>```
 
 #### 1.04 - Módulos
@@ -60,7 +60,7 @@
 
 --- 
 
-### 2 - Integrando a aplicação com outra API
+## 2 - Integrando a aplicação com outra API
 
 #### 2.01 - HttpClient, Injeção de Dependência, Observable, Criando um serviço e usando @Injectable, Ciclo de vida de um componente
   * Como utilizar e injetar uma depência na aplicação ?
@@ -88,52 +88,89 @@
     - *@Injectable* - este *decorator* indica que ```PhotoService``` é injetavel (pode receber *httpClient*). Para funcionar corretamente precisamos informar seu escopo, se vai ser único ou não. Como um ou mais componentes podem usar o *photoService* e o mesmo objeto, então é declarado a configuração *provideIn* com o valor *root*. Isso faz com que o Angular coloque esta classe no escopo **raíz** tornando o serviço acessível para qualquer classe. 
 
 --- 
+
+## 3 - Single Page Aplication, BrowserModule, CommonModule e Rotas
+
+#### 3.01 - Organizando o código criando um novo componente com o Angular CLI
+  * Como usar os recursos do Angular CLI corretamente ?
+    - Primeiro vamos criar um novo componente que terá a responsabilidade de exibir as fotos, sendo assim ```app-module.ts``` não ficará mais esta responsabilidade. 
+    - Para criar um novo componente digite no terminal o seguinte comando: ```ng generate component photos/photo-list.```. 
+    - Remova o código dentro de ```app-module.ts``` que trata o fluxo de foto e o template dentro de ```app.component.html``` para ```photo-list-component.ts``` e ```photo-list-component.html```. Não se esqueça de importar o **PhotoListComponent** para dentro de ```declarations``` em **PhotoModule**.
+
+#### 3.02 - BrowserModule x CommonModule
+   * BrowserModule vs CommonModule em angular
+    - Ao criamos um novo componente, este não pode utilizar o modulo BrowserModule, módulo que contem as diretivas. Para isso usamos o módulo CommonModule.
+    - Um pouco sobre as diferenças entre um e outro:
+      - O BrowserModule fornece serviços essenciais para iniciar e executar um aplicativo de navegador e também reexporta o CommonModule de @ angular/common, que Significa que os componentes no módulo AppModule também têm acesso às diretivas Angular que todo aplicativo precisa, como NgIf e NgFor.
+      - CommonModule (todas as noções básicas de Angular modelagem: bindings, * ngIf, * ngFor…), exceto no primeiro módulo do aplicativo, porque ele já faz parte do BrowserModule
+    - Leia mais em [CommonModule vs BrowserModule em angular](https://www.it-swarm.dev/pt/angular/commonmodule-vs-browsermodule-em-angular/837385884/)
+
+#### 3.03 - Rotas
+   * Criando uma rota em Angular
+    - Para entender como funciona uma rota primeiro precisamos 
+
+--- 
+--- 
+--- 
+
 ### Que comecem os desafios !
  - A intenção desse desafio é poder aprender sobre convenções de código do Angular, com isso vamos aprender sobre *Data biding*, *One way Data biding ( Data biding unidirecional )*
 
   * Após entender a estrutura inicial, vamos implementar e ir além do que ja temos.
     
-    **1 Etapa - Inicial**
+  **1 Etapa - Inicial**
 
-    1 - Crie duas variaveis dentro do nosso componente: src e title. src deve receber a url da imagem e title o titulo definido por você.
+  1 - Crie duas variaveis dentro do nosso componente: src e title. src deve receber a url da imagem e title o titulo definido por você.
     
-    2 - No HTML use as expressões e exiba na tela a imagem e o titulo defindo.
+  2 - No HTML use as expressões e exiba na tela a imagem e o titulo defindo.
     
-    3 - ( Nao obrigatorio ) Adicionar o bootstrap
+  3 - ( Nao obrigatorio ) Adicionar o bootstrap
     
-    4 - Crie um componente que seja referente a informações de que uma foto precisa.
-      4.1 - Se necessário não esqueça de refatorar o componente ```AppComponent```.
-      4.2 - Esta com problema ? Leia o topico **1.02 Componentes**
+  4 - Crie um componente que seja referente a informações de que uma foto precisa.
+    4.1 - Se necessário não esqueça de refatorar o componente ```AppComponent```.
+    4.2 - Esta com problema ? Leia o topico **1.02 Componentes**
     
-    5 - Componente criado ? Então vamos la ! 
-      5.1 - Adicione mais 3 ou 4 tags iguais no html para termos mais fotos na tela, 
-      5.2 - Remova a urls fixa no código do componente e passe esse valor na declaraçao do componente que esta na página html que o usa.
-      5.3 - Está com dúvidas sobre como fazer essa declaração ? Leia o tópico **1.03 Inbound properties**
+  5 - Componente criado ? Então vamos la ! 
+    5.1 - Adicione mais 3 ou 4 tags iguais no html para termos mais fotos na tela, 
+    5.2 - Remova a urls fixa no código do componente e passe esse valor na declaraçao do componente que esta na página html que o usa.
+    5.3 - Está com dúvidas sobre como fazer essa declaração ? Leia o tópico **1.03 Inbound properties**
     
-    6 - Antes que seu código vire uma bagunça vamos criar um módulo
-      6.1 - Crie um novo módulo pertinente apenas ao que for referente a foto, não esqueça de arrumar a estutura de pastas !
-      6.2 - Remova o componente de foto de *app.module.ts** e passe para seu novo módulo.
-      6.3 - Adicione / declare o novo modulo criado em *app.module.ts** e garanta que tudo esta funcionando.
-      6.4 - Esta com duvidas ? Leia o topico **1.04 Módulos**
+  6 - Antes que seu código vire uma bagunça vamos criar um módulo
+  6.1 - Crie um novo módulo pertinente apenas ao que for referente a foto, não esqueça de arrumar a estutura de pastas !
+  6.2 - Remova o componente de foto de *app.module.ts** e passe para seu novo módulo.
+  6.3 - Adicione / declare o novo modulo criado em *app.module.ts** e garanta que tudo esta funcionando.
+  6.4 - Esta com duvidas ? Leia o topico **1.04 Módulos**
     
-    7 - Substitua sua lista fixa de fotos por um recurso de laço do angular, use uma *diretiva*.
-      7.1 - Ao invés do *app.component.html* receber 3 ou 4 componentes iguais, faça que ele receba apenas uma lista aonde contenha todas as urls.
-      7.2 - Esta com  dúvidas ? Leia o tópico **1.05 - Usando diretivas** 
+  7 - Substitua sua lista fixa de fotos por um recurso de laço do angular, use uma *diretiva*.
+    7.1 - Ao invés do *app.component.html* receber 3 ou 4 componentes iguais, faça que ele receba apenas uma lista aonde contenha todas as urls.
+    7.2 - Esta com  dúvidas ? Leia o tópico **1.05 - Usando diretivas** 
 
-    ---
+---
+  **2 Etapa - Integração com API e camada de seriço**
 
-    **2 Etapa - Integração com API e camada de seriço**
+  1 - Agora será necessário fazer uma integração com uma API externa, para isso use a lib http client do Angular na classe app.component.ts e crie uma variavel do tipo: ```http: HttpClient; ... @angular/common/http```. Para que tudo funcione corretamente faça a injeção dessa dependência no momento em que a aplicação é iniciada.
 
-    1 - Agora será necessário fazer uma integração com uma API externa, para isso use a lib http client do Angular na classe app.component.ts e crie uma variavel do tipo: ```http: HttpClient; ... @angular/common/http```. Para que tudo funcione corretamente faça a injeção dessa dependência no momento em que a aplicação é iniciada.
+  2 - Faça uma requisição para este link: ```http://localhost:3000/angelo/photos``` e retorne na tela todas as imagens retornadas da requisição. 
 
-    2 - Faça uma requisição para este link: ```http://localhost:3000/angelo/photos``` e retorne na tela todas as imagens retornadas da requisição. 
+  3 - Para melhorar o código, isole em uma camada de serviço a chamda para a api, deixando esse serviço disponível para qualquer classe em nossa aplicação. Este serviço deve receber como paramâmetro uma *string* aonde será informado o nome que sera utilizado na url. *Ex*.:```http://localhost:3000/${userName}/photos```
 
-    3 - Para melhorar o código, isole em uma camada de serviço a chamda para a api, deixando esse serviço disponível para qualquer classe em nossa aplicação. Este serviço deve receber como paramâmetro uma *string* aonde será informado o nome que sera utilizado na url. *Ex*.:```http://localhost:3000/${userName}/photos```
+  4 - Esta com dúvidas ? Leia o tópico **2.01 - HttpClient, Injeção de Dependência, Observable, Criando um serviço e usando @Injectable**
 
-    X - Esta com dúvidas ? Leia o tópico **2.01 - HttpClient, Injeção de Dependência, Observable, Criando um serviço e usando @Injectable**
+---
+
+  **3 Etapa - Single Page Aplication, CommonModule e Rotas**
+
+  1 - Use os comando do Angular CLI para criar um novo componente que vai tratar a lista de fotos. Com isso organize seu código tirando toda responsabilidade de fotos de dentro app-componente.
+    
+  2 - Para que as diretivas funcione corretamente não esqueça de usar o módulo correto.
+
+  X - Esta com dúvidas ? Leia o tópico **3 - Single Page Aplication, BrowserModule, CommonModule e Rotas**
 
 ---
 
   * OBS: 
     1 - Executar o comando ```npm install bootstrap```
     2 - Importar o boostrap em *angular.json* adicionando dentro de *style* a linha ```"./node_modules/bootstrap/dist/css/bootstrap.min.css"```
+    3 - Para corrigir o erro *"“Experimental support for decorators is a feature that is subject to change in a future release. Set the ‘experimentalDecorators’ option in your ‘tsconfig’ or ‘jsconfig’ to remove this warning.”* no VsCode.
+      - Vá em ```File => Preferences => Settings``` e pesquise por ```javascript.implicitProjectConfig.experimentalDecorators```
+      - De um *check* na caixa que está relacionada a ```Enable/disable experimentalDecorators for JavaScript ...``` - [Stackoverflow - Decorators error in VS code editor after upgrading to Angular 10](https://stackoverflow.com/questions/62614633/decorators-error-in-vs-code-editor-after-upgrading-to-angular-10)
