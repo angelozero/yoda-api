@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { PhotoComponent } from './photo-component/photo.component';
 import { PhotoListComponent } from './photo-list-component/photo-list.component';
@@ -16,7 +17,8 @@ import { PhotoFormComponent } from './photo-form-component/photo-form.component'
 
   // Importando HttpClientModule pois apenas o serviço de photo usa este modulo para injeçao de dependencia
   imports: [
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ]
 })
 export class PhotosModule { }

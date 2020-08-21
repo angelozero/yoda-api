@@ -107,7 +107,36 @@
 
 #### 3.03 - Rotas
    * Criando uma rota em Angular
-    - Para entender como funciona uma rota primeiro precisamos 
+    - Primeiro precisamos entender como funciona um roteamento de uma *Single Page Application*
+    - Primeiramente acessando a rota ```http://localhost:4200``` o arquivo ```index.html``` será carregado.
+    - Se caso tentarmos acessar algo do tipo ```http://localhost:4200/teste``` em vez de estarmos fazendo uma requisição para o backend gostariamos que esta rota redirecionasse para algum componente da nossa aplicação para ser renderizado na tela.
+    - Antes da requisição ser executado o Angular irá verificar se esta rota existe e se sim vai tentar buscar seu respectivo componente.
+    - Cada caminho ( *path* ) da aplicação, estará associado a um componente. 
+    - Para tratar todo o esquema de rotas precisamos de um módulo de rotas -> ```app-routing.module.ts```
+    - Ele fica assim:
+    ```javascript
+    const routes: Routes = [
+        { path: 'user/angelo', component: PhotoListComponent },
+        { path: 'photo/add', component: PhotoFormComponent }
+      ];
+
+      @NgModule({
+        imports: [
+          CommonModule,
+          BrowserModule,
+          RouterModule.forRoot(routes)
+        ],
+        exports: [RouterModule]
+      })
+      export class AppRoutingModule { }
+    ```
+    - *routes*: declaração das rotas que serão usadas em nossa aplicação
+    - *NgModule.imports.CommonModule*: modulo para uso de diretivas dentro do escopo
+    - *NgModule.imports.BrowserModule*: modulo para uso de diretivas global
+    - *NgModule.imports.RouterModule.forRoot(routes)*: módulo de rotas. Agora quando acessarmos a rota ```localhost:4200```, tudo o que for ```4200/``` terá relação com a rota raiz. Então, o resultado de *forRoot()* será importado, e levará em consideração esta lista de rotas dentro de ```routes```.
+    - Por fim importe declare dentro de *exports* desta maneira ```exports: [RouterModule]``` e importe o novo módulo de rotas em ```app-module```. Tudo deve funcionar corretamente.
+    - Agora para que a página correta ( quando requisitada ) seja exibida corretamente será necessário alterar o arquivo *html* principal da nossa aplicação, o ```app.component.html```.
+    - Declarando dentro dele a seguinte tag: ```<router-outlet></router-outlet>```. É dentro desta tag que o componente solicitado será exibido.
 
 --- 
 --- 
@@ -163,6 +192,8 @@
   1 - Use os comando do Angular CLI para criar um novo componente que vai tratar a lista de fotos. Com isso organize seu código tirando toda responsabilidade de fotos de dentro app-componente.
     
   2 - Para que as diretivas funcione corretamente não esqueça de usar o módulo correto.
+
+  3 - Código organizado crie sua primeira rota para exibir a lista de fotos.
 
   X - Esta com dúvidas ? Leia o tópico **3 - Single Page Aplication, BrowserModule, CommonModule e Rotas**
 
