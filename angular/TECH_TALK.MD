@@ -89,7 +89,7 @@
 
 --- 
 
-## 3 - Single Page Aplication, BrowserModule, CommonModule e Rotas
+## 3 - Single Page Aplication, BrowserModule, CommonModule, Rotas e ActivatedRoute
 
 #### 3.01 - Organizando o código criando um novo componente com o Angular CLI
   * Como usar os recursos do Angular CLI corretamente ?
@@ -137,6 +137,12 @@
     - Por fim importe declare dentro de *exports* desta maneira ```exports: [RouterModule]``` e importe o novo módulo de rotas em ```app-module```. Tudo deve funcionar corretamente.
     - Agora para que a página correta ( quando requisitada ) seja exibida corretamente será necessário alterar o arquivo *html* principal da nossa aplicação, o ```app.component.html```.
     - Declarando dentro dele a seguinte tag: ```<router-outlet></router-outlet>```. É dentro desta tag que o componente solicitado será exibido.
+
+#### 3.03 - ActivatedRoute
+   * Como pegar valores na rota com ActivatedRoute
+   - Primeiro usamos uma chave e declaramos ela na rota dentro de ```ap-routing.module.ts```. *Ex*.: A chave *:userName* será o valore recebido pela rota ```{ path: 'user/:userName', component: PhotoListComponent }```
+   - Com isso declaramos em ```photo-list.component.ts``` a interface *ActivatedRoute* para que tenhamos acesso ao valor *:userName* passado pela rota *http://localhost:4200/user/valor-passado-na-rota*
+
 
 --- 
 --- 
@@ -195,7 +201,11 @@
 
   3 - Código organizado crie sua primeira rota para exibir a lista de fotos.
 
-  X - Esta com dúvidas ? Leia o tópico **3 - Single Page Aplication, BrowserModule, CommonModule e Rotas**
+  4 - Com a rota funcionando, crie um componente que renderize as imagens na tela corretamente usando uma lista de 6 x 6 
+  4.1 - Ex: [0,1,2,3,4,5] / [6,7,8,9,10,11] ...
+  4.2 - Esta lista não pode ser renderizada por css apenas pelo componente.
+
+  X - Esta com dúvidas ? Leia o tópico **3 - Single Page Aplication, BrowserModule, CommonModule, Rotas e ActivatedRoute**
 
 ---
 
