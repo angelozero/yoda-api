@@ -1,0 +1,7 @@
+<div class="text-center" *ngIf="infoPhotohasMore; else messageTemplate">
+  <button type="button" class="btn btn-primary btn-circle btn-xl" style="font-size: 20px;">Load more</button>
+</div>
+
+<ng-template #messageTemplate>
+  <p class="text-center text-muted">No more status cats to load</p>
+</ng-template>

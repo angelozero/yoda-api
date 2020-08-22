@@ -6,11 +6,19 @@ import { PhotoComponent } from './photo-component/photo.component';
 import { PhotoListComponent } from './photo-list-component/photo-list.component';
 import { PhotoFormComponent } from './photo-form-component/photo-form.component';
 import { PhotosRenderComponent } from './photo-list-component/photos-render/photos-render.component';
+import { FilterByDescriptionPipe } from './photo-list-component/filter-by-description.pipe';
+import { PhotoLoadButtonComponent } from './photo-list-component/photo-load-button/photo-load-button.component';
 
 
 @NgModule({
   // Similar a declaraçao privada do atributo, acesso apenas a componentes que conversam entre si
-  declarations: [PhotoComponent, PhotoListComponent, PhotoFormComponent, PhotosRenderComponent],
+  declarations: [
+    PhotoComponent, 
+    PhotoListComponent, 
+    PhotoFormComponent, 
+    PhotosRenderComponent,
+    FilterByDescriptionPipe,
+    PhotoLoadButtonComponent],
 
   // Expondo PhotoComponent para que outros modulos tenham acesso a este componente através deste modulo ( photo-module.ts )
   // Se houver necessidade do uso deste componente por outros modulos descomente a linha "exports: [ PhotoComponent ],"

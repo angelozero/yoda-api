@@ -144,6 +144,123 @@
    - Com isso declaramos em ```photo-list.component.ts``` a interface *ActivatedRoute* para que tenhamos acesso ao valor *:userName* passado pela rota *http://localhost:4200/user/valor-passado-na-rota*
 
 
+## 4 - Eventos no DOM, criando um PIPE, Resolvers, RxJS e Debounce Pattern
+
+#### 4.01 - Usando o método event.target.value 
+  * Como pegar valores no dom através de um evento.
+  - Equivalente ao comando ```h1.addEventListener('keyup', function(event) {...``` para que possamos pegar um valor através de um evento executado no dom, em Angular usamos da seguinte maneira: ```keyup="filter = $event.target.value"```. Agora a variavel filter esta preenchida com o que foi adicionado ao campo da pagina html. A cada letra digitada a variavel vai sendo atualizada. Para textar a variavel em funcionamento adicione ```{{filter}}``` no código.
+  - A pagina deve ficar assim:
+    ```html
+    <div class="text-center mt-3 mb-3">
+      <form>
+        <input
+            class="rounded"
+            type="search"
+            placeholder="search..."
+            autofocus
+            (keyup)="filter = $event.target.value" 
+            >
+      </form>
+    <!-- {{filter}} -->
+    </div>
+
+    <app-photos-render [photos]="apiPhotoData"></app-photos-render>
+  ```
+- *(keyup)*: aqui chamamos de eventtype, o evento do dom faz a variavel receber o valor que é digitado no campo. Quando estamos usando este valor "()" estamos dizendo que o fluxo de informação é de fora para dentro (html -> template ). E que quando usado este valor "[]"o fluxo é ao contrário ( template -> html ). 
+
+#### 4.01 - Criando um Pipe
+  * Aplicando um pipe no DOM
+  - O Pipe é um método que será executado através de uma classe PIPE. 
+  - No nosso dom ele vai receber uma lista de fotos e a palavra digitada no campo ( letra a letra )
+  - Para invocar o método corretamente anotamos uma classe criada como ```@Pipe```, em seu atributo *name* o valor do método usado como pipe no dom.
+  - Nao se esqueça de implementar a interface *PipeTransform* para ter acesso ao método *transform* e nele alterar seus atributos de entrada para receber o que é passado pelo DOM.
+  ```javascript
+  import { Photo } from './../photo-component/photo';
+  import { Pipe, PipeTransform } from '@angular/core';
+
+  @Pipe({ name: 'filterByDescriptionPipe'})
+  export class FilterByDescriptionPipe implements PipeTransform {
+    transform(photos: Photo[], descriptionQuery: string) {
+    // some code here ...
+    }
+  }
+  ```
+#### 4.02 - Resolver
+  * Como um resolver funciona
+  - Para intereceptar uma chamda via rota e executar um método seja para o que for, será necessário o uso de um Resolver
+  - Ele recebe a requisição respectiva do momento. Chama o serviço de popular a lista de fotos. E devolve a lista de fotos preenchida.
+  - Isso resolve o problema da pagina inicial sempre ser carregada com a mensagem de foto nao encontrada. Na verdade a pagina nao encontrada é carregada antes que a lista receba um valor.
+  - *Ex*.: 
+  ```javascript
+  @Injectable({ providedIn: 'root' })
+  export class PhotoListResolver implements Resolve<Observable<Photo[]>>{
+
+
+    constructor(private service: PhotoService) {
+
+    }
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Photo[]> | Observable<Observable<Photo[]>> | Promise<Observable<Photo[]>> {
+      const userName = route.params.userName;
+      return this.service.listPhotosFromUser(userName);
+    }
+  }
+  ````
+- Não esqueça de importalo como um componente em *app-routing.module.ts* e dentro dele passando um objeto do tipo resolve informando o atributo que irá receber o valor da requisição interceptada. O trecho fica assim ```his.activatedRoute.snapshot.data['nome-da-variavel-do-objeto-retornado-pelo-resolver']```
+```javascript
+const routes: Routes = [
+  {
+    path: 'user/:userName', component: PhotoListComponent,
+    resolve: {
+      photos: PhotoListResolver
+    }
+  },
+  { path: 'photo/add', component: PhotoFormComponent },
+  { path: '**', component: NotFoundComponent }
+
+];
+```
+- Por fim o atributo que for receber esse valor, deverá acessa-lo da seguinte maneira:
+- *Ex*.:
+```javascript
+export class PhotoListComponent implements OnInit {
+  // some code here ...
+    ngOnInit(): void {
+
+    this.apiPhotoData = this.activatedRoute.snapshot.data['photos']
+
+  }
+}
+```
+
+#### 4.03 RxJS e Debounce Pattern
+  * Um pouco sobre o pattern debounce
+  - Vamos supor que o campo de pesquisa de foto faça uma requisição a cada evento disparado. Isso seria ruim pois iria ser uma grande quantidade de requisições em um curto espaço de tempo. 
+  - Para isso podemos usar o pattern Debounce. 
+  - No html substuimos a variave *filter* pelo método *debounce.next*
+  - Ele recebe o valor que esta vindo do layout ( usei o mesmo nome de variavel anteriormente no html ) ```.subscribe(filter => this.filter = filter)```, executa algo como um pequeno intervalo de tempo, e depois devolve esse valor para a função e assim seguir com o fluxo normal do dado.
+  - Se caso seu dado estiver usando um subscribe, não se esqueça de finaliza-lo, para não haver um consumo de memória a toa.
+  - *Ex*.: 
+  ```html
+  <input class="rounded" type="search" placeholder="search..." autofocus (keyup)="debounce.next($event.target.value)">
+  ```
+  - *Ex*.: 
+  ```javascript
+  export class PhotoListComponent implements OnInit, OnDestroy {
+
+  //some code here ...
+
+  debounce: Subject<string> = new Subject<string>();
+
+   ngOnInit(): void {
+      this.apiPhotoData = this.activatedRoute.snapshot.data['photos']
+      this.debounce
+      .pipe(debounceTime(300))
+      .subscribe(filter => this.filter = filter)
+    }
+  }
+  ```
+
+
 --- 
 --- 
 --- 
@@ -206,6 +323,22 @@
   4.2 - Esta lista não pode ser renderizada por css apenas pelo componente.
 
   X - Esta com dúvidas ? Leia o tópico **3 - Single Page Aplication, BrowserModule, CommonModule, Rotas e ActivatedRoute**
+
+  **4 Etapa - Eventos de modificações**
+  1 - Crie um campo para consulta das fotos.
+  
+  2 - Filtre as fotos pelo nome digitado no campo.
+  
+  3 - Após o filtro criado, crie uma validação que se caso não exisitir a foto digitada, mostrar na tela a mensagem "Status não encontrado!"
+  
+  4 - Organize seu código e não deixe que cada letra digitada no campo seja pesquisada. Use um pattern para resolver isso.
+  
+  5 - Na página inicial exiba apenas as 12 primeiras fotos e adicione um botão para carregar mais.
+
+  6 - Está com dúvidas ? Leia o tópico **## 4 - Eventos no DOM, criando um PIPE**
+
+
+
 
 ---
 

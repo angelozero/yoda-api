@@ -1,1 +1,12 @@
-<app-photos-render [photos]="apiPhotoData"></app-photos-render>
+
+  <div class="text-center mt-3 mb-3">
+    <form>
+      <input class="rounded" type="search" placeholder="search..." autofocus (keyup)="debounce.next($event.target.value)">
+
+    </form>
+    <!-- {{filter}} -->
+  </div>
+
+  <app-photos-render [photos]="apiPhotoData | filterByDescriptionPipe: filter"></app-photos-render>
+
+<app-photo-load-button (click)="load()" [infoPhotohasMore]="apiPhotoDataListhasMore"></app-photo-load-button>

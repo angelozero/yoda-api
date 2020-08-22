@@ -5,6 +5,7 @@ import { ErrorsModule } from './errors/errors.module';
 import { PhotosModule } from './photos/photos.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+//import { PhotLoadButtonComponent } from './photo-list/phot-load-button/phot-load-button.component';
 
 
 

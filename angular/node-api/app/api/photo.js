@@ -140,7 +140,7 @@ api.saveAllCaStatusImages = async (req, res) => {
 
         for (var x = 0; x < catStatusImageList.length; x++) {
           var catStatusImageInfo = catStatusImageList[x].replace(/(\d{3})/g, '$1 ').replace(/(^\s+|\s+$)/, '')
-          photoDao.add({ url: `https://http.cat/images/${catStatusImageInfo.substring(0, 3)}.jpg`, description: catStatusImageInfo.substring(3, catStatusImageInfo.length), allowComments: true }, user.user_id)
+          photoDao.add({ url: `https://http.cat/images/${catStatusImageInfo.substring(0, 3)}.jpg`, description: catStatusImageInfo, allowComments: true }, user.user_id)
           catStatusImageList[x] = catStatusImageInfo
         }
 

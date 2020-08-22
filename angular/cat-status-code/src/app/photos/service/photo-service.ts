@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Photo } from '../photo-component/photo';
 
@@ -13,6 +13,12 @@ export class PhotoService {
   listPhotosFromUser(userName: string) {
     return this.http
       .get<Photo[]>(`${API}${userName}/photos`)
+  }
+
+  listPhotosFromUserPaginated(userName: string, numberPage: number) {
+    const paramsNumberPage = new HttpParams().append('page', numberPage.toString())
+    return this.http
+      .get<Photo[]>(`${API}${userName}/photos`, {params: paramsNumberPage})
   }
 
 }
