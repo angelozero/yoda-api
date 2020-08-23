@@ -1,0 +1,6 @@
+#container {
+  width: 75%; /* or any custom size */
+    height: 75%; 
+    object-fit: contain;
+}
+

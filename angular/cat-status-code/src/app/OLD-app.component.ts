@@ -1,5 +1,5 @@
 // import { Component, OnInit } from '@angular/core';
-// // import { Photo } from './photos/photo-component/photo';
+// // import { Photo } from './photos/photo/photo';
 // // import { PhotoService } from './photos/service/photo-service';
 // // import { HttpClient } from '@angular/common/http'
 

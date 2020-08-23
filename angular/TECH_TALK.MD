@@ -175,7 +175,7 @@
   - Para invocar o método corretamente anotamos uma classe criada como ```@Pipe```, em seu atributo *name* o valor do método usado como pipe no dom.
   - Nao se esqueça de implementar a interface *PipeTransform* para ter acesso ao método *transform* e nele alterar seus atributos de entrada para receber o que é passado pelo DOM.
   ```javascript
-  import { Photo } from './../photo-component/photo';
+  import { Photo } from './../photo/photo';
   import { Pipe, PipeTransform } from '@angular/core';
 
   @Pipe({ name: 'filterByDescriptionPipe'})

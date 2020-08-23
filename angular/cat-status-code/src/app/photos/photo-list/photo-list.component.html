@@ -1,0 +1,9 @@
+<app-search [value]="filter" (onTypePhotoSearch)="filter = $event"></app-search>
+
+<app-photos-render [photos]="apiPhotoData | filterByDescriptionPipe: filter"></app-photos-render>
+
+<app-photo-load-button (click)="load()" [infoPhotohasMore]="apiPhotoDataListhasMore"></app-photo-load-button>
+
+<br>
+<br>
+<br>

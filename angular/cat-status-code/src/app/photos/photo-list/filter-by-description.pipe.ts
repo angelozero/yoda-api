@@ -1,4 +1,4 @@
-import { Photo } from './../photo-component/photo';
+import { Photo } from './../photo/photo';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'filterByDescriptionPipe'})
