@@ -1,3 +1,5 @@
+import { StatusStyleColorModule } from './../../shared/directives/status-style-color/status-style-color.module';
+
 import { DarkenOnHoverModule } from './../../shared/directives/darken-on-hover/darken-on-hover.module';
 import { SearchComponent } from './search/search.component';
 import { CardModule } from '../../shared/components/card/card.module';

@@ -8,13 +8,14 @@
   <li *ngFor="let cols of rows" class="row no-gutters">
     <div *ngFor="let photo of cols" class="col-4">
 
-      <div class="mx-auto" style="width: 500px;" appDarkenOnHoverDirective brightness="80">
-        <app-card [title]="photo.description"></app-card>
+      <!-- <div class="mx-auto" style="width: 500px;" appDarkenOnHoverDirective brightness="80"> -->
+        <div class="mx-auto" style="width: 500px;">
+        <app-card [title]="photo.description" ></app-card>
 
         <app-photo [url]="photo.url"></app-photo>
 
 
-        <div class="text-center" style="background-color: #fc8eac; color: white;">
+        <div class="text-center" style="background-color: #000000; color: white;">
           <i aria-hidden="true" class="fa fa-heart-o fa-1x mr-2"></i>{{ photo.likes }}
           <i aria-hidden="true" class="fa fa-comment-o fa-1x mr-2 ml-2"></i>{{ photo.comments }}
         </div>
