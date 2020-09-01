@@ -21,7 +21,9 @@ export class PhotoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userName = this.activatedRoute.snapshot.params.userName;
-    this.apiPhotoData = this.shuffle(this.activatedRoute.snapshot.data['photos'])
+    // lista randomica de fotos
+    //this.apiPhotoData = this.shuffle(this.activatedRoute.snapshot.data['photos'])
+    this.apiPhotoData = this.activatedRoute.snapshot.data['photos']
   }
 
   load() {

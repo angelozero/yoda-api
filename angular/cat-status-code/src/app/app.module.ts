@@ -1,3 +1,4 @@
+import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -5,18 +6,21 @@ import { ErrorsModule } from './errors/errors.module';
 import { PhotosModule } from './photos/photos.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-//import { PhotLoadButtonComponent } from './photo-list/phot-load-button/phot-load-button.component';
+import { SingInComponent } from './home/sing-in/sing-in.component';
+import { VmessageComponent } from './shared/components/vmessage/vmessage.component';
+
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     PhotosModule,
     ErrorsModule,
+    HomeModule,
     AppRoutingModule
   ],
   providers: [],

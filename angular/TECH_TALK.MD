@@ -143,6 +143,7 @@
    - Primeiro usamos uma chave e declaramos ela na rota dentro de ```ap-routing.module.ts```. *Ex*.: A chave *:userName* será o valore recebido pela rota ```{ path: 'user/:userName', component: PhotoListComponent }```
    - Com isso declaramos em ```photo-list.component.ts``` a interface *ActivatedRoute* para que tenhamos acesso ao valor *:userName* passado pela rota *http://localhost:4200/user/valor-passado-na-rota*
 
+---
 
 ## 4 - Eventos no DOM, criando um PIPE, Resolvers, RxJS e Debounce Pattern
 
@@ -260,6 +261,14 @@ export class PhotoListComponent implements OnInit {
   }
   ```
 
+---
+
+## 5 - Autenticação, Model Driven Forms, lazy loading.
+
+Para que isto seja possível, precisaremos importar um módulo do @angular/forms, o ReactiveFormsModule ... 
+FormGroup e em "Import 'FormGroup' from module "@angular/forms"" ...
+```*ngIf="loginForm.get('userName').errors?.required"```
+https://cursos.alura.com.br/course/angular-autenticacao/task/40497
 
 --- 
 --- 
