@@ -1,9 +1,9 @@
 <h4 class="text-center">Login</h4>
 
-<form [formGroup]="loginForm" class="form mt-4">
+<form class="form mt-4" [formGroup]="loginForm" (submit)="login()">
 
   <div class="form-group">
-    <input formControlName="userName" class="form-control" placeholder="user name" autofocus>
+    <input #userNameInput formControlName="userName" class="form-control" placeholder="user name" autofocus>
     <!-- <small *ngIf="loginForm.get('userName').errors && loginForm.get('userName').errors.required" class="text-danger d-block mt-2"> -->
       <!-- <small *ngIf="loginForm.get('userName').errors?.required" class="text-danger d-block mt-2">
       User name is required!

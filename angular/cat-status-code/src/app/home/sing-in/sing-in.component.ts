@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlataformBrowser } from '@angular/common';
+import { PlataformDetectorService } from './../../core/plataform/plataform-detector.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   //selector: 'app-sing-in',
@@ -9,8 +13,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class SingInComponent implements OnInit {
 
   loginForm: FormGroup;
+  @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private platFormDetectorService: PlataformDetectorService) { }
 
   ngOnInit(): void {
 
@@ -20,5 +25,28 @@ export class SingInComponent implements OnInit {
     });
 
   }
+  login() {
 
+    const userNameValue = this.loginForm.get('userName').value;
+    const passwordValue = this.loginForm.get('password').value;
+
+    this.authService
+      .authenticate(userNameValue, passwordValue)
+      .subscribe(() => {
+        console.log('sucesso')
+        //this.router.navigateByUrl(`user/${userNameValue}`)
+        this.router.navigate(['user', userNameValue])
+      },
+        err => {
+          console.log(`Erro ao se autenticar ${err.message}`);
+          this.loginForm.reset();
+          
+          // Maneira de se proteger se caso o serviço nao for utilizado via browser
+          if (this.platFormDetectorService.isPlataformBrowser()) {
+            this.userNameInput.nativeElement.focus();
+          }
+          alert('Invalid user name and/or password')
+        }
+      )
+  }
 }
