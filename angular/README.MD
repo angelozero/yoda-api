@@ -169,10 +169,13 @@
 ## 4 - Eventos no DOM, criando um PIPE, Resolvers, RxJS e Debounce Pattern
 
 #### 4.01 - Usando o método event.target.value 
+
   * Como pegar valores no dom através de um evento.
+
   - Equivalente ao comando ```h1.addEventListener('keyup', function(event) {...``` para que possamos pegar um valor através de um evento executado no dom, em Angular usamos da seguinte maneira: ```keyup="filter = $event.target.value"```. Agora a variavel filter esta preenchida com o que foi adicionado ao campo da pagina html. A cada letra digitada a variavel vai sendo atualizada. Para textar a variavel em funcionamento adicione ```{{filter}}``` no código.
+
   - A pagina deve ficar assim:
-    ```html
+```html
     <div class="text-center mt-3 mb-3">
       <form>
         <input
@@ -187,7 +190,8 @@
     </div>
 
     <app-photos-render [photos]="apiPhotoData"></app-photos-render>
-  ```
+```
+
 - *(keyup)*: aqui chamamos de eventtype, o evento do dom faz a variavel receber o valor que é digitado no campo. Quando estamos usando este valor "()" estamos dizendo que o fluxo de informação é de fora para dentro (html -> template ). E que quando usado este valor "[]"o fluxo é ao contrário ( template -> html ). 
 
 #### 4.01 - Criando um Pipe
@@ -283,7 +287,7 @@ export class PhotoListComponent implements OnInit {
   ```html
   <input class="rounded" type="search" placeholder="search..." autofocus (keyup)="debounce.next($event.target.value)">
   ```
-  
+
   - *Ex*.: 
   ```javascript
   export class PhotoListComponent implements OnInit, OnDestroy {
