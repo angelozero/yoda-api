@@ -1,5 +1,5 @@
-import { isPlataformBrowser } from '@angular/common';
-import { PlataformDetectorService } from './../../core/plataform/plataform-detector.service';
+
+import { PlataformDetectorService } from './../../core/plataform-detector/plataform-detector.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -40,9 +40,9 @@ export class SingInComponent implements OnInit {
         err => {
           console.log(`Erro ao se autenticar ${err.message}`);
           this.loginForm.reset();
-          
-          // Maneira de se proteger se caso o serviço nao for utilizado via browser
-          if (this.platFormDetectorService.isPlataformBrowser()) {
+
+          // Maneira de se proteger se caso o serviço nao for utilizado via
+          if (this.platFormDetectorService.isPlatformBrowser()) {
             this.userNameInput.nativeElement.focus();
           }
           alert('Invalid user name and/or password')
