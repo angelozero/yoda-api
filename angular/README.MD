@@ -191,12 +191,19 @@
 - *(keyup)*: aqui chamamos de eventtype, o evento do dom faz a variavel receber o valor que é digitado no campo. Quando estamos usando este valor "()" estamos dizendo que o fluxo de informação é de fora para dentro (html -> template ). E que quando usado este valor "[]"o fluxo é ao contrário ( template -> html ). 
 
 #### 4.01 - Criando um Pipe
-  * Aplicando um pipe no DOM
-  - O Pipe é um método que será executado através de uma classe PIPE. 
-  - No nosso dom ele vai receber uma lista de fotos e a palavra digitada no campo ( letra a letra )
-  - Para invocar o método corretamente anotamos uma classe criada como ```@Pipe```, em seu atributo *name* o valor do método usado como pipe no dom.
-  - Nao se esqueça de implementar a interface *PipeTransform* para ter acesso ao método *transform* e nele alterar seus atributos de entrada para receber o que é passado pelo DOM.
-  ```javascript
+
+* Aplicando um pipe no DOM
+
+- O Pipe é um método que será executado através de uma classe PIPE. 
+
+- No nosso dom ele vai receber uma lista de fotos e a palavra digitada no campo ( letra a letra )
+
+- Para invocar o método corretamente anotamos uma classe criada como ```@Pipe```, em seu atributo *name* o valor do método usado como pipe no dom.
+
+- Nao se esqueça de implementar a interface *PipeTransform* para ter acesso ao método *transform* e nele alterar seus atributos de entrada para receber o que é passado pelo DOM.
+
+
+```javascript
   import { Photo } from './../photo/photo';
   import { Pipe, PipeTransform } from '@angular/core';
 
@@ -206,14 +213,19 @@
     // some code here ...
     }
   }
-  ```
+```
+
 #### 4.02 - Resolver
-  * Como um resolver funciona
-  - Para intereceptar uma chamda via rota e executar um método seja para o que for, será necessário o uso de um Resolver
-  - Ele recebe a requisição respectiva do momento. Chama o serviço de popular a lista de fotos. E devolve a lista de fotos preenchida.
-  - Isso resolve o problema da pagina inicial sempre ser carregada com a mensagem de foto nao encontrada. Na verdade a pagina nao encontrada é carregada antes que a lista receba um valor.
-  - *Ex*.: 
-  ```javascript
+* Como um resolver funciona
+
+- Para intereceptar uma chamda via rota e executar um método seja para o que for, será necessário o uso de um Resolver
+
+- Ele recebe a requisição respectiva do momento. Chama o serviço de popular a lista de fotos. E devolve a lista de fotos preenchida.
+
+- Isso resolve o problema da pagina inicial sempre ser carregada com a mensagem de foto nao encontrada. Na verdade a pagina nao encontrada é carregada antes que a lista receba um valor.
+
+- *Ex*.: 
+```javascript
   @Injectable({ providedIn: 'root' })
   export class PhotoListResolver implements Resolve<Observable<Photo[]>>{
 
@@ -226,8 +238,9 @@
       return this.service.listPhotosFromUser(userName);
     }
   }
-  ````
+```
 - Não esqueça de importalo como um componente em *app-routing.module.ts* e dentro dele passando um objeto do tipo resolve informando o atributo que irá receber o valor da requisição interceptada. O trecho fica assim ```his.activatedRoute.snapshot.data['nome-da-variavel-do-objeto-retornado-pelo-resolver']```
+
 ```javascript
 const routes: Routes = [
   {
@@ -242,6 +255,7 @@ const routes: Routes = [
 ];
 ```
 - Por fim o atributo que for receber esse valor, deverá acessa-lo da seguinte maneira:
+
 - *Ex*.:
 ```javascript
 export class PhotoListComponent implements OnInit {
@@ -249,7 +263,6 @@ export class PhotoListComponent implements OnInit {
     ngOnInit(): void {
 
     this.apiPhotoData = this.activatedRoute.snapshot.data['photos']
-
   }
 }
 ```
@@ -257,14 +270,20 @@ export class PhotoListComponent implements OnInit {
 #### 4.03 RxJS e Debounce Pattern
   * Um pouco sobre o pattern debounce
   - Vamos supor que o campo de pesquisa de foto faça uma requisição a cada evento disparado. Isso seria ruim pois iria ser uma grande quantidade de requisições em um curto espaço de tempo. 
+
   - Para isso podemos usar o pattern Debounce. 
+
   - No html substuimos a variave *filter* pelo método *debounce.next*
+
   - Ele recebe o valor que esta vindo do layout ( usei o mesmo nome de variavel anteriormente no html ) ```.subscribe(filter => this.filter = filter)```, executa algo como um pequeno intervalo de tempo, e depois devolve esse valor para a função e assim seguir com o fluxo normal do dado.
+
   - Se caso seu dado estiver usando um subscribe, não se esqueça de finaliza-lo, para não haver um consumo de memória a toa.
+
   - *Ex*.: 
   ```html
   <input class="rounded" type="search" placeholder="search..." autofocus (keyup)="debounce.next($event.target.value)">
   ```
+  
   - *Ex*.: 
   ```javascript
   export class PhotoListComponent implements OnInit, OnDestroy {
