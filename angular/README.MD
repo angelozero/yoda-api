@@ -24,7 +24,7 @@
         2.3 - ```styleUrls: ['./app.component.css']``` - Template CSS que sera utilizado no componente.
 
         2.4 - ```title = 'cat-status-code';``` - Variavel do nosso componente que recebe o valor *cat-status-code* ( leia mais sobre o tópico Data binding a seguir )
-        
+
     - Data binding - É um recurso utilizado pelo Angular que implica em uma associação de dados com uma fonte de dados. Esta informação esta no nosso componente. Ao encontrarmos esta sintaxe ```{{ title }``` chamada de Angular expression automaticamente ele estará apontando para a propriedade title acessando e exibindo o seu valor.
 
 #### 1.02 - Componentes
@@ -115,13 +115,20 @@
 #### 3.03 - Rotas
    * Criando uma rota em Angular
     - Primeiro precisamos entender como funciona um roteamento de uma *Single Page Application*
+
     - Primeiramente acessando a rota ```http://localhost:4200``` o arquivo ```index.html``` será carregado.
+
     - Se caso tentarmos acessar algo do tipo ```http://localhost:4200/teste``` em vez de estarmos fazendo uma requisição para o backend gostariamos que esta rota redirecionasse para algum componente da nossa aplicação para ser renderizado na tela.
+
     - Antes da requisição ser executado o Angular irá verificar se esta rota existe e se sim vai tentar buscar seu respectivo componente.
+
     - Cada caminho ( *path* ) da aplicação, estará associado a um componente. 
+
     - Para tratar todo o esquema de rotas precisamos de um módulo de rotas -> ```app-routing.module.ts```
+
     - Ele fica assim:
-    ```javascript
+
+```javascript
     const routes: Routes = [
         { path: 'user/angelo', component: PhotoListComponent },
         { path: 'photo/add', component: PhotoFormComponent }
@@ -136,14 +143,21 @@
         exports: [RouterModule]
       })
       export class AppRoutingModule { }
-    ```
+```
     - *routes*: declaração das rotas que serão usadas em nossa aplicação
+
     - *NgModule.imports.CommonModule*: modulo para uso de diretivas dentro do escopo
+
     - *NgModule.imports.BrowserModule*: modulo para uso de diretivas global
+
     - *NgModule.imports.RouterModule.forRoot(routes)*: módulo de rotas. Agora quando acessarmos a rota ```localhost:4200```, tudo o que for ```4200/``` terá relação com a rota raiz. Então, o resultado de *forRoot()* será importado, e levará em consideração esta lista de rotas dentro de ```routes```.
+
     - Por fim importe declare dentro de *exports* desta maneira ```exports: [RouterModule]``` e importe o novo módulo de rotas em ```app-module```. Tudo deve funcionar corretamente.
+
     - Agora para que a página correta ( quando requisitada ) seja exibida corretamente será necessário alterar o arquivo *html* principal da nossa aplicação, o ```app.component.html```.
+
     - Declarando dentro dele a seguinte tag: ```<router-outlet></router-outlet>```. É dentro desta tag que o componente solicitado será exibido.
+    
 
 #### 3.03 - ActivatedRoute
    * Como pegar valores na rota com ActivatedRoute
