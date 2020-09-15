@@ -26,6 +26,8 @@
 
 - [React 03](https://cursos.alura.com.br/course/react-parte-3)
 
+- [App de Agendamento para Barbeiros em React Native para iniciantes](https://www.youtube.com/watch?v=kk_pGWBOkc4)
+
 ---
 
 #### *Regex*
