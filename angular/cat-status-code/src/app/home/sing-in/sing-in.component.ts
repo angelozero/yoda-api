@@ -25,6 +25,7 @@ export class SingInComponent implements OnInit {
     });
 
   }
+  
   login() {
 
     const userNameValue = this.loginForm.get('userName').value;

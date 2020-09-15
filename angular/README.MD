@@ -94,6 +94,13 @@
 
     - *@Injectable* - este *decorator* indica que ```PhotoService``` é injetavel (pode receber *httpClient*). Para funcionar corretamente precisamos informar seu escopo, se vai ser único ou não. Como um ou mais componentes podem usar o *photoService* e o mesmo objeto, então é declarado a configuração *provideIn* com o valor *root*. Isso faz com que o Angular coloque esta classe no escopo **raíz** tornando o serviço acessível para qualquer classe. 
 
+    ```javascript
+    // instancia unica para a aplicacao inteira
+    @Injectable({
+      providedIn: 'root'
+    })
+    ```
+
 --- 
 
 ## 3 - Single Page Aplication, BrowserModule, CommonModule, Rotas e ActivatedRoute
@@ -308,25 +315,88 @@ export class PhotoListComponent implements OnInit {
 ---
 
 ## 5 - Autenticação, Model Driven Forms, lazy loading.
+  * Para entendermos melhor a parte de autenticação, vamos trecho a trecho do código. Template x Layout
 
-Para que isto seja possível, precisaremos importar um módulo do @angular/forms, o ReactiveFormsModule ... 
-FormGroup e em "Import 'FormGroup' from module "@angular/forms"" ...
-```*ngIf="loginForm.get('userName').errors?.required"```
-https://cursos.alura.com.br/course/angular-autenticacao/task/40497
+  - Para controlar os campos que o formulario tem ( nome e senha ) importamos e utilizamos a variavel loginForm de FormGroup. Com isso temos acesso a estes dois campos. Tendo acesso conseguimos fazer as devidas validaçoes de preenchimento deles.
 
-instancia unica para a aplicacao inteira
-```javascript
-@Injectable({
-  providedIn: 'root'
-})
-```
+  - Template  
+    ```javascript
+      import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-criação de um componente de login;
-validação de formulário;
-como componentizar mensagens de validação;
-como enviar crendenciais para a API;
-como redirecionar e obter referências do template (ViewChild);
-descobrindo a plataforma de execução.
+      export class SingInComponent implements OnInit {
+        // some code here ...
+        loginForm: FormGroup;
+        // some code here ...
+
+          ngOnInit(): void {
+
+        this.loginForm = this.formBuilder.group({
+          userName: ['', Validators.required],
+          password: ['', Validators.required]
+        });
+      }
+    ```
+  - Layout
+    ```html
+    <form class="form mt-4" [formGroup]="loginForm" (submit)="login()">
+    ```
+
+  - Obtendo a referencia do template para acionar o evento auto-focus quando a pagina é acionada. ```<app-vmessage>``` é o componente compartilhado pela aplicação para exibição de mensagens. Ele verifica se ha algum erro, se houver exibe a mensagem. 
+
+  - Template
+    ```javascript
+    export class SingInComponent implements OnInit {
+      // some code here ...
+      @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
+      // some code here ...
+    }
+    ```
+
+  - Layout
+    ```html
+       <div class="form-group">
+        <input #userNameInput formControlName="userName" class="form-control" placeholder="user name" autofocus>
+        <app-vmessage *ngIf="loginForm.get('userName').errors?.required" text="User name is required"></app-vmessage>
+      </div>
+    ```
+
+  - Invocando o metodo de login para acesso a aplicaçao e verificando em qual plataforma ele esta sendo executado para o evento de auto-focus para o campo nome se caso der erro no login.
+
+  - Template
+    ```javascript
+      login() {
+
+        const userNameValue = this.loginForm.get('userName').value;
+        const passwordValue = this.loginForm.get('password').value;
+
+        this.authService
+          .authenticate(userNameValue, passwordValue)
+          .subscribe(() => {
+            console.log('sucesso')
+            // equivalente a usar ---> this.router.navigateByUrl(`user/${userNameValue}`)
+            this.router.navigate(['user', userNameValue])
+          },
+            err => {
+              console.log(`Erro ao se autenticar ${err.message}`);
+              this.loginForm.reset();
+
+              // Servico de verificacao de plataforma. Uma maneira de se proteger se caso o serviço nao for utilizado via browser
+              if (this.platFormDetectorService.isPlatformBrowser()) {
+                this.userNameInput.nativeElement.focus();
+              }
+              alert('Invalid user name and/or password')
+            }
+          )
+      }
+    ```
+
+  - Layout
+    ```html
+       <div class="form-group">
+        <input #userNameInput formControlName="userName" class="form-control" placeholder="user name" autofocus>
+        <app-vmessage *ngIf="loginForm.get('userName').errors?.required" text="User name is required"></app-vmessage>
+      </div>
+    ```
 
 --- 
 --- 
@@ -334,8 +404,13 @@ descobrindo a plataforma de execução.
 
 
   * OBS: 
+
     1 - Executar o comando ```npm install bootstrap```
+
     2 - Importar o boostrap em *angular.json* adicionando dentro de *style* a linha ```"./node_modules/bootstrap/dist/css/bootstrap.min.css"```
+
     3 - Para corrigir o erro *"“Experimental support for decorators is a feature that is subject to change in a future release. Set the ‘experimentalDecorators’ option in your ‘tsconfig’ or ‘jsconfig’ to remove this warning.”* no VsCode.
+
       - Vá em ```File => Preferences => Settings``` e pesquise por ```javascript.implicitProjectConfig.experimentalDecorators```
+
       - De um *check* na caixa que está relacionada a ```Enable/disable experimentalDecorators for JavaScript ...``` - [Stackoverflow - Decorators error in VS code editor after upgrading to Angular 10](https://stackoverflow.com/questions/62614633/decorators-error-in-vs-code-editor-after-upgrading-to-angular-10)
