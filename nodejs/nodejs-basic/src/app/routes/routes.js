@@ -1,17 +1,23 @@
+const BookDAO = require('../infra/book-dao')
+const db = require('../../config/database')
+
+
 module.exports = (app) => {
 
   const listTemplate = require('../views/books/list/list.marko')
-
+  const bookDAO = new BookDAO(db);
 
   app.get('/', function (req, res) {
-    res.marko(listTemplate,
-      {
-        books: [
-          { id: 1, title: 'Hello World 1 - Node' },
-          { id: 2, title: 'Hello World 2 - Node' }
-        ]
-      }
-    )
+    res.send(" OK ")
+  });
+
+  app.get('/books', function (req, res) {
+
+    bookDAO.listAll()
+      .then(books => res.marko(listTemplate,
+        { books: books }
+      ))
+      .catch(err => console.log(`Erro ao listar os livros ${err}`))
   });
 }
 
