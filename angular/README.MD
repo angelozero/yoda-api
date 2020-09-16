@@ -314,7 +314,7 @@ export class PhotoListComponent implements OnInit {
 
 ---
 
-## 5 - Autenticação, Model Driven Forms, lazy loading.
+## 5 - Autenticação, Model Driven Forms, lazy loading, usando um pipe na request, armazenando token no localStorage.
   * Para entendermos melhor a parte de autenticação, vamos trecho a trecho do código. Template x Layout
 
   - Para controlar os campos que o formulario tem ( nome e senha ) importamos e utilizamos a variavel loginForm de FormGroup. Com isso temos acesso a estes dois campos. Tendo acesso conseguimos fazer as devidas validaçoes de preenchimento deles.
@@ -398,6 +398,100 @@ export class PhotoListComponent implements OnInit {
       </div>
     ```
 
+  - Extra.: Servico de autenticação
+    ```javascript
+      export class AuthService {
+        constructor(private http: HttpClient) { }
+        authenticate(userName: String, password: string) {
+          return this.http.post(API_URL + '/user/login/', { userName: userName, password: password })
+        }
+      }
+    ```
+
+  - Utilizando o comando PIPE para realizar a request de login e acessar o token recebido.
+    - Este processo corresponde ao momento do login. Para que nao haja a necessidade de se alterar o servico ```.subscribe``` criamos um pipe dentro da classe ```auth.service```. Desta maneira conseguimos executar a chamada realizada pelo ```.subscribe``` mas antes invocando o método pipe no servico de autenticação na classe ```auth.service```:
+
+    ```javascript
+    // Import para uso do tap
+    import { tap } from 'rxjs/operators';
+
+      // Por etapas
+
+      // Classe auth.service.ts
+      // 01 ---> realizamos a requisição para login passando como parametros a url, nome do usuario + senha e por fim o atributo observe com o valor response. Este ultimo parametro expõe o header para ser manipulado
+      authenticate(userName: String, password: string) {
+        return this.http
+          .post(API_URL + '/user/login/', { userName: userName, password: password }, { observe: 'response' })
+      
+      // 02 ---> adicionamos o pipe com o tap
+          // pipe ---> comando que sera executado antes da chamada do subscribe
+          .pipe(
+            // tap ---> serve para a geração de side effects, normalmente quando queremos logar no console, ou acessar e gravar algum valor.
+            tap(
+              res => {
+                const authToken = res.headers.get('x-access-token'); 
+                console.log(`User: ${userName} -- Token: ${authToken}`)
+              }
+            )
+          )
+      
+      // Classe sing.in.component.ts
+      // 03 ---> subscribe sem alteração no código.
+      .subscribe(() => {
+          console.log('sucesso')
+          //this.router.navigateByUrl(`user/${userNameValue}`)
+          this.router.navigate(['user', userNameValue])
+        }
+    ```
+
+  - Para armazenarmos o token da requisição criamos um serviço chamado token service. Ele sera responsavel de tratar o token do usuario conectado em nossa aplicação.
+
+  ```javascript
+    import { Injectable } from '@angular/core';
+
+    const TOKEN_KEY = 'authToken';
+
+    @Injectable({ providedIn: 'root' })
+    export class TokenService {
+
+
+      hasToken(): boolean {
+        // !! ---> a primeira exaclamação "!" deixa o retorno do getToken() como false se caso houver string.
+        // !! ---> a segunda exaclamação "!" inverte o valor booleano recebido pela primeira exclamação.
+        // Se     houver retorno no getToken o primeiro status sera false e com a segunda exclamaçao sera true.
+        // Se nao houver retorno no getToken o primeiro status sera true e com a segunda exclamaçao sera false.
+        return !!this.getToken();
+      }
+
+      setToken(token: string) {
+        window.localStorage.setItem(TOKEN_KEY, token)
+      }
+
+      getToken() {
+        return window.localStorage.getItem(TOKEN_KEY)
+      }
+
+      removeToken() {
+        window.localStorage.removeItem(TOKEN_KEY)
+      }
+    }
+  ```
+
+- Para a utilização dele invocamos desta maneira em nosso pipe
+
+  ```javascript
+    .pipe(
+          tap(
+            res => {
+              const authToken = res.headers.get('x-access-token');
+              this.tokenService.setToken(authToken)
+              console.log(`User: ${userName} -- Token: ${authToken}`)
+            }
+          )
+        )
+  ```
+
+    
 --- 
 --- 
 --- 

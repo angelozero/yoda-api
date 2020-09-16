@@ -1,3 +1,4 @@
+import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,19 +9,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SingInComponent } from './home/sing-in/sing-in.component';
 import { VmessageComponent } from './shared/components/vmessage/vmessage.component';
+import { HeaderComponent } from './core/header/header.component';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     PhotosModule,
     ErrorsModule,
     HomeModule,
+    CoreModule,
     AppRoutingModule
   ],
   providers: [],
