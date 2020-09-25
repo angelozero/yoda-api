@@ -314,8 +314,10 @@ export class PhotoListComponent implements OnInit {
 
 ---
 
-## 5 - Autenticação, Model Driven Forms, lazy loading, usando um pipe na request, armazenando token no localStorage.
+## 5 - Autenticação, Model Driven Forms, lazy loading, 
   * Para entendermos melhor a parte de autenticação, vamos trecho a trecho do código. Template x Layout
+
+### 5.1 - Usando um pipe na request, armazenando token no localStorage e recuperando os dados do token.
 
   - Para controlar os campos que o formulario tem ( nome e senha ) importamos e utilizamos a variavel loginForm de FormGroup. Com isso temos acesso a estes dois campos. Tendo acesso conseguimos fazer as devidas validaçoes de preenchimento deles.
 
@@ -477,21 +479,114 @@ export class PhotoListComponent implements OnInit {
     }
   ```
 
-- Para a utilização dele invocamos desta maneira em nosso pipe
+  - Para a utilização dele invocamos desta maneira em nosso pipe
 
-  ```javascript
-    .pipe(
-          tap(
-            res => {
-              const authToken = res.headers.get('x-access-token');
-              this.tokenService.setToken(authToken)
-              console.log(`User: ${userName} -- Token: ${authToken}`)
-            }
+    ```javascript
+      .pipe(
+            tap(
+              res => {
+                const authToken = res.headers.get('x-access-token');
+                this.tokenService.setToken(authToken)
+                console.log(`User: ${userName} -- Token: ${authToken}`)
+              }
+            )
           )
-        )
+    ```
+
+- Para recuperar os dados que vem no token vamos criar nosso proprio método de decodificacao, Para mais informaçoes acesse 
+- Primeiro removemos a responsabilidade de receber esses dados do token do serviço de login ```AuthService``` ( classe ```auth.service.ts``` ) e criamos uma classe nova para isso. 
+- Ela fica assim:
+
+```javascript
+import { UserInterface } from './user.interface';
+import { BehaviorSubject } from 'rxjs';
+import { TokenService } from './../token/token.service';
+import { Injectable } from '@angular/core';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  private userSubject = new  BehaviorSubject<UserInterface>(null);
+
+
+  constructor(private tokenService: TokenService) {
+    if (this.tokenService.hasToken()) {
+      this.decodeAndNotify();
+    }
+  }
+
+  setToken(token: string) {
+    this.tokenService.setToken(token)
+    this.decodeAndNotify()
+  }
+
+  getUser() {
+    return this.userSubject.asObservable();
+  }
+
+  private decodeAndNotify() {
+    const token = this.tokenService.getToken()
+    const user = this.decode(token) as UserInterface;
+    this.userSubject.next(user);
+  }
+
+  // Decode sem o modulo jwt-decode
+  private decode(token: string) {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      console.log(`Nao foi possivel decodificar o token`)
+    }
+  }
+}
+```
+- Trecho a trecho do que a classe vai fazer agora e como nossa classe de ```auth``` vai ficar.
+- Primeiro criamos um *Subject* e utilizamos ele usando um "contrato" referente a um *User*
+```javascript
+  private userSubject = new Subject<UserInterface>();
+```
+- A interface *User* fica desse jeito
+```javascript
+  export interface UserInterface {
+    id: number;
+    name: string;
+    email: string;
+  }
+```
+
+-  Na sequencia, no construtor, recebemos o serviço do *Token* e fazemos a seguinte verificação:
+  - Se caso o usuario ja estiver logado então vamos executar o método *decodeAndNotify*
+  - O método *decodeAndNotify* por sua vez vai receber o token da sessão, usar o *jwt-decode* para decodificar o token já recebendo como "contrato" a interface *UserInterface* e por fim chamar o *.next* da variável *userSubject*. Isso faz com que tenhamos acesso ao método *subscribe*. Com acesso a este método podemos pegar em qualquer lugar da nossa aplicação os dados vindo do token referente ao usuário. 
+    ```javascript
+      constructor(private tokenService: TokenService) {
+        if (this.tokenService.hasToken()) {
+          this.decodeAndNotify();
+        }
+      }
+      // ... some code here
+
+      private decodeAndNotify() {
+        const token = this.tokenService.getToken()
+        const user = decode(token) as UserInterface;
+        this.userSubject.next(user);
+      }
+    ```
+    
+### 5.1 - BehaviorSubject
+  * O BehaviorSubject armazena a última emissão até que alguém apareça para consumi-la. Ou seja, quando o template do header for criado, o evento de buscar o nome do ususario logado ja terá sido disparado. Para que possamos consumir o ultimo valor de forma que ele traga dados, usamos o BehaviorSubject.
+  
+  ```javascript
+    import { BehaviorSubject } from 'rxjs';
+    
+    // some code here ...
+    
+    private userSubject = new  BehaviorSubject<UserInterface>(null);
   ```
 
-    
+### 5.2 - Async pipe
 --- 
 --- 
 --- 
