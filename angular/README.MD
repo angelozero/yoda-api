@@ -314,7 +314,7 @@ export class PhotoListComponent implements OnInit {
 
 ---
 
-## 5 - Autenticação, Model Driven Forms, lazy loading, 
+## 5 - Autenticação ( login e logout ), model driven forms, lazy loading, router guards, router link
   * Para entendermos melhor a parte de autenticação, vamos trecho a trecho do código. Template x Layout
 
 ### 5.1 - Usando um pipe na request, armazenando token no localStorage e recuperando os dados do token.
@@ -587,6 +587,20 @@ export class UserService {
   ```
 
 ### 5.2 - Async pipe
+  * Usando Async Pipe no nosso template
+  - Com o Async pipe conseguimos capturar a emissão do Observable diretamente do nosso template.
+
+### 5.3 - Logout
+  * 
+  - 
+
+### 5.4 - Router Guards
+  * 
+  - O guarda de rotas serve para darmos consistência para nossa aplicação, liberando acesso apenas para as rotas que fazem sentido para nosso usuário.
+
+### 5.5 - Router Link
+  * 
+  - 
 --- 
 --- 
 --- 

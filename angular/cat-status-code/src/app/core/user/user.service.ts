@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   private userSubject = new  BehaviorSubject<UserInterface>(null);
+  private userName: string;
 
 
   constructor(private tokenService: TokenService) {
@@ -27,10 +28,24 @@ export class UserService {
     return this.userSubject.asObservable();
   }
 
+  getUserName(){
+    return this.userName;
+  }
+
   private decodeAndNotify() {
     const token = this.tokenService.getToken()
     const user = this.decode(token) as UserInterface;
+    this.userName = user.name;
     this.userSubject.next(user);
+  }
+
+  logout(){
+    this.userSubject.next(null)
+    return this.tokenService.removeToken();
+  }
+
+  isLogged(){
+    return this.tokenService.hasToken();
   }
 
   // Decode sem o modulo jwt-decode
