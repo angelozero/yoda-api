@@ -3,6 +3,38 @@
         <meta charset="utf-8">
     </head>
     <body>
+        <h1> Listagem de livros </h1>
+
+        <table id="books">
+            <tr>
+                <td>ID</td>
+                <td>Título</td>
+                <td>Preço</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <for|book| of=data.books>     
+            <tr id="book_${book.id}" > 
+              <br>  
+                <td>${book.id}</td>
+                <td>${book.title}</td>
+                <td>${book.price}</td>
+                <td><a href="#">Editar</a></td> 
+                <td><a href="#" data-ref="${book.id}" data-type="remocao">Remover</a></td> 
+            </tr>
+            </for>
+        </table> 
+
+        <!-- <script src="./remove-livro.js">
+        </script>  -->
+    </body> 
+</html>
+
+<!-- <html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
         <h1> Books list </h1>
 
         <table>
@@ -10,7 +42,7 @@
                 <td>ID</td>
                 <td>Title</td>
             </tr> 
-            <for|book| of=data.books>     
+            
                <tr>
                 <td>${book.id}</td>
                 <td>${book.title}</td>
@@ -18,4 +50,4 @@
             </for>
         </table> 
     </body> 
-</html>
+</html> -->

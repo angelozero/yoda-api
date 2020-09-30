@@ -25,3 +25,28 @@
     // para acessar o mongo
     docker exec -it mongo-js mongo admin
 
+- Middlewares
+  - Middleware é todo o tipo de função que está entre um pedido HTTP e a resposta final que o servidor envia de volta para o cliente. Por exemplo, usando Express.js, um pedido POST simples teria esta código:
+  ```javascript
+      app.post('/books', function (req, res) {
+      console.log(req.body)
+      res.send(" OK ")
+    });
+  ```
+  - A resposta no console seria algo do tipo:
+  ```shell
+    { id: '', titulo: 'titulo teste', preco: '105.00', descricao: 'uma descricao teste' }
+  ```
+- Para configurar 
+  ```javascript
+
+    // npm install body-parser
+
+    const bodyParsers  = require('body-parser')
+
+    const app = express();
+
+    app.use(bodyParsers.urlencoded({
+      extended: true
+    }))
+  ```

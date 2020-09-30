@@ -5,6 +5,7 @@ const db = require('../../config/database')
 module.exports = (app) => {
 
   const listTemplate = require('../views/books/list/list.marko')
+  const bookTemplate = require('../views/books/form/form.marko')
   const bookDAO = new BookDAO(db);
 
   app.get('/', function (req, res) {
@@ -17,6 +18,17 @@ module.exports = (app) => {
       .then(books => res.marko(listTemplate,
         { books: books }
       ))
+      .catch(err => console.log(`Erro ao listar os livros ${err}`))
+  });
+
+  app.get('/books/form', function (req, res) {
+    res.marko(bookTemplate)
+  });
+
+  app.post('/books', function (req, res) {
+    console.log(req.body)
+    bookDAO.save(req.body)
+      .then(res.redirect('/books'))
       .catch(err => console.log(`Erro ao listar os livros ${err}`))
   });
 }
