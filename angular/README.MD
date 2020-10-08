@@ -601,6 +601,87 @@ export class UserService {
 ### 5.5 - Router Link
   * 
   - 
+
+## 6 - Validação do formulário
+
+### 6.1 - Atribuindo um form aos atributos
+  * - Acessando valores do form por atributos no componente
+  - Primeiro criamos a tag no form e passamos o form como parametro via *databind*
+  - No HTML temos o data bind singupForm e o atributo email
+  - para cada validador de email invocamos na linha ```<app-vmessage>``` *(cat-status-code/src/app/shared/components/vmessage/vmessage.component.spec.ts)*
+  - ```html
+    <form [formGroup]="singupForm" class="form mt-4">
+    <div class="form-group">
+      <input formControlName="email" placeholder="email" class="form-control" autofocus>
+      <app-vmessage *ngIf="singupForm.get('email').errors?.required" text="Email is required"></app-vmessage>
+      <app-vmessage *ngIf="singupForm.get('email').errors?.email" text="Email is not valid"></app-vmessage>
+    </div>
+    ...
+  ```
+ - e no componente que for usar este form teremos os valores do html na seguinte maneira, o singupForm no construtor da classe, e o atributo email ( vinculado no form por via do ```formControlName="email"``` ) chamando os métodos do ```Validators```
+
+ - ```javascript
+  export class SingUpComponent implements OnInit {
+
+
+  singupForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit(): void {
+
+    this.singupForm = this.formBuilder.group({
+      email: ['',
+        [
+          Validators.required,
+          Validators.email,
+        ]
+      ],
+      //...
+  ```
+### 6.2 - Criando o proprio validador
+  * - Como criar e utilizar nosso proprio validador
+  - Substituindo o pattern de ```Validators.pattern(/^[a-z0-9_\-]+$/),``` por ```lowerCaseValidator```
+  - primeiro criamos nossa funcao que sera exportada como o novo validador  *(cat-status-code/src/app/shared/validators/lower-case.validator.ts)*
+  - ```javascript
+      import { AbstractControl } from '@angular/forms'
+
+      export function lowerCaseValidator(control: AbstractControl) {
+
+        if (control.value.trim() && !/^[a-z0-9_\-]+$/.test(control.value)) {
+          return {
+            lowerCaseAtributeValidator: true
+          }
+        }
+        return null;
+      }
+  - no form vamos utilizar o atributo ```lowerCaseAtributeValidator``` como vinculo para ser feita a validacao
+  - ```html
+  <div class="form-group">
+    <input formControlName="userName" placeholder="user name" class="form-control">
+    <app-vmessage *ngIf="singupForm.get('userName').errors?.lowerCaseAtributeValidator" text="Must be lower case"></app-vmessage>
+  ```
+ - no component apenas substituimos o  ```Validators.pattern(/^[a-z0-9_\-]+$/),``` por ```lowerCaseValidator```
+ - ```javascript
+         userName: ['',
+        [
+          Validators.required,
+          lowerCaseValidator,
+          Validators.minLength(2),
+          Validators.maxLength(30)
+        ]
+      ],
+   ```
+
+### - 6 - Validador assíncrono
+  
+### 6.1 - validação assíncrona
+  * 
+  - 
+
+
+
+
 --- 
 --- 
 --- 

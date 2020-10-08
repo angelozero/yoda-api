@@ -1,3 +1,4 @@
+import { SingUpComponent } from './home/sing-up/sing-up.component';
 import { AuthGuard } from './core/auth/authguard';
 import { SingInComponent } from './home/sing-in/sing-in.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver.pipe';
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: '',
     component: SingInComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'singup',
+    component: SingUpComponent
   },
 
   {
