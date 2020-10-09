@@ -19,14 +19,14 @@
                 <td>${book.id}</td>
                 <td>${book.title}</td>
                 <td>${book.price}</td>
-                <td><a href="#">Editar</a></td> 
-                <td><a href="#" data-ref="${book.id}" data-type="remocao">Remover</a></td> 
+                <td><a href="/books/form/${book.id}">Editar</a></td> 
+                <td><a href="#" data-ref="${book.id}" data-type="remove">Remover</a></td> 
             </tr>
             </for>
         </table> 
 
-        <!-- <script src="./remove-livro.js">
-        </script>  -->
+        <script src="/static/js/remove-book.js">
+        </script> 
     </body> 
 </html>
 

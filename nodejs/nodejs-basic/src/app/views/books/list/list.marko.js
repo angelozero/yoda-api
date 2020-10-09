@@ -33,12 +33,14 @@ function render(input, out, __component, component, state) {
       marko_escapeXml(book.title) +
       "</td><td>" +
       marko_escapeXml(book.price) +
-      "</td><td><a href=#>Editar</a></td> <td><a href=#" +
+      "</td><td><a" +
+      marko_attr("href", "/books/form/" + (book.id == null ? "" : book.id)) +
+      ">Editar</a></td> <td><a href=#" +
       marko_attr("data-ref", book.id) +
-      " data-type=remocao>Remover</a></td> </tr>");
+      " data-type=remove>Remover</a></td> </tr>");
   });
 
-  out.w("</table> ");
+  out.w("</table> <script src=/static/js/remove-book.js>\n        </script> ");
 
   init_components_tag({}, out);
 

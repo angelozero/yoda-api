@@ -4,19 +4,19 @@
 
         <form action="/books" method="post">
 
-            <input type="hidden" id="id" name="id" />
+            <input type="hidden" id="id" name="id" value="${data.book.id}"/>
 
             <div>
                 <label for="title">Titulo:</label>
-                <input type="text" id="title" name="title" placeholder="coloque o title" />
+                <input type="text" id="title" name="title" value="${data.book.title}" placeholder="coloque o title"  />
             </div>
             <div>
                 <label for="price">Preço:</label>
-                <input type="text" id="price" name="price" placeholder="150.25" />
+                <input type="text" id="price" name="price" value="${data.book.price}" placeholder="150.25" />
             </div>
             <div>
                 <label for="description">Descrição:</label>
-                <textarea cols="20" rows="10"  id="description" name="description" placeholder="fale sobre o livro"></textarea>
+                <textarea cols="20" rows="10"  id="description" name="description" placeholder="fale sobre o livro" >${data.book.description}</textarea>
             </div>
 
             <input type="submit" value="Salvar" />

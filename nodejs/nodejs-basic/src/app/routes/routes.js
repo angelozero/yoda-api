@@ -21,15 +21,45 @@ module.exports = (app) => {
       .catch(err => console.log(`Erro ao listar os livros ${err}`))
   });
 
+  app.get('/books/form/:id', function (req, res) {
+    bookDAO.findById(req.params.id)
+      .then(book => {
+        //console.log(`\n\n\n`, book)
+        //console.log(`\n\n\n`, book[0].description)
+        res.marko(bookTemplate,
+          { book: book }
+        )
+      })
+      .catch(erro => console.log(erro));
+
+  });
+
   app.get('/books/form', function (req, res) {
-    res.marko(bookTemplate)
+    res.marko(bookTemplate, { book: {} })
   });
 
   app.post('/books', function (req, res) {
-    console.log(req.body)
-    bookDAO.save(req.body)
+    //console.log(req.body)
+    if (!req.body.id) {
+      bookDAO.save(req.body)
+        .then(res.redirect('/books'))
+        .catch(err => console.log(`Erro ao salvar o livro ${err}`))
+    } else {
+      bookDAO.update(req.body)
       .then(res.redirect('/books'))
-      .catch(err => console.log(`Erro ao listar os livros ${err}`))
+      .catch(err => console.log(`Erro ao atualizar o livro ${err}`))
+    }
+  });
+
+
+  app.delete('/books/:id', function (req, res) {
+    const bookId = req.params.id;
+
+    bookDAO.remove(bookId)
+      .then(() => {
+        res.status(200).end()
+      })
+      .catch(erro => console.log(erro))
   });
 }
 
