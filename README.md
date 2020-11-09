@@ -2,7 +2,6 @@
 ![NodeJs](https://thumbs.gfycat.com/SlushyUltimateGlobefish-size_restricted.gif)
 
 
----
 
 #### *JavaScritp*
 
