@@ -7,11 +7,6 @@ import { ErrorsModule } from './errors/errors.module';
 import { PhotosModule } from './photos/photos.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SingInComponent } from './home/sing-in/sing-in.component';
-import { VmessageComponent } from './shared/components/vmessage/vmessage.component';
-import { HeaderComponent } from './core/header/header.component';
-
-
 
 
 @NgModule({

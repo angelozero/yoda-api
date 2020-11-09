@@ -24,6 +24,9 @@ export class SingInComponent implements OnInit {
       password: ['', Validators.required]
     });
 
+    // this.platFormDetectorService.isPlatformBrowser() &&
+    //   this.userNameInput.nativeElement.focus();
+
   }
   
   login() {
@@ -43,10 +46,10 @@ export class SingInComponent implements OnInit {
           this.loginForm.reset();
 
           // Maneira de se proteger se caso o serviço nao for utilizado via
-          if (this.platFormDetectorService.isPlatformBrowser()) {
-            this.userNameInput.nativeElement.focus();
-          }
-          alert('Invalid user name and/or password')
+          // this.platFormDetectorService.isPlatformBrowser() &&
+          //   this.userNameInput.nativeElement.focus();
+
+            alert('Invalid user name and/or password')
         }
       )
   }

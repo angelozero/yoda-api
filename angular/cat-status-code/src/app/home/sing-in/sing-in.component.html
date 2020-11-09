@@ -5,10 +5,10 @@
   <div class="form-group">
     <input #userNameInput formControlName="userName" class="form-control" placeholder="user name" autofocus>
     <!-- <small *ngIf="loginForm.get('userName').errors && loginForm.get('userName').errors.required" class="text-danger d-block mt-2"> -->
-      <!-- <small *ngIf="loginForm.get('userName').errors?.required" class="text-danger d-block mt-2">
+    <!-- <small *ngIf="loginForm.get('userName').errors?.required" class="text-danger d-block mt-2">
       User name is required!
     </small> -->
-    <app-vmessage *ngIf="loginForm.get('userName').errors?.required" text="User name is required" ></app-vmessage>
+    <app-vmessage *ngIf="loginForm.get('userName').errors?.required" text="User name is required"></app-vmessage>
   </div>
 
   <div class="form-group">
@@ -17,10 +17,10 @@
     <!-- <small *ngIf="loginForm.get('password').errors?.required" class="text-danger d-block mt-2">
      Password is required!
     </small> -->
-    <app-vmessage *ngIf="loginForm.get('password').errors?.required" text="Password is required" ></app-vmessage>
+    <app-vmessage *ngIf="loginForm.get('password').errors?.required" text="Password is required"></app-vmessage>
   </div>
 
   <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block">login</button>
 </form>
 
-<p>Not a user? <a> Register now</a></p>
+<p>Not a user? <a [routerLink]="['singup']"> Register now</a></p>

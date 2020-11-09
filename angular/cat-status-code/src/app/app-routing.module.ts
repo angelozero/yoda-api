@@ -8,18 +8,25 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
+import { HomeComponent } from './home/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SingInComponent,
-    canActivate: [AuthGuard]
+    component: HomeComponent,
+    // AuthGuard -> se o usuario estiver na home e estiver logado isso o redireciona para a time-line 
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: SingInComponent,
+      },
+      {
+        path: 'singup',
+        component: SingUpComponent
+      }
+    ]
   },
-  {
-    path: 'singup',
-    component: SingUpComponent
-  },
-
   {
     path: 'user/:userName',
     component: PhotoListComponent,
@@ -40,7 +47,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    // useHash: true ---> adiciona o caracter "#" nas rotas para que nao tenha uma chamada no backend
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   exports: [RouterModule]
 })

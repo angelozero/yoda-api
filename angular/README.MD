@@ -677,10 +677,147 @@ export class UserService {
   
 ### 6.1 - validação assíncrona
   * 
+  - A validação assíncrona é feita para o campo ```userName```, isso porque o validador foi definido como terceiro parâmetro da propriedade ```userName```:
   - 
+  ```javascript
+    userName: ['',
+        [
+            Validators.required,
+            lowerCaseValidator,
+            Validators.minLength(2),
+            Validators.maxLength(30)
+        ],
+        this.userNotTakenValidatorService.checkUserNameTaken()
+    ],
+  ```
+  - Se a gente reparar o retorno da função ```checkUserNameTaken```:
 
+  - ```.pipe(map(isTaken => isTaken ? { userNameTaken: true } : null))```
+  - Repare que se o isTaken retornado pela API é true, a gente retorna um objeto onde a propriedade é userNameTaken e seu valor será true, senão, a gente retorna null. Esse ```{ userNameTaken: true }``` é o ```.userNameTaken``` utilizado no template do componente, ou seja: ```*ngIf="singupForm.get('userName').errors?.userNameTaken"```
+  - 
+  ```javascript
+    @Injectable({
+      providedIn: 'root'
+    })
+    export class UserNotTakenValidatorService {
 
+      constructor(private singupService: SingUpService) { }
 
+      // control.valueChanges retorna um observable, 
+      // o observable pode receber um pipe, 
+      // o primeiro pipe a cada digito vai aguardar 300 milisegundos para fazer a verificaçao do nome digitado
+      // o segundo pipe executa um switchMap invocando a funcao checkUserNameTaken
+      // o terceiro executa um map validando se o retorno da anterior foi verdadeiro, se sim retorna o objeto com userNameTaken igual a true
+      // e por fim o metodo first() executa assim que que o primeiro resultado encontrado for verdadeiro
+      checkUserNameTaken() {
+        return (control: AbstractControl) => {
+          return control
+            .valueChanges
+            .pipe(debounceTime(300))
+            .pipe(switchMap(userName => this.singupService.checkUserNameTaken(userName)))
+            .pipe(map(isTaken => isTaken ? { userNameTaken: true } : null))
+            .pipe(first())
+        }
+      }
+    }
+  ```
+### 6.2 - entendendo map e switchMap 
+  * **map**
+  - O operador do map é o mais comum de todos. Para cada valor que o Observable emite, você pode aplicar uma função na qual pode modificar os dados. O valor de retorno será, nos bastidores, reemitido como um Observable novamente para que você possa continuar a usá-lo em seu fluxo. Ele funciona da mesma forma que você usaria com Arrays. A diferença é que os Arrays sempre serão apenas Arrays e, ao mapear, você obtém o valor do índice atual no Array. Com Observables, o tipo de dados pode ser de todos os tipos. Isso significa que você pode ter que fazer algumas operações adicionais em sua função de mapa observável para obter o resultado desejado.
+  - Ex.:
+    - 
+    ```javascript
+      import { of } from 'rxjs'; 
+      import { map } from 'rxjs/operators';
+
+      // lets create our data first
+      const data = of([
+        {
+          brand: 'porsche',
+          model: '911'
+        },
+        {
+          brand: 'porsche',
+          model: 'macan'
+        },
+        {
+          brand: 'ferarri',
+          model: '458'
+        },
+        {
+          brand: 'lamborghini',
+          model: 'urus'
+        }
+      ]);
+
+      // get data as brand+model string. Result: 
+      // ["porsche 911", "porsche macan", "ferarri 458", "lamborghini urus"]
+      data
+        .pipe(
+          map(cars => cars.map(car => `${car.brand} ${car.model}`))
+        ).subscribe(cars => console.log(cars))
+
+      // filter data so that we only have porsches. Result:
+      // [
+      //   {
+      //     brand: 'porsche',
+      //     model: '911'
+      //   },
+      //   {
+      //     brand: 'porsche',
+      //     model: 'macan'
+      //   }
+      // ]
+      data
+        .pipe(
+          map(cars => cars.filter(car => car.brand === 'porsche'))
+        ).subscribe(cars => console.log(cars))
+
+      // the result will be
+      ["porsche 911", "porsche macan", "ferarri 458", "lamborghini urus"]
+      0: "porsche 911"
+      1: "porsche macan"
+      2: "ferarri 458"
+      3: "lamborghini urus"
+    ```
+  * **switchMap**
+    - SwitchMap tem comportamento semelhante no sentido de que também se inscreve no Observable interno para você. No entanto, switchMap é uma combinação de switchAll e map. SwitchAll cancela a assinatura anterior e assina a nova. Para o nosso cenário em que queremos fazer uma chamada de API para cada item na matriz do Observable ‘externo’, switchMap não funciona bem, pois irá cancelar as primeiras 3 assinaturas e só lida com a última. Isso significa que obteremos apenas um resultado.
+  - 
+    ```javascript
+      import { of, from } from 'rxjs'; 
+      import { map, delay, switchAll, switchMap } from 'rxjs/operators';
+
+      const getData = (param) => {
+        return of(`retrieved new data with param ${param}`).pipe(
+          delay(1000)
+        )
+      }
+
+      // using a regular map
+      from([1,2,3,4]).pipe(
+        map(param => getData(param))
+      ).subscribe(val => val.subscribe(data => console.log(data)));
+
+      // using map and switchAll
+      from([1,2,3,4]).pipe(
+        map(param => getData(param)),
+        switchAll()
+      ).subscribe(val => console.log(val));
+
+      // using switchMap
+      from([1,2,3,4]).pipe(
+        switchMap(param => getData(param))
+      ).subscribe(val => console.log(val));
+
+      // the result will be
+      // retrieved new data with param 1
+      // retrieved new data with param 2
+      // retrieved new data with param 3
+      // retrieved new data with param 4
+      // retrieved new data with param 4
+      // retrieved new data with param 4
+      
+    ```
 
 --- 
 --- 

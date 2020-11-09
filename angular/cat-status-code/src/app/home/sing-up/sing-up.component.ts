@@ -1,8 +1,9 @@
+import { PlataformDetectorService } from './../../core/plataform-detector/plataform-detector.service';
 import { SingUpService } from './sing-up.service';
 import { NewUser } from './new-user';
 import { UserNotTakenValidatorService } from './user-not-taken.validator.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { lowerCaseValidator } from '../../shared/validators/lower-case.validator'
 import { Router } from '@angular/router';
 
@@ -16,7 +17,13 @@ export class SingUpComponent implements OnInit {
 
   singupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userNotTakenValidatorService: UserNotTakenValidatorService, private singUpService: SingUpService, private router: Router) { }
+  @ViewChild('emailInput') emailInput: ElementRef<HTMLInputElement>;
+
+  constructor(private formBuilder: FormBuilder,
+    private userNotTakenValidatorService: UserNotTakenValidatorService,
+    private singUpService: SingUpService,
+    private router: Router,
+    private platFormDetectorService: PlataformDetectorService) { }
 
   ngOnInit(): void {
 
@@ -51,6 +58,10 @@ export class SingUpComponent implements OnInit {
         ]
       ],
     });
+
+    // this.platFormDetectorService.isPlatformBrowser() &&
+    //   this.emailInput.nativeElement.focus();
+
   }
 
   signup() {

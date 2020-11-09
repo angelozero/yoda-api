@@ -4,12 +4,13 @@ import { SingInComponent } from './sing-in/sing-in.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SingUpComponent } from './sing-up/sing-up.component'
+import { SingUpComponent } from './sing-up/sing-up.component';
+import { HomeComponent } from './home/home.component'
 
 
 
 @NgModule({
-  declarations: [SingInComponent, SingUpComponent],
+  declarations: [SingInComponent, SingUpComponent, HomeComponent],
   imports: [
     CommonModule,
     FormsModule,
