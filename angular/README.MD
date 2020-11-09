@@ -592,11 +592,57 @@ export class UserService {
 
 ### 5.3 - Logout
   * 
-  - 
+  - implementando o metodo de logout - header.component.html e header.component.ts
+  - ```html
+      <div *ngIf="(user$ | async) as user; else login">
+      <i class="fa fa-user-circle mr-1"></i>
+      <a class="ml-2">{{user.name}}</a>
+      <a (click)="logout()"> logout</a>
+    </div>
+  ```
+
+- ```javascript
+    @Component({
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
+    })
+    export class HeaderComponent {
+
+      // BOA PRATICA!!! Usar o simbolo "$" indica que a variavel vai receber um valor vindo de um Observable
+      user$: Observable<UserInterface>;
+
+      constructor(private userService: UserService, private router: Router) {
+        this.user$ = userService.getUser();
+      }
+
+      logout() {
+        this.userService.logout();
+        this.router.navigate(['']);
+      }
+    }
+  ```
 
 ### 5.4 - Router Guards
   * 
   - O guarda de rotas serve para darmos consistência para nossa aplicação, liberando acesso apenas para as rotas que fazem sentido para nosso usuário.
+  - ```javascript
+        @Injectable({ providedIn: 'root' })
+      export class AuthGuard implements CanActivate {
+
+        constructor(private userService: UserService, private router: Router) {
+
+        }
+        canActivate(route: ActivatedRouteSnapshot,
+          state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+          if (this.userService.isLogged()) {
+            this.router.navigate(['user', this.userService.getUserName()])
+            return false;
+          }
+          return true;
+        }
+      }
+```
 
 ### 5.5 - Router Link
   * 
