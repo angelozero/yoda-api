@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+const CLOUD = 'http://localhost:3000/imgs/'
+
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
@@ -7,6 +9,17 @@ import { Component, Input } from '@angular/core';
 })
 export class PhotoComponent {
 
-  @Input() url = '';
+  private _url = '';
+  
+  @Input() set url(url: string) {
+    if (!url.startsWith('https://http.cat/images/')) {
+      this._url = CLOUD + url;
+    } else {
+      this._url = url;
+    }
+  }
 
+  get url() {
+    return this._url;
+  }
 }

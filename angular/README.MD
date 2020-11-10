@@ -642,11 +642,7 @@ export class UserService {
           return true;
         }
       }
-```
-
-### 5.5 - Router Link
-  * 
-  - 
+  ```
 
 ## 6 - Validação do formulário
 
@@ -719,7 +715,7 @@ export class UserService {
       ],
    ```
 
-### - 6 - Validador assíncrono
+## - 6 - Validador assíncrono
   
 ### 6.1 - validação assíncrona
   * 
@@ -865,6 +861,133 @@ export class UserService {
       
     ```
 
+## - 7 - Criando um formulario para fazer upload de imagens
+
+### 7.1 - Criando o formulario de upload de imagem
+  - ```html
+    <div class="container">
+      <form [formGroup]="photoForm" class="row">
+        <div class="col-md-6 text-center">
+          <input formControlName="file" type="file" accept="image/*">
+          <app-vmessage text="Please select a photo" *ngIf="photoForm.get('file').errors?.required">
+          </app-vmessage>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <textarea formControlName="description" class="form-control form-control-sm"
+              placeholder="photo description"></textarea>
+              <app-vmessage text="Max length is 300" *ngIf="photoForm.get('description').errors?.maxlength">
+              </app-vmessage>
+          </div>
+
+          <div class="form-group">
+            <label class="text-muted">
+              Allow comments
+              <input formControlName="allowComments" type="checkbox">
+            </label>
+          </div>
+
+          <button [disabled]="photoForm.invalid" type="submit" class="btn btn-primary btn-block">
+            Upload
+          </button>
+
+          <a class="btn btn-secondary btn-block">Cancel</a>
+        </div>
+      </form>
+    </div>
+  ```
+
+### 7.2 - Criando validacoes para o form de upload de imagens
+  - Com o form ja criado agora precisamos no ngOnit do nosso componente pegar os campos do formulario e criar suas respectivas validacoes 
+  - ```javascript
+      @Component({
+        selector: 'app-photo-form',
+        templateUrl: './photo-form.component.html',
+        styleUrls: ['./photo-form.component.css']
+      })
+      export class PhotoFormComponent implements OnInit {
+
+        photoForm: FormGroup;
+
+        constructor(private formBuilder: FormBuilder) { }
+
+        ngOnInit(): void {
+          this.photoForm = this.formBuilder.group({
+            file: ['', Validators.required],
+            description: ['', Validators.maxLength(300)],
+            allowComments: [true]
+          })
+        }
+      }
+    ```
+### 7.3 - Obtendo os dados do formulario ( recebendo a imagem para upload )
+  - em nosso arquivo html crie um data-bind para o evento ```(submit)="upload()"``` e criamos uma propriedade do tipo File. No html ( no momento em que a imagem é selecionada ) atribuimos todas as suas informacoes ( que sao retornadas atraves de um array ) a variavel file criada no componente. No html fica assim
+  - 
+    ```html
+      <input formControlName="file" type="file" accept="image/*" (change)="file = $event.target.files[0]">
+    ```
+  - e em nosso componente crie o evento ```upload()```
+  - 
+    ```javascript
+      upload(){
+        // Este metodo "this.photoForm.getRawValue();" traz todas as propriedades de uma unica vez do formulario
+        const photoFormdata = this.photoForm.getRawValue();
+        photoFormdata.file = this.file;
+        console.log(photoFormdata)
+      }
+    ```
+
+### 7.4 - Invocando o servico de upload 
+  -  dentro da classe de servico de foto ( photo-service ) adicionamos um novo metodo para upload
+  - 
+    ```javascript
+        upload(description: string, allowComments: boolean, file: File){
+    
+        const formData = new FormData();
+        //description ---> nome da propriedade definido no backend ( server em node )
+        formData.append('description', description);
+        //allowComments ---> nome da propriedade definido no backend ( server em node )
+        formData.append('allowComments', description.toString());
+        //imageFile ---> nome da propriedade definido no backend ( server em node )
+        formData.append('imageFile', file);
+
+        return this.http.post(API + 'photos/upload', formData)
+      }
+    ```
+    - em nosso componente photo-form-component adicionamos a chamada do servico de photo-serice invocando o metodo upload, e a propriedade router para redirecionar para a pagina inicial assim que upload for feito.
+    - 
+      ```javascript
+        this.photoService
+        .upload(photoFormData.description, photoFormData.allowComments, photoFormData.file)
+        .subscribe(() => this.router.navigate(['']))
+      ```
+    - por fim alteramos o metodo do photo-component para exibir nossa foto corretamente. Se a url retornada pela api for diferente do padrao ```https://http.cat/images/``` entao adicionamos a url para a imagem feita upload.
+    - 
+      ```javascript
+      const CLOUD = 'http://localhost:3000/imgs/'
+
+      @Component({
+        selector: 'app-photo',
+        templateUrl: './photo.component.html',
+        styleUrls: ['./photo.component.css']
+      })
+      export class PhotoComponent {
+
+        private _url = '';
+        
+        @Input() set url(url: string) {
+          if (!url.startsWith('https://http.cat/images/')) {
+            this._url = CLOUD + url;
+          } else {
+            this._url = url;
+          }
+        }
+
+        get url() {
+          return this._url;
+        }
+      ```
 --- 
 --- 
 --- 

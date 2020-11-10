@@ -21,4 +21,17 @@ export class PhotoService {
       .get<Photo[]>(`${API}${userName}/photos`, {params: paramsNumberPage})
   }
 
+  upload(description: string, allowComments: boolean, file: File){
+    
+    const formData = new FormData();
+    //description ---> nome da propriedade definido no backend ( server em node )
+    formData.append('description', description);
+    //allowComments ---> nome da propriedade definido no backend ( server em node )
+    formData.append('allowComments', description.toString());
+    //imageFile ---> nome da propriedade definido no backend ( server em node )
+    formData.append('imageFile', file);
+
+    return this.http.post(API + 'photos/upload', formData)
+  }
+
 }
