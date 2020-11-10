@@ -944,7 +944,7 @@ export class UserService {
 #### 7.4 - Invocando o servico de upload 
   -  Dentro da classe de servico de foto ( photo-service ) adicionamos um novo metodo para upload
   
-    ```javascript
+   ```javascript
         upload(description: string, allowComments: boolean, file: File){
     
         const formData = new FormData();
@@ -957,7 +957,7 @@ export class UserService {
 
         return this.http.post(API + 'photos/upload', formData)
       }
-    ```
+   ```
    - Em nosso componente photo-form-component adicionamos a chamada do servico de photo-serice invocando o metodo upload, e a propriedade router para redirecionar para a pagina inicial assim que upload for feito.
     
       ```javascript
