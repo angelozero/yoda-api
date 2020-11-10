@@ -317,7 +317,7 @@ export class PhotoListComponent implements OnInit {
 ## 5 - Autenticação ( login e logout ), model driven forms, lazy loading, router guards, router link
   * Para entendermos melhor a parte de autenticação, vamos trecho a trecho do código. Template x Layout
 
-### 5.1 - Usando um pipe na request, armazenando token no localStorage e recuperando os dados do token.
+#### 5.1 - Usando um pipe na request, armazenando token no localStorage e recuperando os dados do token.
 
   - Para controlar os campos que o formulario tem ( nome e senha ) importamos e utilizamos a variavel loginForm de FormGroup. Com isso temos acesso a estes dois campos. Tendo acesso conseguimos fazer as devidas validaçoes de preenchimento deles.
 
@@ -575,7 +575,7 @@ export class UserService {
       }
     ```
     
-### 5.1 - BehaviorSubject
+#### 5.2 - BehaviorSubject
   * O BehaviorSubject armazena a última emissão até que alguém apareça para consumi-la. Ou seja, quando o template do header for criado, o evento de buscar o nome do ususario logado ja terá sido disparado. Para que possamos consumir o ultimo valor de forma que ele traga dados, usamos o BehaviorSubject.
   
   ```javascript
@@ -586,14 +586,14 @@ export class UserService {
     private userSubject = new  BehaviorSubject<UserInterface>(null);
   ```
 
-### 5.2 - Async pipe
+#### 5.3 - Async pipe
   * Usando Async Pipe no nosso template
-  - Com o Async pipe conseguimos capturar a emissão do Observable diretamente do nosso template.
+  * Com o Async pipe conseguimos capturar a emissão do Observable diretamente do nosso template.
 
-### 5.3 - Logout
-  * 
-  - implementando o metodo de logout - header.component.html e header.component.ts
-  - ```html
+### 5.4 - Logout
+  
+  * Implementando o metodo de logout - header.component.html e header.component.ts
+  ```html
       <div *ngIf="(user$ | async) as user; else login">
       <i class="fa fa-user-circle mr-1"></i>
       <a class="ml-2">{{user.name}}</a>
@@ -601,7 +601,7 @@ export class UserService {
     </div>
   ```
 
-- ```javascript
+```javascript
     @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -624,9 +624,8 @@ export class UserService {
   ```
 
 ### 5.4 - Router Guards
-  * 
-  - O guarda de rotas serve para darmos consistência para nossa aplicação, liberando acesso apenas para as rotas que fazem sentido para nosso usuário.
-  - ```javascript
+  * O guarda de rotas serve para darmos consistência para nossa aplicação, liberando acesso apenas para as rotas que fazem sentido para nosso usuário.
+  ```javascript
         @Injectable({ providedIn: 'root' })
       export class AuthGuard implements CanActivate {
 
@@ -646,12 +645,12 @@ export class UserService {
 
 ## 6 - Validação do formulário
 
-### 6.1 - Atribuindo um form aos atributos
+#### 6.1 - Atribuindo um form aos atributos
   * - Acessando valores do form por atributos no componente
-  - Primeiro criamos a tag no form e passamos o form como parametro via *databind*
-  - No HTML temos o data bind singupForm e o atributo email
-  - para cada validador de email invocamos na linha ```<app-vmessage>``` *(cat-status-code/src/app/shared/components/vmessage/vmessage.component.spec.ts)*
-  - ```html
+  * Primeiro criamos a tag no form e passamos o form como parametro via *databind*
+  * No HTML temos o data bind singupForm e o atributo email
+  * Para cada validador de email invocamos na linha ```<app-vmessage>``` *(cat-status-code/src/app/shared/components/vmessage/vmessage.component.spec.ts)*
+  ```html
     <form [formGroup]="singupForm" class="form mt-4">
     <div class="form-group">
       <input formControlName="email" placeholder="email" class="form-control" autofocus>
@@ -660,9 +659,9 @@ export class UserService {
     </div>
     ...
   ```
- - e no componente que for usar este form teremos os valores do html na seguinte maneira, o singupForm no construtor da classe, e o atributo email ( vinculado no form por via do ```formControlName="email"``` ) chamando os métodos do ```Validators```
+ * E no componente que for usar este form teremos os valores do html na seguinte maneira, o singupForm no construtor da classe, e o atributo email ( vinculado no form por via do ```formControlName="email"``` ) chamando os métodos do ```Validators```
 
- - ```javascript
+ ```javascript
   export class SingUpComponent implements OnInit {
 
 
@@ -681,11 +680,12 @@ export class UserService {
       ],
       //...
   ```
-### 6.2 - Criando o proprio validador
+  
+#### 6.2 - Criando o proprio validador
   * - Como criar e utilizar nosso proprio validador
   - Substituindo o pattern de ```Validators.pattern(/^[a-z0-9_\-]+$/),``` por ```lowerCaseValidator```
   - primeiro criamos nossa funcao que sera exportada como o novo validador  *(cat-status-code/src/app/shared/validators/lower-case.validator.ts)*
-  - ```javascript
+  ```javascript
       import { AbstractControl } from '@angular/forms'
 
       export function lowerCaseValidator(control: AbstractControl) {
@@ -718,9 +718,8 @@ export class UserService {
 ## - 6 - Validador assíncrono
   
 ### 6.1 - validação assíncrona
-  * 
-  - A validação assíncrona é feita para o campo ```userName```, isso porque o validador foi definido como terceiro parâmetro da propriedade ```userName```:
-  - 
+  * A validação assíncrona é feita para o campo ```userName```, isso porque o validador foi definido como terceiro parâmetro da propriedade ```userName```:
+ 
   ```javascript
     userName: ['',
         [
@@ -732,11 +731,11 @@ export class UserService {
         this.userNotTakenValidatorService.checkUserNameTaken()
     ],
   ```
-  - Se a gente reparar o retorno da função ```checkUserNameTaken```:
+  * Se a gente reparar o retorno da função ```checkUserNameTaken```:
 
   - ```.pipe(map(isTaken => isTaken ? { userNameTaken: true } : null))```
   - Repare que se o isTaken retornado pela API é true, a gente retorna um objeto onde a propriedade é userNameTaken e seu valor será true, senão, a gente retorna null. Esse ```{ userNameTaken: true }``` é o ```.userNameTaken``` utilizado no template do componente, ou seja: ```*ngIf="singupForm.get('userName').errors?.userNameTaken"```
-  - 
+  
   ```javascript
     @Injectable({
       providedIn: 'root'
@@ -763,7 +762,7 @@ export class UserService {
       }
     }
   ```
-### 6.2 - entendendo map e switchMap 
+#### 6.2 - entendendo map e switchMap 
   * **map**
   - O operador do map é o mais comum de todos. Para cada valor que o Observable emite, você pode aplicar uma função na qual pode modificar os dados. O valor de retorno será, nos bastidores, reemitido como um Observable novamente para que você possa continuar a usá-lo em seu fluxo. Ele funciona da mesma forma que você usaria com Arrays. A diferença é que os Arrays sempre serão apenas Arrays e, ao mapear, você obtém o valor do índice atual no Array. Com Observables, o tipo de dados pode ser de todos os tipos. Isso significa que você pode ter que fazer algumas operações adicionais em sua função de mapa observável para obter o resultado desejado.
   - Ex.:
@@ -864,7 +863,8 @@ export class UserService {
 ## - 7 - Criando um formulario para fazer upload de imagens
 
 ### 7.1 - Criando o formulario de upload de imagem
-  - ```html
+  - 
+  ```html
     <div class="container">
       <form [formGroup]="photoForm" class="row">
         <div class="col-md-6 text-center">
@@ -900,7 +900,8 @@ export class UserService {
 
 ### 7.2 - Criando validacoes para o form de upload de imagens
   - Com o form ja criado agora precisamos no ngOnit do nosso componente pegar os campos do formulario e criar suas respectivas validacoes 
-  - ```javascript
+  - 
+  ```javascript
       @Component({
         selector: 'app-photo-form',
         templateUrl: './photo-form.component.html',
@@ -920,14 +921,15 @@ export class UserService {
           })
         }
       }
-    ```
+   ```
+    
 ### 7.3 - Obtendo os dados do formulario ( recebendo a imagem para upload )
-  - em nosso arquivo html crie um data-bind para o evento ```(submit)="upload()"``` e criamos uma propriedade do tipo File. No html ( no momento em que a imagem é selecionada ) atribuimos todas as suas informacoes ( que sao retornadas atraves de um array ) a variavel file criada no componente. No html fica assim
+  - Em nosso arquivo html crie um data-bind para o evento ```(submit)="upload()"``` e criamos uma propriedade do tipo File. No html ( no momento em que a imagem é selecionada ) atribuimos todas as suas informacoes ( que sao retornadas atraves de um array ) a variavel file criada no componente. No html fica assim
   - 
     ```html
       <input formControlName="file" type="file" accept="image/*" (change)="file = $event.target.files[0]">
     ```
-  - e em nosso componente crie o evento ```upload()```
+  - E em nosso componente crie o evento ```upload()```
   - 
     ```javascript
       upload(){
@@ -939,7 +941,7 @@ export class UserService {
     ```
 
 ### 7.4 - Invocando o servico de upload 
-  -  dentro da classe de servico de foto ( photo-service ) adicionamos um novo metodo para upload
+  -  Dentro da classe de servico de foto ( photo-service ) adicionamos um novo metodo para upload
   - 
     ```javascript
         upload(description: string, allowComments: boolean, file: File){
@@ -955,14 +957,14 @@ export class UserService {
         return this.http.post(API + 'photos/upload', formData)
       }
     ```
-    - em nosso componente photo-form-component adicionamos a chamada do servico de photo-serice invocando o metodo upload, e a propriedade router para redirecionar para a pagina inicial assim que upload for feito.
+    - Em nosso componente photo-form-component adicionamos a chamada do servico de photo-serice invocando o metodo upload, e a propriedade router para redirecionar para a pagina inicial assim que upload for feito.
     - 
       ```javascript
         this.photoService
         .upload(photoFormData.description, photoFormData.allowComments, photoFormData.file)
         .subscribe(() => this.router.navigate(['']))
       ```
-    - por fim alteramos o metodo do photo-component para exibir nossa foto corretamente. Se a url retornada pela api for diferente do padrao ```https://http.cat/images/``` entao adicionamos a url para a imagem feita upload.
+    - Por fim alteramos o metodo do photo-component para exibir nossa foto corretamente. Se a url retornada pela api for diferente do padrao ```https://http.cat/images/``` entao adicionamos a url para a imagem feita upload.
     - 
       ```javascript
       const CLOUD = 'http://localhost:3000/imgs/'
