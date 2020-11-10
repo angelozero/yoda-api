@@ -697,14 +697,17 @@ export class UserService {
         }
         return null;
       }
-  - no form vamos utilizar o atributo ```lowerCaseAtributeValidator``` como vinculo para ser feita a validacao
-  - ```html
+   ```
+  - No form vamos utilizar o atributo ```lowerCaseAtributeValidator``` como vinculo para ser feita a validacao
+  - 
+  ```html
   <div class="form-group">
     <input formControlName="userName" placeholder="user name" class="form-control">
     <app-vmessage *ngIf="singupForm.get('userName').errors?.lowerCaseAtributeValidator" text="Must be lower case"></app-vmessage>
-  ```
- - no component apenas substituimos o  ```Validators.pattern(/^[a-z0-9_\-]+$/),``` por ```lowerCaseValidator```
- - ```javascript
+ ```
+ - No component apenas substituimos o  ```Validators.pattern(/^[a-z0-9_\-]+$/),``` por ```lowerCaseValidator```
+ - 
+ ```javascript
          userName: ['',
         [
           Validators.required,
@@ -713,11 +716,9 @@ export class UserService {
           Validators.maxLength(30)
         ]
       ],
-   ```
-
-## - 6 - Validador assíncrono
+  ```
   
-### 6.1 - validação assíncrona
+##### 6.3 - validação assíncrona
   * A validação assíncrona é feita para o campo ```userName```, isso porque o validador foi definido como terceiro parâmetro da propriedade ```userName```:
  
   ```javascript
@@ -860,7 +861,7 @@ export class UserService {
       
     ```
 
-## - 7 - Criando um formulario para fazer upload de imagens
+## 7 - Criando um formulario para fazer upload de imagens
 
 ### 7.1 - Criando o formulario de upload de imagem
   - 
