@@ -862,7 +862,8 @@ export class UserService {
 
 ## 7 - Criando um formulario para fazer upload de imagens
 
-### 7.1 - Criando o formulario de upload de imagem
+#### 7.1 - Criando o formulario de upload de imagem
+- Criando o form
    
   ```html
     <div class="container">
@@ -898,7 +899,7 @@ export class UserService {
     </div>
   ```
 
-### 7.2 - Criando validacoes para o form de upload de imagens
+#### 7.2 - Criando validacoes para o form de upload de imagens
   - Com o form ja criado agora precisamos no ngOnit do nosso componente pegar os campos do formulario e criar suas respectivas validacoes 
    
   ```javascript
@@ -923,7 +924,7 @@ export class UserService {
       }
    ```
     
-### 7.3 - Obtendo os dados do formulario ( recebendo a imagem para upload )
+#### 7.3 - Obtendo os dados do formulario ( recebendo a imagem para upload )
   - Em nosso arquivo html crie um data-bind para o evento ```(submit)="upload()"``` e criamos uma propriedade do tipo File. No html ( no momento em que a imagem é selecionada ) atribuimos todas as suas informacoes ( que sao retornadas atraves de um array ) a variavel file criada no componente. No html fica assim
    
     ```html
@@ -940,7 +941,7 @@ export class UserService {
       }
     ```
 
-### 7.4 - Invocando o servico de upload 
+#### 7.4 - Invocando o servico de upload 
   -  Dentro da classe de servico de foto ( photo-service ) adicionamos um novo metodo para upload
   
     ```javascript
@@ -966,7 +967,8 @@ export class UserService {
       ```
    - Por fim alteramos o metodo do photo-component para exibir nossa foto corretamente. Se a url retornada pela api for diferente do padrao ```https://http.cat/images/``` entao adicionamos a url para a imagem feita upload.
     
-   ```javascript
+
+```javascript
       const CLOUD = 'http://localhost:3000/imgs/'
 
       @Component({
@@ -989,7 +991,8 @@ export class UserService {
         get url() {
           return this._url;
         }
-    ```
+  ```
+   
 --- 
 --- 
 --- 
