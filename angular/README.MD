@@ -664,7 +664,6 @@ export class UserService {
  ```javascript
   export class SingUpComponent implements OnInit {
 
-
   singupForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -699,14 +698,14 @@ export class UserService {
       }
    ```
   - No form vamos utilizar o atributo ```lowerCaseAtributeValidator``` como vinculo para ser feita a validacao
-  - 
+   
   ```html
   <div class="form-group">
     <input formControlName="userName" placeholder="user name" class="form-control">
     <app-vmessage *ngIf="singupForm.get('userName').errors?.lowerCaseAtributeValidator" text="Must be lower case"></app-vmessage>
  ```
  - No component apenas substituimos o  ```Validators.pattern(/^[a-z0-9_\-]+$/),``` por ```lowerCaseValidator```
- - 
+ 
  ```javascript
          userName: ['',
         [
@@ -718,7 +717,7 @@ export class UserService {
       ],
   ```
   
-##### 6.3 - validação assíncrona
+#### 6.3 - Validação assíncrona
   * A validação assíncrona é feita para o campo ```userName```, isso porque o validador foi definido como terceiro parâmetro da propriedade ```userName```:
  
   ```javascript
@@ -763,11 +762,11 @@ export class UserService {
       }
     }
   ```
-#### 6.2 - entendendo map e switchMap 
+#### 6.4 - Entendendo map e switchMap 
   * **map**
   - O operador do map é o mais comum de todos. Para cada valor que o Observable emite, você pode aplicar uma função na qual pode modificar os dados. O valor de retorno será, nos bastidores, reemitido como um Observable novamente para que você possa continuar a usá-lo em seu fluxo. Ele funciona da mesma forma que você usaria com Arrays. A diferença é que os Arrays sempre serão apenas Arrays e, ao mapear, você obtém o valor do índice atual no Array. Com Observables, o tipo de dados pode ser de todos os tipos. Isso significa que você pode ter que fazer algumas operações adicionais em sua função de mapa observável para obter o resultado desejado.
   - Ex.:
-    - 
+    
     ```javascript
       import { of } from 'rxjs'; 
       import { map } from 'rxjs/operators';
@@ -824,7 +823,7 @@ export class UserService {
     ```
   * **switchMap**
     - SwitchMap tem comportamento semelhante no sentido de que também se inscreve no Observable interno para você. No entanto, switchMap é uma combinação de switchAll e map. SwitchAll cancela a assinatura anterior e assina a nova. Para o nosso cenário em que queremos fazer uma chamada de API para cada item na matriz do Observable ‘externo’, switchMap não funciona bem, pois irá cancelar as primeiras 3 assinaturas e só lida com a última. Isso significa que obteremos apenas um resultado.
-  - 
+  
     ```javascript
       import { of, from } from 'rxjs'; 
       import { map, delay, switchAll, switchMap } from 'rxjs/operators';
@@ -864,7 +863,7 @@ export class UserService {
 ## 7 - Criando um formulario para fazer upload de imagens
 
 ### 7.1 - Criando o formulario de upload de imagem
-  - 
+   
   ```html
     <div class="container">
       <form [formGroup]="photoForm" class="row">
@@ -901,7 +900,7 @@ export class UserService {
 
 ### 7.2 - Criando validacoes para o form de upload de imagens
   - Com o form ja criado agora precisamos no ngOnit do nosso componente pegar os campos do formulario e criar suas respectivas validacoes 
-  - 
+   
   ```javascript
       @Component({
         selector: 'app-photo-form',
@@ -926,12 +925,12 @@ export class UserService {
     
 ### 7.3 - Obtendo os dados do formulario ( recebendo a imagem para upload )
   - Em nosso arquivo html crie um data-bind para o evento ```(submit)="upload()"``` e criamos uma propriedade do tipo File. No html ( no momento em que a imagem é selecionada ) atribuimos todas as suas informacoes ( que sao retornadas atraves de um array ) a variavel file criada no componente. No html fica assim
-  - 
+   
     ```html
       <input formControlName="file" type="file" accept="image/*" (change)="file = $event.target.files[0]">
     ```
   - E em nosso componente crie o evento ```upload()```
-  - 
+  
     ```javascript
       upload(){
         // Este metodo "this.photoForm.getRawValue();" traz todas as propriedades de uma unica vez do formulario
@@ -943,7 +942,7 @@ export class UserService {
 
 ### 7.4 - Invocando o servico de upload 
   -  Dentro da classe de servico de foto ( photo-service ) adicionamos um novo metodo para upload
-  - 
+  
     ```javascript
         upload(description: string, allowComments: boolean, file: File){
     
@@ -958,16 +957,16 @@ export class UserService {
         return this.http.post(API + 'photos/upload', formData)
       }
     ```
-    - Em nosso componente photo-form-component adicionamos a chamada do servico de photo-serice invocando o metodo upload, e a propriedade router para redirecionar para a pagina inicial assim que upload for feito.
-    - 
+   - Em nosso componente photo-form-component adicionamos a chamada do servico de photo-serice invocando o metodo upload, e a propriedade router para redirecionar para a pagina inicial assim que upload for feito.
+    
       ```javascript
         this.photoService
         .upload(photoFormData.description, photoFormData.allowComments, photoFormData.file)
         .subscribe(() => this.router.navigate(['']))
       ```
-    - Por fim alteramos o metodo do photo-component para exibir nossa foto corretamente. Se a url retornada pela api for diferente do padrao ```https://http.cat/images/``` entao adicionamos a url para a imagem feita upload.
-    - 
-      ```javascript
+   - Por fim alteramos o metodo do photo-component para exibir nossa foto corretamente. Se a url retornada pela api for diferente do padrao ```https://http.cat/images/``` entao adicionamos a url para a imagem feita upload.
+    
+   ```javascript
       const CLOUD = 'http://localhost:3000/imgs/'
 
       @Component({
@@ -990,7 +989,7 @@ export class UserService {
         get url() {
           return this._url;
         }
-      ```
+    ```
 --- 
 --- 
 --- 
