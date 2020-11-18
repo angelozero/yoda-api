@@ -1,3 +1,5 @@
+const { body, validationResult } = require('express-validator');
+
 const BookDAO = require('../infra/book-dao')
 const db = require('../../config/database')
 
@@ -21,6 +23,7 @@ module.exports = (app) => {
       .catch(err => console.log(`Erro ao listar os livros ${err}`))
   });
 
+  // BUSCANDO LIVRO POR ID
   app.get('/books/form/:id', function (req, res) {
     bookDAO.findById(req.params.id)
       .then(book => {
@@ -34,24 +37,39 @@ module.exports = (app) => {
 
   });
 
+  // FORM PARA CADASTRO
   app.get('/books/form', function (req, res) {
     res.marko(bookTemplate, { book: {} })
   });
 
-  app.post('/books', function (req, res) {
-    //console.log(req.body)
-    if (!req.body.id) {
-      bookDAO.save(req.body)
-        .then(res.redirect('/books'))
-        .catch(err => console.log(`Erro ao salvar o livro ${err}`))
-    } else {
-      bookDAO.update(req.body)
-      .then(res.redirect('/books'))
-      .catch(err => console.log(`Erro ao atualizar o livro ${err}`))
-    }
-  });
+  //SALVANDO OS LIVROS
+  app.post('/books',
+    [
+      body('title').isLength({ min: 5 }),
+      body('price').isCurrency()
+    ],
+    function (req, res) {
 
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        //return res.status(400).json({ errors: errors.array() });
+        
+        res.redirect('/books/form')
+      }
 
+      if (!req.body.id) {
+        bookDAO.save(req.body)
+          .then(res.redirect('/books'))
+          .catch(err => console.log(`Erro ao salvar o livro ${err}`))
+
+      } else {
+        bookDAO.update(req.body)
+          .then(res.redirect('/books'))
+          .catch(err => console.log(`Erro ao atualizar o livro ${err}`))
+      }
+    });
+
+  // DELETANDO UM LIVRO PELO ID
   app.delete('/books/:id', function (req, res) {
     const bookId = req.params.id;
 
